@@ -3,46 +3,46 @@
 
 USE WardrobeManager
 
+--DROP TABLE [UsersOutfits]
+--DROP TABLE [OutfitsClothes]
+--DROP TABLE [ClothesColors]
+--DROP TABLE [ClothesLibraries]
 --DROP TABLE [Libraries]
 --DROP TABLE [Users]
 --DROP TABLE [Outfits]
 --DROP TABLE [Clothes]
 --DROP TABLE [Colors]
---DROP TABLE [UsersOutfits]
---DROP TABLE [OutfitsClothes]
---DROP TABLE [ClothesColors]
---DROP TABLE [ClothesLibraries]
 
 CREATE TABLE [Libraries](
-	[Id] INT PRIMARY KEY IDENTITY(1,1)
+	[Id] int PRIMARY KEY IDENTITY(1,1)
 )
 
 CREATE TABLE [Users] (
-	[Id] INT PRIMARY KEY IDENTITY(1,1),  -- UNIQUE NOT NULL
+	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Username] varchar(50), 
 	[Password] varchar(50),
 	[FirstName] nvarchar(50),
 	[LastName] nvarchar(50),
-	[Phone] int,
+	[Phone] bigint,
 	[Email] varchar(50),
 	[LibraryId] int FOREIGN KEY REFERENCES [Libraries]([Id])
 )
 
 CREATE TABLE [Outfits] (
-	[Id] INT PRIMARY KEY IDENTITY(1,1),
+	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Name] nvarchar(50),
 	[Date] date
 )
 
 CREATE TABLE [Clothes] (
-	[Id] INT PRIMARY KEY IDENTITY(1,1),
+	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Name] nvarchar(50),
 	[Type] varchar(50),
-	[Picture] varbinary
+	[Picture] varbinary(max)
 )
 
 CREATE TABLE [Colors] (
-	[Id] INT PRIMARY KEY IDENTITY(1,1),
+	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Name] varchar(50)
 )
 
