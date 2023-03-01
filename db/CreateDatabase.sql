@@ -22,8 +22,7 @@ CREATE TABLE [Users] (
 	[Username] varchar(50), 
 	[Password] varchar(50),
 	[FirstName] nvarchar(50),
-	[LastName] nvarchar(50),
-	[Phone] bigint,
+	[LastName] nvarchar(50)	[Phone] bigint,
 	[Email] varchar(50),
 	[LibraryId] int FOREIGN KEY REFERENCES [Libraries]([Id])
 )
