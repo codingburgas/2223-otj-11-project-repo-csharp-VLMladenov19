@@ -7,11 +7,11 @@ USE WardrobeManager
 --DROP TABLE [OutfitsClothes]
 --DROP TABLE [ClothesColors]
 --DROP TABLE [ClothesLibraries]
---DROP TABLE [Libraries]
 --DROP TABLE [Users]
 --DROP TABLE [Outfits]
 --DROP TABLE [Clothes]
 --DROP TABLE [Colors]
+--DROP TABLE [Libraries]
 
 CREATE TABLE [Libraries](
 	[Id] int PRIMARY KEY IDENTITY(1,1)
@@ -49,7 +49,6 @@ CREATE TABLE [Colors] (
 CREATE TABLE [UsersOutfits] (
 	[UserId] int,
 	[OutfitId] int,
-	PRIMARY KEY([UserId], [OutfitId]),
 	FOREIGN KEY ([UserId]) REFERENCES [Users]([Id]),
 	FOREIGN KEY ([OutfitId]) REFERENCES [Outfits]([Id])
 )
@@ -57,7 +56,6 @@ CREATE TABLE [UsersOutfits] (
 CREATE TABLE [OutfitsClothes] (
 	[OutfitId] int,
 	[ClotheId] int,
-	PRIMARY KEY([OutfitId], [ClotheId]),
 	FOREIGN KEY ([OutfitId]) REFERENCES [Outfits]([Id]),
 	FOREIGN KEY ([ClotheId]) REFERENCES [Clothes]([Id])
 )
@@ -65,7 +63,6 @@ CREATE TABLE [OutfitsClothes] (
 CREATE TABLE [ClothesColors] (
 	[ClotheId] int,
 	[ColorId] int,
-	PRIMARY KEY([ClotheId], [ColorId]),
 	FOREIGN KEY ([ClotheId]) REFERENCES [Clothes]([Id]),
 	FOREIGN KEY ([ColorId]) REFERENCES [Colors]([Id])
 )
@@ -73,7 +70,6 @@ CREATE TABLE [ClothesColors] (
 CREATE TABLE [ClothesLibraries] (
 	[ClotheId] int,
 	[LibraryId] int,
-	PRIMARY KEY([ClotheId], [LibraryId]),
 	FOREIGN KEY ([ClotheId]) REFERENCES [Clothes]([Id]),
 	FOREIGN KEY ([LibraryId]) REFERENCES [Libraries]([Id])
 )
