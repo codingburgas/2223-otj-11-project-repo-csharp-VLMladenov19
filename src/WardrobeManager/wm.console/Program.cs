@@ -1,4 +1,4 @@
-﻿namespace WardrobeManager
+﻿namespace wm.console
 {
     internal class Program
     {
