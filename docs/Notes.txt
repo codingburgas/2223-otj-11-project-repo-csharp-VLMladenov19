@@ -1,0 +1,9 @@
+Обърни връзките
+Отпадат Libraries, Междинна таблица
+FK В Clothes
+Таблица за types clothes
+salt for hash password different for users - random
+Съвпадане на класовете и типовете в Sequence и Class Diagram
+Database first better for bigger databases
+
+Fix diagrams then start code
