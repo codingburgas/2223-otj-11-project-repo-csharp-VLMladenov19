@@ -6,43 +6,46 @@ USE WardrobeManager
 --DROP TABLE [UsersOutfits]
 --DROP TABLE [OutfitsClothes]
 --DROP TABLE [ClothesColors]
---DROP TABLE [ClothesLibraries]
+--DROP TABLE [ClothesTypes]
 --DROP TABLE [Users]
 --DROP TABLE [Outfits]
 --DROP TABLE [Clothes]
 --DROP TABLE [Colors]
---DROP TABLE [Libraries]
-
-CREATE TABLE [Libraries](
-	[Id] int PRIMARY KEY IDENTITY(1,1)
-)
+--DROP TABLE [Types]
 
 CREATE TABLE [Users] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
-	[Username] varchar(50), 
-	[Password] varchar(50),
-	[FirstName] nvarchar(50),
-	[LastName] nvarchar(50)	[Phone] bigint,
-	[Email] varchar(50),
-	[LibraryId] int FOREIGN KEY REFERENCES [Libraries]([Id])
+	[Username] varchar(50) NOT NULL UNIQUE, 
+	[Password] varchar(50) NOT NULL,
+	[Salt] varchar(50) NOT NULL,
+	[FirstName] nvarchar(50) NOT NULL,
+	[LastName] nvarchar(50) NOT NULL,
+	[Phone] bigint NOT NULL,
+	[Email] varchar(50) NOT NULL
 )
 
 CREATE TABLE [Outfits] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
-	[Name] nvarchar(50),
-	[Date] date
+	[Name] nvarchar(50) NOT NULL,
+	[Date] date NOT NULL
 )
 
 CREATE TABLE [Clothes] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
-	[Name] nvarchar(50),
+	[Name] nvarchar(50) NOT NULL,
 	[Type] varchar(50),
-	[Picture] varbinary(max)
+	[Picture] varbinary(max),
+	[UserId] int FOREIGN KEY REFERENCES [Users]([Id])
 )
 
 CREATE TABLE [Colors] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
-	[Name] varchar(50)
+	[Name] varchar(50) NOT NULL
+)
+
+CREATE TABLE [Types] (
+	[Id] int PRIMARY KEY IDENTITY(1,1),
+	[Name] varchar(50) NOT NULL
 )
 
 CREATE TABLE [UsersOutfits] (
@@ -66,9 +69,9 @@ CREATE TABLE [ClothesColors] (
 	FOREIGN KEY ([ColorId]) REFERENCES [Colors]([Id])
 )
 
-CREATE TABLE [ClothesLibraries] (
+CREATE TABLE [ClothesTypes] (
 	[ClotheId] int,
-	[LibraryId] int,
+	[TypeId] int,
 	FOREIGN KEY ([ClotheId]) REFERENCES [Clothes]([Id]),
-	FOREIGN KEY ([LibraryId]) REFERENCES [Libraries]([Id])
+	FOREIGN KEY ([TypeId]) REFERENCES [Types]([Id])
 )
