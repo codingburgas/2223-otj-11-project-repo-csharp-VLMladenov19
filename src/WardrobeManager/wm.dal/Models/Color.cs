@@ -13,5 +13,5 @@ public partial class Color
 
     [StringLength(50)]
     [Unicode(false)]
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
 }

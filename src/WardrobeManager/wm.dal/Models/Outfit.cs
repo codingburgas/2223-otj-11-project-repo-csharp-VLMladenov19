@@ -12,8 +12,8 @@ public partial class Outfit
     public int Id { get; set; }
 
     [StringLength(50)]
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
 
     [Column(TypeName = "date")]
-    public DateTime? Date { get; set; }
+    public DateTime Date { get; set; }
 }

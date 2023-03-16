@@ -6,11 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace wm.dal.Models;
 
-public partial class Library
+public partial class Type
 {
     [Key]
     public int Id { get; set; }
 
-    [InverseProperty("Library")]
-    public virtual ICollection<User> Users { get; } = new List<User>();
+    [StringLength(50)]
+    [Unicode(false)]
+    public string Name { get; set; } = null!;
 }

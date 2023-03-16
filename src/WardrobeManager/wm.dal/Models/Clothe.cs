@@ -12,11 +12,13 @@ public partial class Clothe
     public int Id { get; set; }
 
     [StringLength(50)]
-    public string? Name { get; set; }
-
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? Type { get; set; }
+    public string Name { get; set; } = null!;
 
     public byte[]? Picture { get; set; }
+
+    public int? UserId { get; set; }
+
+    [ForeignKey("UserId")]
+    [InverseProperty("Clothes")]
+    public virtual User? User { get; set; }
 }
