@@ -20,6 +20,28 @@ namespace wm.dal
             }
         }
 
+        public static void UpdateUser(string username, User newUserInfo)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                var user = context
+                    .Users
+                    .FirstOrDefault(x => x.Username == username);
+
+                if(user != null)
+                {
+                    user.Username = newUserInfo.Username;
+                    user.Password = newUserInfo.Password;
+                    user.FirstName = newUserInfo.FirstName;
+                    user.LastName = newUserInfo.LastName;
+                    user.Phone = newUserInfo.Phone;
+                    user.Email = newUserInfo.Email;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
         public static void DeleteUser(int id)
         {
             using (var context = new WardrobeManagerContext())
@@ -39,7 +61,8 @@ namespace wm.dal
         {
             using (var context = new WardrobeManagerContext())
             {
-                var user = context.Users
+                var user = context
+                    .Users
                     .Where(u => u.Id == id)
                     .FirstOrDefault();
                 return user;
@@ -50,9 +73,9 @@ namespace wm.dal
         {
             using (var context = new WardrobeManagerContext())
             {
-                var user = context.Users
-                    .Where(u => u.Username == username)
-                    .FirstOrDefault();
+                var user = context
+                    .Users
+                    .FirstOrDefault(u => u.Username == username);
                 return user;
             }
         }

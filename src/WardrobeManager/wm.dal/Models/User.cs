@@ -13,11 +13,11 @@ public partial class User
     {
     }
 
-    public User(string username, string password, string salt, string firstName, string lastName, long phone, string email)
+    public User(string username, string password, string firstName, string lastName, long phone, string email)
     {
         Username = username;
         Password = password;
-        Salt = salt;
+        Salt = "tempSalt";
         FirstName = firstName;
         LastName = lastName;
         Phone = phone;
