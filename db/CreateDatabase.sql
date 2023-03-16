@@ -1,5 +1,5 @@
---CREATE DATABASE WardrobeManager
---GO
+CREATE DATABASE WardrobeManager
+GO
 
 USE WardrobeManager
 
