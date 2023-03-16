@@ -5,7 +5,7 @@ using wm.dal;
 
 namespace wm.bll
 {
-    public class Register
+    public class UserService
     {
         public static void CheckUser(string Username, string Password, string FName, string LName, int Phone, string Email) 
         {

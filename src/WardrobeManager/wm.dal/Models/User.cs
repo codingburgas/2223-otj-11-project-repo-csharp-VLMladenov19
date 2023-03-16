@@ -9,6 +9,10 @@ namespace wm.dal.Models;
 [Index("Username", Name = "UQ__Users__536C85E45EF97A43", IsUnique = true)]
 public partial class User
 {
+    public User()
+    {
+    }
+
     public User(string username, string password, string salt, string firstName, string lastName, long phone, string email)
     {
         Username = username;

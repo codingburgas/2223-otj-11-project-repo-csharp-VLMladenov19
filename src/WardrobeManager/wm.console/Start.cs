@@ -3,7 +3,7 @@ using wm.bll;
 
 namespace wm.console
 {
-    internal class Program
+    internal class Start
     {
         static void Main(string[] args)
         {
@@ -14,7 +14,7 @@ namespace wm.console
             int Phone = int.Parse(Console.ReadLine());
             string Email = Console.ReadLine();
 
-            Register.CheckUser(Username, Password, FName, LName, Phone, Email);
+            UserService.CheckUser(Username, Password, FName, LName, Phone, Email);
         }
     }
 }
