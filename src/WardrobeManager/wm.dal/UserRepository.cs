@@ -57,6 +57,18 @@ namespace wm.dal
             }
         }
 
+        public static List<User> GetAllUsers()
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                var users = context
+                    .Users
+                    .ToList();
+
+                return users;
+            }
+        }
+
         public static User GetUserById(int id)
         {
             using (var context = new WardrobeManagerContext())
