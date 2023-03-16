@@ -15,6 +15,8 @@ namespace wm.console
             string Email = Console.ReadLine();
 
             UserService.CheckUser(Username, Password, FName, LName, Phone, Email);
+
+            UserService.DeleteUser(UserService.GetUserIdByUsername(Username));
         }
     }
 }

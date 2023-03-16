@@ -2,6 +2,7 @@
 using System;
 using wm.dal.Models;
 using wm.dal;
+using wm.dal.Data;
 
 namespace wm.bll
 {
@@ -15,6 +16,17 @@ namespace wm.bll
             {
                 UserRepository.InsertUser(user);
             }
+        }
+
+        public static void DeleteUser(int id)
+        {
+            UserRepository.DeleteUser(id);
+        }
+
+        public static int GetUserIdByUsername(string username)
+        {
+            var user = UserRepository.GetUserByUsername(username);
+            return user.Id;
         }
     }
 }

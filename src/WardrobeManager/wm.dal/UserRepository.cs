@@ -19,5 +19,42 @@ namespace wm.dal
                 context.SaveChanges();
             }
         }
+
+        public static void DeleteUser(int id)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                var user = GetUserById(id);
+
+                if (user != null)
+                {
+                    context.Users.Remove(user);
+
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static User GetUserById(int id)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                var user = context.Users
+                    .Where(u => u.Id == id)
+                    .FirstOrDefault();
+                return user;
+            }
+        }
+
+        public static User GetUserByUsername(string username)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                var user = context.Users
+                    .Where(u => u.Username == username)
+                    .FirstOrDefault();
+                return user;
+            }
+        }
     }
 }
