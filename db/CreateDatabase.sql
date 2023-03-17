@@ -3,7 +3,6 @@ GO
 
 USE WardrobeManager
 
---DROP TABLE [UsersOutfits]
 --DROP TABLE [OutfitsClothes]
 --DROP TABLE [ClothesColors]
 --DROP TABLE [ClothesTypes]
@@ -27,7 +26,8 @@ CREATE TABLE [Users] (
 CREATE TABLE [Outfits] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Name] nvarchar(50) NOT NULL,
-	[Date] date NOT NULL
+	[Date] date NOT NULL,
+	[UserId] int FOREIGN KEY REFERENCES [Users]([Id])
 )
 
 CREATE TABLE [Clothes] (
@@ -45,13 +45,6 @@ CREATE TABLE [Colors] (
 CREATE TABLE [Types] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Name] varchar(50) NOT NULL
-)
-
-CREATE TABLE [UsersOutfits] (
-	[UserId] int,
-	[OutfitId] int,
-	FOREIGN KEY ([UserId]) REFERENCES [Users]([Id]),
-	FOREIGN KEY ([OutfitId]) REFERENCES [Outfits]([Id])
 )
 
 CREATE TABLE [OutfitsClothes] (
@@ -126,56 +119,56 @@ insert into [Users] ([Username], [Password], [Salt], [FirstName], [LastName], [P
 insert into [Users] ([Username], [Password], [Salt], [FirstName], [LastName], [Phone], [Email]) values ('bgodfery1c', 'ZA6TyG', 'OUFooVe', 'Bondon', 'Godfery', '1723094996', 'bgodfery1c@jiathis.com');
 insert into [Users] ([Username], [Password], [Salt], [FirstName], [LastName], [Phone], [Email]) values ('tkynoch1d', 'eKEjl1', 'UtPVdBk', 'Talbot', 'Kynoch', '8392783595', 'tkynoch1d@auda.org.au');
 
-insert into [Outfits] ([Name], [Date]) values ('Domainer', '2022-05-09');
-insert into [Outfits] ([Name], [Date]) values ('Bigtax', '2022-02-10');
-insert into [Outfits] ([Name], [Date]) values ('Cardguard', '2022-03-14');
-insert into [Outfits] ([Name], [Date]) values ('Fixflex', '2022-09-10');
-insert into [Outfits] ([Name], [Date]) values ('Kanlam', '2022-06-22');
-insert into [Outfits] ([Name], [Date]) values ('Job', '2022-03-10');
-insert into [Outfits] ([Name], [Date]) values ('Zaam-Dox', '2022-11-18');
-insert into [Outfits] ([Name], [Date]) values ('Tampflex', '2022-06-22');
-insert into [Outfits] ([Name], [Date]) values ('Bitchip', '2022-07-19');
-insert into [Outfits] ([Name], [Date]) values ('Holdlamis', '2022-07-02');
-insert into [Outfits] ([Name], [Date]) values ('Bamity', '2022-04-13');
-insert into [Outfits] ([Name], [Date]) values ('Konklab', '2022-04-15');
-insert into [Outfits] ([Name], [Date]) values ('Regrant', '2022-01-16');
-insert into [Outfits] ([Name], [Date]) values ('Aerified', '2022-11-24');
-insert into [Outfits] ([Name], [Date]) values ('Sonair', '2022-03-01');
-insert into [Outfits] ([Name], [Date]) values ('Treeflex', '2022-06-25');
-insert into [Outfits] ([Name], [Date]) values ('Kanlam', '2022-08-07');
-insert into [Outfits] ([Name], [Date]) values ('Latlux', '2022-03-05');
-insert into [Outfits] ([Name], [Date]) values ('Prodder', '2022-03-16');
-insert into [Outfits] ([Name], [Date]) values ('Viva', '2022-02-05');
-insert into [Outfits] ([Name], [Date]) values ('Stronghold', '2022-05-05');
-insert into [Outfits] ([Name], [Date]) values ('Bitchip', '2022-01-22');
-insert into [Outfits] ([Name], [Date]) values ('Aerified', '2022-01-19');
-insert into [Outfits] ([Name], [Date]) values ('Sonsing', '2022-11-08');
-insert into [Outfits] ([Name], [Date]) values ('Sonair', '2022-08-04');
-insert into [Outfits] ([Name], [Date]) values ('Lotlux', '2022-06-01');
-insert into [Outfits] ([Name], [Date]) values ('Alphazap', '2022-07-27');
-insert into [Outfits] ([Name], [Date]) values ('Lotlux', '2022-05-02');
-insert into [Outfits] ([Name], [Date]) values ('Cardify', '2022-07-29');
-insert into [Outfits] ([Name], [Date]) values ('Hatity', '2022-05-07');
-insert into [Outfits] ([Name], [Date]) values ('Home Ing', '2022-02-24');
-insert into [Outfits] ([Name], [Date]) values ('Konklux', '2022-03-24');
-insert into [Outfits] ([Name], [Date]) values ('Cardguard', '2022-06-12');
-insert into [Outfits] ([Name], [Date]) values ('Rank', '2022-04-18');
-insert into [Outfits] ([Name], [Date]) values ('Otcom', '2022-08-15');
-insert into [Outfits] ([Name], [Date]) values ('Solarbreeze', '2022-12-28');
-insert into [Outfits] ([Name], [Date]) values ('Zaam-Dox', '2022-05-10');
-insert into [Outfits] ([Name], [Date]) values ('Keylex', '2022-01-08');
-insert into [Outfits] ([Name], [Date]) values ('Stringtough', '2022-08-12');
-insert into [Outfits] ([Name], [Date]) values ('Pannier', '2022-11-28');
-insert into [Outfits] ([Name], [Date]) values ('Hatity', '2022-03-08');
-insert into [Outfits] ([Name], [Date]) values ('Pannier', '2022-10-30');
-insert into [Outfits] ([Name], [Date]) values ('Bamity', '2022-03-30');
-insert into [Outfits] ([Name], [Date]) values ('Tempsoft', '2022-03-25');
-insert into [Outfits] ([Name], [Date]) values ('Daltfresh', '2022-09-16');
-insert into [Outfits] ([Name], [Date]) values ('Alpha', '2022-10-19');
-insert into [Outfits] ([Name], [Date]) values ('Zoolab', '2022-05-05');
-insert into [Outfits] ([Name], [Date]) values ('Konklab', '2022-12-14');
-insert into [Outfits] ([Name], [Date]) values ('Y-Solowarm', '2022-09-01');
-insert into [Outfits] ([Name], [Date]) values ('Cookley', '2022-08-29');
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Bigtax', '2022-12-23', 22);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Home Ing', '2022-12-02', 8);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Tin', '2022-07-21', 17);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Span', '2022-04-11', 43);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Zoolab', '2022-11-02', 33);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Asoka', '2022-12-18', 37);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Gembucket', '2022-11-19', 27);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Tres-Zap', '2022-05-20', 11);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Zaam-Dox', '2022-04-30', 21);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('It', '2022-08-06', 29);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Bigtax', '2022-07-10', 1);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Cookley', '2022-04-14', 11);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Voltsillam', '2022-03-29', 29);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Fixflex', '2022-10-07', 32);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Flowdesk', '2022-04-20', 12);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Y-find', '2022-04-10', 3);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Tempsoft', '2022-03-08', 39);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Transcof', '2022-10-02', 17);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Bigtax', '2022-01-28', 39);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Fix San', '2022-07-12', 4);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Opela', '2022-11-20', 44);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Stronghold', '2022-11-14', 38);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Konklab', '2022-11-06', 13);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Flowdesk', '2022-06-28', 10);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Tresom', '2022-05-07', 35);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Voltsillam', '2022-03-30', 3);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Tampflex', '2022-09-14', 8);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Vagram', '2022-08-28', 28);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Bytecard', '2022-04-23', 8);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Stringtough', '2022-05-07', 17);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Gembucket', '2022-03-14', 24);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Opela', '2022-10-02', 26);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Alpha', '2022-05-25', 21);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Otcom', '2022-01-04', 37);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Opela', '2022-03-31', 25);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Sonsing', '2022-01-05', 50);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Flexidy', '2022-06-20', 50);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Gembucket', '2022-08-10', 35);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Latlux', '2022-02-07', 5);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Veribet', '2022-05-09', 32);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Cookley', '2022-05-29', 8);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Trippledex', '2022-08-18', 10);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Wrapsafe', '2022-07-20', 6);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Y-Solowarm', '2022-09-01', 31);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Fixflex', '2022-08-28', 33);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Wrapsafe', '2022-01-14', 28);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Mat Lam Tam', '2022-05-16', 26);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Sonair', '2022-01-15', 48);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Bigtax', '2022-09-30', 14);
+insert into [Outfits] ([Name], [Date], [UserId]) values ('Tresom', '2022-11-13', 45);
 
 insert into [Clothes] ([Name], [Picture], [UserId]) values ('Alpha', 6611, 32);
 insert into [Clothes] ([Name], [Picture], [UserId]) values ('Rank', 7260, 3);
@@ -329,57 +322,6 @@ insert into [Types] ([Name]) values ('Rank');
 insert into [Types] ([Name]) values ('Alphazap');
 insert into [Types] ([Name]) values ('Cardify');
 insert into [Types] ([Name]) values ('Opela');
-
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (24, 30);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (37, 27);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (48, 5);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (11, 23);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (31, 47);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (16, 44);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (50, 33);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (27, 50);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (44, 22);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (4, 10);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (27, 18);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (20, 26);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (46, 50);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (12, 18);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (28, 12);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (40, 42);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (46, 10);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (39, 35);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (47, 30);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (49, 15);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (13, 50);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (26, 33);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (30, 31);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (33, 43);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (12, 48);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (22, 20);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (37, 50);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (33, 13);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (36, 49);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (17, 33);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (15, 41);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (43, 4);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (12, 11);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (43, 21);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (21, 49);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (16, 6);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (17, 50);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (34, 35);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (42, 36);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (13, 45);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (32, 3);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (37, 33);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (9, 45);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (15, 39);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (28, 49);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (44, 9);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (34, 38);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (32, 39);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (26, 36);
-insert into [UsersOutfits] ([UserId], [OutfitId]) values (43, 5);
 
 insert into [OutfitsClothes] ([OutfitId], [ClotheId]) values (7, 29);
 insert into [OutfitsClothes] ([OutfitId], [ClotheId]) values (43, 34);

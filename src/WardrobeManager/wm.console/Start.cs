@@ -8,17 +8,19 @@ namespace wm.console
         static void Main(string[] args)
         {
             string Username = Console.ReadLine();
-            //string Password = Console.ReadLine();
-            //string FName = Console.ReadLine();
-            //string LName = Console.ReadLine();
-            //int Phone = int.Parse(Console.ReadLine());
-            //string Email = Console.ReadLine();
+            string Password = Console.ReadLine();
+            string FName = Console.ReadLine();
+            string LName = Console.ReadLine();
+            int Phone = int.Parse(Console.ReadLine());
+            string Email = Console.ReadLine();
 
-            //UserService.CheckUser(Username, Password, FName, LName, Phone, Email);
+            UserService.CheckUser(Username, Password, FName, LName, Phone, Email);
 
-            UserService.UpdateUser(Username, "vase", "change", "change", "change", 2, "change");
+            string change = Console.ReadLine();
+            UserService.UpdateUser(change, "vase", "change", "change", "change", 2, "change");
 
-            //UserService.DeleteUser(UserService.GetUserIdByUsername("vase"));
+            string delete = Console.ReadLine();
+            UserService.DeleteUser(UserService.GetUserIdByUsername(delete));
         }
     }
 }
