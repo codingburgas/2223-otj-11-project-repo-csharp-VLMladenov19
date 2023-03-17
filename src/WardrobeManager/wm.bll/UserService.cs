@@ -3,12 +3,31 @@ using System;
 using wm.dal.Models;
 using wm.dal;
 using wm.dal.Data;
+using System.Security;
 
 namespace wm.bll
 {
     public class UserService
     {
-        public static void CheckUser(string Username, string Password, string FName, string LName, int Phone, string Email) 
+        public static bool VerifyUser(string Username, string Password)
+        {
+            bool VerifyUser = false;
+
+            var user = UserRepository.GetAllUsers()
+                .FirstOrDefault(user => user.Username == Username);
+
+            if (user != null)
+            {
+                Password += user.Salt;
+                if(user.Password == Password)
+                {
+                    VerifyUser = true;
+                }
+            }
+
+            return VerifyUser;
+        }
+        public static void RegisterUser(string Username, string Password, string FName, string LName, int Phone, string Email) 
         {
             var user = new User(Username, Password, FName, LName, Phone, Email);
 
