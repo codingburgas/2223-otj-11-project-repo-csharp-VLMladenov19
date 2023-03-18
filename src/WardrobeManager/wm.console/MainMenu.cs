@@ -21,7 +21,7 @@ namespace wm.console
                 switch (input)
                 {
                     case 'R': RegisterMenu.Print(); break;
-                    case 'L': Console.WriteLine("Log"); break;
+                    case 'L': LoginMenu.Print(); break;
                     case 'B': Environment.Exit(0); break;
                     default:
                         break;
