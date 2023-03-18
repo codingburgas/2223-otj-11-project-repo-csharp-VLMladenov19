@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace wm.bll
 {
@@ -33,62 +34,10 @@ namespace wm.bll
 
             return verifyUser;
         }
-        public static void RegisterUser() 
+        public static void RegisterUser(string username, string password, string fName, string lName, string phone, string email) 
         {
-            Console.Write("Username: ");
-            string username = Console.ReadLine();
-            while (GetUserIdByUsername(username) != -1)
-            {
-                Console.WriteLine("Username already in use");
-                Console.Write("Username: ");
-                username = Console.ReadLine();
-            }
-
-            Console.Write("Password: ");
-            string password = Console.ReadLine();
-            while(!CheckPassword(password))
-            {
-                Console.Write("Password: ");
-                password = Console.ReadLine();
-            }
-
-            Console.Write("First Name: ");
-            string fName = Console.ReadLine();
-            while(fName.IsNullOrEmpty())
-            {
-                Console.WriteLine("Must input a First Name");
-                Console.Write("First Name: ");
-                fName = Console.ReadLine();
-            }
-
-            Console.Write("Last Name: ");
-            string lName = Console.ReadLine();
-            while (lName.IsNullOrEmpty())
-            {
-                Console.WriteLine("Must input a Last Name");
-                Console.Write("Last Name: ");
-                lName = Console.ReadLine();
-            }
-
-            Console.Write("Phone: ");
-            string phone = Console.ReadLine();
-            while (phone.Length < 10 || phone.Length > 15 || phone.Any(c => Char.IsLetter(c)))
-            {
-                Console.WriteLine("Phone not valid");
-                Console.Write("Phone: ");
-                phone = Console.ReadLine();
-            }
-
-            Console.Write("Email: ");
-            string email = Console.ReadLine();
-            while(!email.Any(c => c == '@'))
-            {
-                Console.WriteLine("Email invalid");
-                Console.Write("Email: ");
-                email = Console.ReadLine();
-            }
-
             var user = new User(username, password, fName, lName, phone, email);
+
             user.Salt = GenerateSalt();
             var saltedPassword = user.Password + user.Salt;
             user.Password = HashPassword(saltedPassword);
@@ -121,49 +70,6 @@ namespace wm.bll
             return user.Id;
         }
 
-        public static bool CheckPassword(string password)
-        {
-            bool verifyPassword = true;
-
-            if(string.IsNullOrEmpty(password))
-            {
-                verifyPassword = false;
-                Console.WriteLine("Password Required!");
-                return verifyPassword;
-            }
-
-            if(password.Length < 4 || password.Length > 12)
-            {
-                verifyPassword = false;
-                Console.WriteLine("Password needs to be 4 to 12 characters");
-                return verifyPassword;
-            }
-
-            if(password.Where(c => Char.IsWhiteSpace(c)).Any()) 
-            {
-                verifyPassword = false;
-                Console.WriteLine("String has empty characters");
-                return verifyPassword;
-            }
-
-            if(!password.Any(c => Char.IsDigit(c)))
-            {
-                verifyPassword = false;
-                Console.WriteLine("Password must have a number");
-                return verifyPassword;
-            }
-
-            string specialCharacters = @"\|!#$%&/()=?»«@£§€{}.-;'<>_,";
-            if(password.Any(c => specialCharacters.Any(x => x == c)))
-            {
-                verifyPassword= false;
-                Console.WriteLine("Password must NOT include one of these characters - \"\\| !#$%&/()=?»«@£§€{}.-;'<>_,\"");
-                return verifyPassword;
-            }
-
-            return verifyPassword;
-        }
-
         public static string GenerateSalt()
         {
             var rnd = new Random();
@@ -183,6 +89,100 @@ namespace wm.bll
             var hashedPass = Convert.ToHexString(hash.ComputeHash(passBytes));
 
             return hashedPass;
+        }
+
+        public static int CheckUsername(string username)
+        {
+            if(username.IsNullOrEmpty())
+            {
+                return 1;
+            }
+            if(username.Length < 4 || username.Length > 12)
+            {
+                return 2;
+            }
+            if(UserService.GetUserIdByUsername(username) != -1)
+            {
+                return 3;
+            }
+            return 0;
+        }
+
+        public static int CheckPassword(string password)
+        {
+            if (string.IsNullOrEmpty(password))
+            {
+                return 1;
+            }
+
+            if (password.Length < 4 || password.Length > 12)
+            {
+                return 2;
+            }
+
+            if (password.Where(c => Char.IsWhiteSpace(c)).Any())
+            {
+                return 3;
+            }
+
+            if (!password.Any(c => Char.IsDigit(c)))
+            {
+                return 4;
+            }
+
+            string specialCharacters = @"\|!#$%&/()=?»«@£§€{}.-;'<>_,";
+            if (password.Any(c => specialCharacters.Any(x => x == c)))
+            {
+                return 5;
+            }
+
+            return 0;
+        }
+        public static int CheckName(string name)
+        {
+            if (name.IsNullOrEmpty())
+            {
+                return 1;
+            }
+            if (name.Any(c => Char.IsDigit(c)))
+            {
+                return 2;
+            }
+            return 0;
+        }
+
+        public static int CheckPhone(string phone)
+        {
+            if (phone.IsNullOrEmpty())
+            {
+                return 1;
+            }
+            if (phone.Length < 10 || phone.Length > 15)
+            {
+                return 2;
+            }
+            if (phone.Any(c => Char.IsLetter(c)))
+            {
+                return 3;
+            }
+            return 0;
+        }
+
+        public static int CheckEmail(string email)
+        {
+            if (email.IsNullOrEmpty())
+            {
+                return 1;
+            }
+            if (!email.Any(c => c == '@') || email.Count(c => c == '@') > 1)
+            {
+                return 2;
+            }
+            if (email.Substring(email.IndexOf('@')).Length < 4)
+            {
+                return 3;
+            }
+            return 0;
         }
     }
 }

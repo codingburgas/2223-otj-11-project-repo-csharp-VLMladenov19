@@ -7,6 +7,8 @@ namespace wm.console
     {
         static void Main(string[] args)
         {
+            MainMenu.Print();
+
             //UserService.RegisterUser();
 
             //string change = Console.ReadLine();

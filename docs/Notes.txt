@@ -7,3 +7,9 @@ salt for hash password different for users - random
 Database first better for bigger databases
 
 Fix diagrams then start code
+
+-- How to store who is logged
+-- What is a recommended GUI to use
+-- Should I separate function to different classes in the UserService class
+-- Exception handling - Registration
+-- MainMenu.cs case 'B': Environment.Exit(0); ? is it good
