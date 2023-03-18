@@ -32,6 +32,7 @@ namespace wm.dal
                 {
                     user.Username = newUserInfo.Username;
                     user.Password = newUserInfo.Password;
+                    user.Salt = newUserInfo.Salt;
                     user.FirstName = newUserInfo.FirstName;
                     user.LastName = newUserInfo.LastName;
                     user.Phone = newUserInfo.Phone;

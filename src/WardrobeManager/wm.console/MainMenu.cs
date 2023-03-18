@@ -13,7 +13,7 @@ namespace wm.console
         {
             Console.Clear();
 
-            Console.WriteLine("[R] Register   [L] Login   [B] Back");
+            Console.WriteLine("[R] Register   [L] Login   [U] Update   [B] Back");
             while(true)
             {
                 var input = Char.ToUpper(Console.ReadKey().KeyChar);
@@ -22,6 +22,7 @@ namespace wm.console
                 {
                     case 'R': RegisterMenu.Print(); break;
                     case 'L': LoginMenu.Print(); break;
+                    case 'U': UpdateMenu.Print(); break;
                     case 'B': Environment.Exit(0); break;
                     default:
                         break;

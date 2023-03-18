@@ -48,11 +48,20 @@ namespace wm.bll
             }
         }
 
-        public static void UpdateUser(string username, string newUsername, string newPassword, string newFName, string newLName, string newPhone, string newEmail)
+        public static void UpdateUser(string oldUsername, string newUsername, string newPassword, string newFName, string newLName, string newPhone, string newEmail)
         {
-            var newUserInfo = new User(newUsername, newPassword, newFName, newLName, newPhone, newEmail);
+            var oldUser = UserRepository.GetUserByUsername(oldUsername);
+            var newUser = new User(newUsername, newPassword, newFName, newLName, newPhone, newEmail);
 
-            UserRepository.UpdateUser(username, newUserInfo);
+            if(oldUser != null)
+            {
+                newUser.Id = oldUser.Id;
+                newUser.Salt = GenerateSalt();
+                var saltedPassword = newUser.Password + newUser.Salt;
+                newUser.Password = HashPassword(saltedPassword);
+            }
+
+            UserRepository.UpdateUser(oldUsername, newUser);
         }
 
         public static void DeleteUser(int id)
