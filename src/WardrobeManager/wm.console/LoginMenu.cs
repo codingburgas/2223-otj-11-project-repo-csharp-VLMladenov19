@@ -14,7 +14,7 @@ namespace wm.console
         {
             Console.Clear();
             Console.WriteLine("===============  Log In  ===============");
-
+            Console.WriteLine($"{"Type [B] to go back to Main Menu", 36}\n");
 
             string username = InsertUsername();
             string password = InsertPassword();
@@ -40,7 +40,12 @@ namespace wm.console
             Console.Write($"{"Username: ",20}");
             var username = Console.ReadLine();
 
-            if(username.IsNullOrEmpty())
+            if (username.ToUpper() == "B")
+            {
+                MainMenu.Print();
+            }
+
+            if (username.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Username is required",30}");
                 Console.WriteLine($"\n========================================");

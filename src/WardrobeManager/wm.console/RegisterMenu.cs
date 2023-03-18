@@ -14,6 +14,7 @@ namespace wm.console
         {
             Console.Clear();
             Console.WriteLine("=============== Register ===============");
+            Console.WriteLine($"{"Type [B] to go back to Main Menu",36}\n");
 
             string username = InsertUsername();
             string password = InsertPassword();
@@ -35,6 +36,12 @@ namespace wm.console
         {
             Console.Write($"{"Username: ",20}");
             var username = Console.ReadLine();
+
+            if(username.ToUpper() == "B") 
+            {
+                MainMenu.Print();
+            }
+
             while (UserService.CheckUsername(username) != 0)
             {
                 if(UserService.CheckUsername(username) == 1)
