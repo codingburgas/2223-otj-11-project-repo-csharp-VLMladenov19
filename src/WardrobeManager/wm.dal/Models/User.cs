@@ -6,23 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace wm.dal.Models;
 
-[Index("Username", Name = "UQ__Users__536C85E40A10977D", IsUnique = true)]
+[Index("Username", Name = "UQ__Users__536C85E43F08AD83", IsUnique = true)]
 public partial class User
 {
     public User()
     {
     }
 
-    public User(string username, string password, string firstName, string lastName, long phone, string email)
+    public User(string username, string password, string firstName, string lastName, string phone, string email)
     {
         Username = username;
-        Salt = "tempSalt";
-        Password = password + Salt;
+        Password = password;
         FirstName = firstName;
         LastName = lastName;
         Phone = phone;
         Email = email;
     }
+
 
     [Key]
     public int Id { get; set; }
@@ -45,7 +45,9 @@ public partial class User
     [StringLength(50)]
     public string LastName { get; set; } = null!;
 
-    public long Phone { get; set; }
+    [StringLength(25)]
+    [Unicode(false)]
+    public string Phone { get; set; } = null!;
 
     [StringLength(50)]
     [Unicode(false)]
