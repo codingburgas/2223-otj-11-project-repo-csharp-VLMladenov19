@@ -23,7 +23,8 @@ namespace wm.bll
 
             if (user != null)
             {
-                Password = HashPassword($"{Password}{user.Salt}");
+                var saltedPassword = Password + user.Salt;
+                Password = HashPassword(saltedPassword);
                 if(user.Password == Password)
                 {
                     verifyUser = true;
@@ -88,8 +89,9 @@ namespace wm.bll
             }
 
             var user = new User(username, password, fName, lName, phone, email);
-            user.Salt = "salt";
-            user.Password = HashPassword($"{password}{user.Salt}");
+            user.Salt = GenerateSalt();
+            var saltedPassword = user.Password + user.Salt;
+            user.Password = HashPassword(saltedPassword);
 
             if (user != null) 
             {
@@ -160,6 +162,16 @@ namespace wm.bll
             }
 
             return verifyPassword;
+        }
+
+        public static string GenerateSalt()
+        {
+            var rnd = new Random();
+
+            var rndBytes = new byte[16];
+            rnd.NextBytes(rndBytes);
+
+            return Convert.ToHexString(rndBytes);
         }
 
         public static string HashPassword(string password)
