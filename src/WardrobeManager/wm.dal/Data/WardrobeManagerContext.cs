@@ -34,31 +34,31 @@ public partial class WardrobeManagerContext : DbContext
     {
         modelBuilder.Entity<Models.Clothe>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Clothes__3214EC074FB63664");
+            entity.HasKey(e => e.Id).HasName("PK__Clothes__3214EC07E98A41F4");
 
             entity.HasOne(d => d.User).WithMany(p => p.Clothes).HasConstraintName("FK__Clothes__UserId__3D5E1FD2");
         });
 
         modelBuilder.Entity<Models.Color>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Colors__3214EC071100280C");
+            entity.HasKey(e => e.Id).HasName("PK__Colors__3214EC074FBE550E");
         });
 
         modelBuilder.Entity<Models.Outfit>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Outfits__3214EC071696EBD1");
+            entity.HasKey(e => e.Id).HasName("PK__Outfits__3214EC07F41E505A");
 
             entity.HasOne(d => d.User).WithMany(p => p.Outfits).HasConstraintName("FK__Outfits__UserId__3A81B327");
         });
 
         modelBuilder.Entity<Models.Type>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Types__3214EC076006DEAF");
+            entity.HasKey(e => e.Id).HasName("PK__Types__3214EC07C12BD959");
         });
 
         modelBuilder.Entity<Models.User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07BB660E29");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07CCEABF5C");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -15,7 +15,7 @@ USE WardrobeManager
 CREATE TABLE [Users] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Username] varchar(50) NOT NULL UNIQUE, 
-	[Password] varchar(50) NOT NULL,
+	[Password] varchar(64) NOT NULL,
 	[Salt] varchar(50) NOT NULL,
 	[FirstName] nvarchar(50) NOT NULL,
 	[LastName] nvarchar(50) NOT NULL,

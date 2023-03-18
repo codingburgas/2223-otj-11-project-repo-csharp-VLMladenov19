@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace wm.dal.Models;
 
-[Index("Username", Name = "UQ__Users__536C85E43F08AD83", IsUnique = true)]
+[Index("Username", Name = "UQ__Users__536C85E4B79D4E24", IsUnique = true)]
 public partial class User
 {
     public User()
@@ -23,7 +23,6 @@ public partial class User
         Email = email;
     }
 
-
     [Key]
     public int Id { get; set; }
 
@@ -31,7 +30,7 @@ public partial class User
     [Unicode(false)]
     public string Username { get; set; } = null!;
 
-    [StringLength(50)]
+    [StringLength(64)]
     [Unicode(false)]
     public string Password { get; set; } = null!;
 

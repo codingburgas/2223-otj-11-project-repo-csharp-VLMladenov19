@@ -7,6 +7,8 @@ using System.Security;
 using System.Net.NetworkInformation;
 using Microsoft.IdentityModel.Tokens;
 using System.Runtime.Intrinsics.Arm;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace wm.bll
 {
@@ -21,7 +23,7 @@ namespace wm.bll
 
             if (user != null)
             {
-                Password += user.Salt;
+                Password = HashPassword($"{Password}{user.Salt}");
                 if(user.Password == Password)
                 {
                     verifyUser = true;
@@ -86,8 +88,8 @@ namespace wm.bll
             }
 
             var user = new User(username, password, fName, lName, phone, email);
-            user.Salt = "temporarySalt";
-            user.Password += user.Salt;
+            user.Salt = "salt";
+            user.Password = HashPassword($"{password}{user.Salt}");
 
             if (user != null) 
             {
@@ -158,6 +160,17 @@ namespace wm.bll
             }
 
             return verifyPassword;
+        }
+
+        public static string HashPassword(string password)
+        {
+            SHA256 hash = SHA256.Create();
+
+            var passBytes = Encoding.Default.GetBytes(password);
+
+            var hashedPass = Convert.ToHexString(hash.ComputeHash(passBytes));
+
+            return hashedPass;
         }
     }
 }

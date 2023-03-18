@@ -8,7 +8,7 @@ namespace wm.console
         static void Main(string[] args)
         {
             //UserService.RegisterUser();
-
+            
             //string change = Console.ReadLine();
             //UserService.UpdateUser(change, "vase", "change", "change", "change", 2, "change");
 
