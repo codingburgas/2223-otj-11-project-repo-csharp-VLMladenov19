@@ -49,7 +49,7 @@ namespace wm.console.ClotheMenu
 
             foreach (var item in joined)
             {
-                Console.WriteLine($"{item.Name,20} : {item.Type}");
+                Console.WriteLine($"{item.Name,18} : {item.Type}");
             }
         }
     }

@@ -38,11 +38,13 @@ public partial class WardrobeManagerContext : DbContext
     {
         modelBuilder.Entity<Models.Clothe>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Clothes__3214EC075BF12979");
+            entity.HasKey(e => e.Id).HasName("PK__Clothes__3214EC078B83DD45");
 
             entity.HasOne(d => d.Type).WithMany(p => p.Clothes).HasConstraintName("FK__Clothes__TypeId__403A8C7D");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Clothes).HasConstraintName("FK__Clothes__UserId__3F466844");
+            entity.HasOne(d => d.User).WithMany(p => p.Clothes)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Clothes__UserId__3F466844");
         });
 
         modelBuilder.Entity<Models.ClothesColor>(entity =>
@@ -54,14 +56,16 @@ public partial class WardrobeManagerContext : DbContext
 
         modelBuilder.Entity<Models.Color>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Colors__3214EC07E72135F4");
+            entity.HasKey(e => e.Id).HasName("PK__Colors__3214EC075AF19DA2");
         });
 
         modelBuilder.Entity<Models.Outfit>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Outfits__3214EC07171144E6");
+            entity.HasKey(e => e.Id).HasName("PK__Outfits__3214EC07D6557CD7");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Outfits).HasConstraintName("FK__Outfits__UserId__3A81B327");
+            entity.HasOne(d => d.User).WithMany(p => p.Outfits)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Outfits__UserId__3A81B327");
         });
 
         modelBuilder.Entity<Models.OutfitsClothe>(entity =>
@@ -73,12 +77,12 @@ public partial class WardrobeManagerContext : DbContext
 
         modelBuilder.Entity<Models.Type>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Types__3214EC078502D4DA");
+            entity.HasKey(e => e.Id).HasName("PK__Types__3214EC075727E55D");
         });
 
         modelBuilder.Entity<Models.User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC0757C179F0");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC075FC174FE");
         });
 
         OnModelCreatingPartial(modelBuilder);

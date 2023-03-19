@@ -17,9 +17,9 @@ public partial class Outfit
     [Column(TypeName = "date")]
     public DateTime Date { get; set; }
 
-    public int? UserId { get; set; }
+    public int UserId { get; set; }
 
     [ForeignKey("UserId")]
     [InverseProperty("Outfits")]
-    public virtual User? User { get; set; }
+    public virtual User User { get; set; } = null!;
 }

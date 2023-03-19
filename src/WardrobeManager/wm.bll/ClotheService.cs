@@ -18,5 +18,12 @@ namespace wm.bll
 
             return clothes;
         }
+
+        public static void AddClothing(string name, int userId, int typeId)
+        {
+            var clothe = new Clothe(name, userId, typeId);
+
+            ClotheRepository.AddClothe(clothe);
+        }
     }
 }

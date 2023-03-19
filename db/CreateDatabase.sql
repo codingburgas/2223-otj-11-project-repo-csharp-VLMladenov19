@@ -26,7 +26,7 @@ CREATE TABLE [Outfits] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Name] nvarchar(50) NOT NULL,
 	[Date] date NOT NULL,
-	[UserId] int FOREIGN KEY REFERENCES [Users]([Id])
+	[UserId] int FOREIGN KEY REFERENCES [Users]([Id]) NOT NULL
 )
 
 CREATE TABLE [Types] (
@@ -38,7 +38,7 @@ CREATE TABLE [Clothes] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Name] nvarchar(50) NOT NULL,
 	[Picture] varbinary(max),
-	[UserId] int FOREIGN KEY REFERENCES [Users]([Id]),
+	[UserId] int FOREIGN KEY REFERENCES [Users]([Id]) NOT NULL,
 	[TypeId] int FOREIGN KEY REFERENCES [Types]([Id])
 )
 

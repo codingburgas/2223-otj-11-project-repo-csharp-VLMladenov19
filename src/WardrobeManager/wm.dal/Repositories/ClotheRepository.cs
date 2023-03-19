@@ -20,5 +20,15 @@ namespace wm.dal.Repositories
                 return list;
             }
         }
+
+        public static void AddClothe(Clothe clothe)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                context.Clothes.Add(clothe);
+
+                context.SaveChanges();
+            }
+        }
     }
 }

@@ -8,6 +8,17 @@ namespace wm.dal.Models;
 
 public partial class Clothe
 {
+    public Clothe()
+    {
+    }
+
+    public Clothe(string name, int userId, int typeId)
+    {
+        Name = name;
+        UserId = userId;
+        TypeId = typeId;
+    }
+
     [Key]
     public int Id { get; set; }
 
@@ -16,7 +27,7 @@ public partial class Clothe
 
     public byte[]? Picture { get; set; }
 
-    public int? UserId { get; set; }
+    public int UserId { get; set; }
 
     public int? TypeId { get; set; }
 
@@ -26,5 +37,5 @@ public partial class Clothe
 
     [ForeignKey("UserId")]
     [InverseProperty("Clothes")]
-    public virtual User? User { get; set; }
+    public virtual User User { get; set; } = null!;
 }
