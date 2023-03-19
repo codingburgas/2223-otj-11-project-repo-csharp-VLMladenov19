@@ -1,7 +1,6 @@
 ﻿using Microsoft.Identity.Client;
 using System;
 using wm.dal.Models;
-using wm.dal;
 using wm.dal.Data;
 using System.Security;
 using System.Net.NetworkInformation;
@@ -10,6 +9,7 @@ using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using wm.dal.Repositories;
 
 namespace wm.bll
 {

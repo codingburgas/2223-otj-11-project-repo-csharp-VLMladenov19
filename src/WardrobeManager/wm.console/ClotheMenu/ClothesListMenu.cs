@@ -34,10 +34,22 @@ namespace wm.console.ClotheMenu
         private static void PrintClothesListByUserId(int userId)
         {
             var clothes = ClotheService.GetClothesByUserId(userId);
+            var types = TypeService.GetAllTypes();
 
-            foreach (var item in clothes)
+            var joined = clothes
+                .Join(
+                    types,
+                    c => c.TypeId,
+                    t => t.Id,
+                    (c, t) => new
+                    {
+                        Name = c.Name,
+                        Type = t.Name
+                    });
+
+            foreach (var item in joined)
             {
-                Console.WriteLine($"{item.Name,28}");
+                Console.WriteLine($"{item.Name,20} : {item.Type}");
             }
         }
     }

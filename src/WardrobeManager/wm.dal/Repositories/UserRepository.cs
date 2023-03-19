@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using wm.dal.Data;
 using wm.dal.Models;
 
-namespace wm.dal
+namespace wm.dal.Repositories
 {
     public class UserRepository
     {
@@ -14,7 +14,7 @@ namespace wm.dal
         {
             using (var context = new WardrobeManagerContext())
             {
-                context.Add<User>(user);
+                context.Add(user);
 
                 context.SaveChanges();
             }
@@ -28,7 +28,7 @@ namespace wm.dal
                     .Users
                     .FirstOrDefault(x => x.Username == username);
 
-                if(user != null)
+                if (user != null)
                 {
                     user.Username = newUserInfo.Username;
                     user.Password = newUserInfo.Password;

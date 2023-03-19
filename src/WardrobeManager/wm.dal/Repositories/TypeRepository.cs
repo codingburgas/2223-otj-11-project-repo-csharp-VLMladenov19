@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using wm.dal.Data;
 using wm.dal.Models;
 
-namespace wm.dal
+namespace wm.dal.Repositories
 {
-    public class ClotheRepository
+    public class TypeRepository
     {
-        public static List<Clothe> GetAllClothes() 
+        public static List<Models.Type> GetAllTypes()
         {
             using (var context = new WardrobeManagerContext())
             {
-                var list = context.Clothes
+                var list = context.Types
                     .ToList();
 
                 return list;

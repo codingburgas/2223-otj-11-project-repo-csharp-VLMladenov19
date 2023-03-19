@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using wm.dal;
 using wm.dal.Models;
+using wm.dal.Repositories;
 
 namespace wm.bll
 {
