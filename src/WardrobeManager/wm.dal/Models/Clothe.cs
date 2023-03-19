@@ -18,6 +18,12 @@ public partial class Clothe
 
     public int? UserId { get; set; }
 
+    public int? TypeId { get; set; }
+
+    [ForeignKey("TypeId")]
+    [InverseProperty("Clothes")]
+    public virtual Type? Type { get; set; }
+
     [ForeignKey("UserId")]
     [InverseProperty("Clothes")]
     public virtual User? User { get; set; }

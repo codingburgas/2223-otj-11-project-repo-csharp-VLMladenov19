@@ -5,7 +5,6 @@ USE WardrobeManager
 
 --DROP TABLE [OutfitsClothes]
 --DROP TABLE [ClothesColors]
---DROP TABLE [ClothesTypes]
 --DROP TABLE [Users]
 --DROP TABLE [Outfits]
 --DROP TABLE [Clothes]
@@ -30,19 +29,20 @@ CREATE TABLE [Outfits] (
 	[UserId] int FOREIGN KEY REFERENCES [Users]([Id])
 )
 
-CREATE TABLE [Clothes] (
-	[Id] int PRIMARY KEY IDENTITY(1,1),
-	[Name] nvarchar(50) NOT NULL,
-	[Picture] varbinary(max),
-	[UserId] int FOREIGN KEY REFERENCES [Users]([Id])
-)
-
-CREATE TABLE [Colors] (
+CREATE TABLE [Types] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Name] varchar(50) NOT NULL
 )
 
-CREATE TABLE [Types] (
+CREATE TABLE [Clothes] (
+	[Id] int PRIMARY KEY IDENTITY(1,1),
+	[Name] nvarchar(50) NOT NULL,
+	[Picture] varbinary(max),
+	[UserId] int FOREIGN KEY REFERENCES [Users]([Id]),
+	[TypeId] int FOREIGN KEY REFERENCES [Types]([Id])
+)
+
+CREATE TABLE [Colors] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[Name] varchar(50) NOT NULL
 )
@@ -59,13 +59,6 @@ CREATE TABLE [ClothesColors] (
 	[ColorId] int,
 	FOREIGN KEY ([ClotheId]) REFERENCES [Clothes]([Id]),
 	FOREIGN KEY ([ColorId]) REFERENCES [Colors]([Id])
-)
-
-CREATE TABLE [ClothesTypes] (
-	[ClotheId] int,
-	[TypeId] int,
-	FOREIGN KEY ([ClotheId]) REFERENCES [Clothes]([Id]),
-	FOREIGN KEY ([TypeId]) REFERENCES [Types]([Id])
 )
 
 insert into [Users] ([Username], [Password], [Salt], [FirstName], [LastName], [Phone], [Email]) values ('epollicott0', 'PTKGGxD6ldPl', 'PeeYPxdMmV41', 'Ealasaid', 'Pollicott', '7282352051', 'epollicott0@deviantart.com');
@@ -170,56 +163,107 @@ insert into [Outfits] ([Name], [Date], [UserId]) values ('Sonair', '2022-01-15',
 insert into [Outfits] ([Name], [Date], [UserId]) values ('Bigtax', '2022-09-30', 14);
 insert into [Outfits] ([Name], [Date], [UserId]) values ('Tresom', '2022-11-13', 45);
 
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Alpha', 6611, 32);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Rank', 7260, 3);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Andalax', 2717, 7);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Keylex', 6660, 16);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Gembucket', 2910, 11);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Zoolab', 7297, 31);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Trippledex', 7317, 6);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Zoolab', 627, 26);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Domainer', 8000, 38);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Cardify', 1443, 31);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Bitwolf', 3412, 33);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Treeflex', 2472, 5);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Zaam-Dox', 6937, 40);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Konklab', 2739, 14);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Stim', 5304, 24);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Alphazap', 2761, 33);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Hatity', 5162, 30);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Flowdesk', 2112, 22);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Asoka', 1168, 4);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Stringtough', 7829, 1);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Tampflex', 5890, 24);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Redhold', 5144, 49);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Fintone', 1384, 7);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Toughjoyfax', 2334, 7);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Sonsing', 5849, 33);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Flexidy', 6477, 32);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Span', 604, 2);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Bamity', 3013, 16);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Tresom', 4480, 38);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Zontrax', 508, 48);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Voyatouch', 6647, 44);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Daltfresh', 1124, 12);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Fintone', 2007, 44);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Lotstring', 3965, 1);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Hatity', 2810, 16);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Kanlam', 3123, 9);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Voltsillam', 6058, 34);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Biodex', 3353, 6);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Tampflex', 1132, 48);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Asoka', 4277, 24);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Aerified', 3770, 14);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Ventosanzap', 3, 8);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Sonair', 968, 27);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Cardify', 6409, 27);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Fintone', 5201, 42);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Fixflex', 6424, 6);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Cardguard', 5638, 28);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Alphazap', 5731, 50);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Matsoft', 1373, 47);
-insert into [Clothes] ([Name], [Picture], [UserId]) values ('Veribet', 1183, 9);
+insert into [Types] ([Name]) values ('Fixflex');
+insert into [Types] ([Name]) values ('Zoolab');
+insert into [Types] ([Name]) values ('Alpha');
+insert into [Types] ([Name]) values ('Konklab');
+insert into [Types] ([Name]) values ('Rank');
+insert into [Types] ([Name]) values ('Domainer');
+insert into [Types] ([Name]) values ('Alpha');
+insert into [Types] ([Name]) values ('Y-find');
+insert into [Types] ([Name]) values ('Bytecard');
+insert into [Types] ([Name]) values ('Zamit');
+insert into [Types] ([Name]) values ('Tampflex');
+insert into [Types] ([Name]) values ('It');
+insert into [Types] ([Name]) values ('Tempsoft');
+insert into [Types] ([Name]) values ('Zathin');
+insert into [Types] ([Name]) values ('Quo Lux');
+insert into [Types] ([Name]) values ('Span');
+insert into [Types] ([Name]) values ('Ronstring');
+insert into [Types] ([Name]) values ('Gembucket');
+insert into [Types] ([Name]) values ('Temp');
+insert into [Types] ([Name]) values ('Opela');
+insert into [Types] ([Name]) values ('Tres-Zap');
+insert into [Types] ([Name]) values ('Zoolab');
+insert into [Types] ([Name]) values ('Voyatouch');
+insert into [Types] ([Name]) values ('Lotlux');
+insert into [Types] ([Name]) values ('Bigtax');
+insert into [Types] ([Name]) values ('Mat Lam Tam');
+insert into [Types] ([Name]) values ('Duobam');
+insert into [Types] ([Name]) values ('Sonair');
+insert into [Types] ([Name]) values ('Sonsing');
+insert into [Types] ([Name]) values ('Hatity');
+insert into [Types] ([Name]) values ('Biodex');
+insert into [Types] ([Name]) values ('Sonair');
+insert into [Types] ([Name]) values ('Konklab');
+insert into [Types] ([Name]) values ('Stringtough');
+insert into [Types] ([Name]) values ('Stringtough');
+insert into [Types] ([Name]) values ('Konklab');
+insert into [Types] ([Name]) values ('Keylex');
+insert into [Types] ([Name]) values ('Zamit');
+insert into [Types] ([Name]) values ('Wrapsafe');
+insert into [Types] ([Name]) values ('Zontrax');
+insert into [Types] ([Name]) values ('Sonair');
+insert into [Types] ([Name]) values ('Lotstring');
+insert into [Types] ([Name]) values ('Ventosanzap');
+insert into [Types] ([Name]) values ('Solarbreeze');
+insert into [Types] ([Name]) values ('Latlux');
+insert into [Types] ([Name]) values ('Flexidy');
+insert into [Types] ([Name]) values ('Rank');
+insert into [Types] ([Name]) values ('Alphazap');
+insert into [Types] ([Name]) values ('Cardify');
+insert into [Types] ([Name]) values ('Opela');
+
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Alpha', 6611, 32, 1);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Rank', 7260, 3, 2);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Andalax', 2717, 7, 3);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Keylex', 6660, 16, 4);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Gembucket', 2910, 11, 5);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Zoolab', 7297, 31, 6);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Trippledex', 7317, 6, 7);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Zoolab', 627, 26, 8);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Domainer', 8000, 38, 9);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Cardify', 1443, 31, 10);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Bitwolf', 3412, 33, 11);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Treeflex', 2472, 5, 12);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Zaam-Dox', 6937, 40, 13);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Konklab', 2739, 14, 14);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Stim', 5304, 24, 15);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Alphazap', 2761, 33, 16);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Hatity', 5162, 30, 17);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Flowdesk', 2112, 22, 18);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Asoka', 1168, 4, 19);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Stringtough', 7829, 1, 20);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Tampflex', 5890, 24, 21);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Redhold', 5144, 49, 22);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Fintone', 1384, 7, 23);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Toughjoyfax', 2334, 7, 24);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Sonsing', 5849, 33, 25);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Flexidy', 6477, 32, 26);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Span', 604, 2, 27);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Bamity', 3013, 16, 28);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Tresom', 4480, 38, 29);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Zontrax', 508, 48, 30);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Voyatouch', 6647, 44, 31);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Daltfresh', 1124, 12, 32);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Fintone', 2007, 44, 33);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Lotstring', 3965, 1, 34);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Hatity', 2810, 16, 35);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Kanlam', 3123, 9, 36);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Voltsillam', 6058, 34, 37);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Biodex', 3353, 6, 38);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Tampflex', 1132, 48, 39);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Asoka', 4277, 24, 40);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Aerified', 3770, 14, 41);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Ventosanzap', 3, 8, 42);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Sonair', 968, 27, 43);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Cardify', 6409, 27, 44);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Fintone', 5201, 42, 45);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Fixflex', 6424, 6, 46);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Cardguard', 5638, 28, 47);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Alphazap', 5731, 50, 48);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Matsoft', 1373, 47, 49);
+insert into [Clothes] ([Name], [Picture], [UserId], [TypeId]) values ('Veribet', 1183, 9, 50);
 
 insert into [Colors] ([Name]) values ('Indigo');
 insert into [Colors] ([Name]) values ('Orange');
@@ -271,57 +315,6 @@ insert into [Colors] ([Name]) values ('Orange');
 insert into [Colors] ([Name]) values ('Pink');
 insert into [Colors] ([Name]) values ('Yellow');
 insert into [Colors] ([Name]) values ('Mauv');
-
-insert into [Types] ([Name]) values ('Fixflex');
-insert into [Types] ([Name]) values ('Zoolab');
-insert into [Types] ([Name]) values ('Alpha');
-insert into [Types] ([Name]) values ('Konklab');
-insert into [Types] ([Name]) values ('Rank');
-insert into [Types] ([Name]) values ('Domainer');
-insert into [Types] ([Name]) values ('Alpha');
-insert into [Types] ([Name]) values ('Y-find');
-insert into [Types] ([Name]) values ('Bytecard');
-insert into [Types] ([Name]) values ('Zamit');
-insert into [Types] ([Name]) values ('Tampflex');
-insert into [Types] ([Name]) values ('It');
-insert into [Types] ([Name]) values ('Tempsoft');
-insert into [Types] ([Name]) values ('Zathin');
-insert into [Types] ([Name]) values ('Quo Lux');
-insert into [Types] ([Name]) values ('Span');
-insert into [Types] ([Name]) values ('Ronstring');
-insert into [Types] ([Name]) values ('Gembucket');
-insert into [Types] ([Name]) values ('Temp');
-insert into [Types] ([Name]) values ('Opela');
-insert into [Types] ([Name]) values ('Tres-Zap');
-insert into [Types] ([Name]) values ('Zoolab');
-insert into [Types] ([Name]) values ('Voyatouch');
-insert into [Types] ([Name]) values ('Lotlux');
-insert into [Types] ([Name]) values ('Bigtax');
-insert into [Types] ([Name]) values ('Mat Lam Tam');
-insert into [Types] ([Name]) values ('Duobam');
-insert into [Types] ([Name]) values ('Sonair');
-insert into [Types] ([Name]) values ('Sonsing');
-insert into [Types] ([Name]) values ('Hatity');
-insert into [Types] ([Name]) values ('Biodex');
-insert into [Types] ([Name]) values ('Sonair');
-insert into [Types] ([Name]) values ('Konklab');
-insert into [Types] ([Name]) values ('Stringtough');
-insert into [Types] ([Name]) values ('Stringtough');
-insert into [Types] ([Name]) values ('Konklab');
-insert into [Types] ([Name]) values ('Keylex');
-insert into [Types] ([Name]) values ('Zamit');
-insert into [Types] ([Name]) values ('Wrapsafe');
-insert into [Types] ([Name]) values ('Zontrax');
-insert into [Types] ([Name]) values ('Sonair');
-insert into [Types] ([Name]) values ('Lotstring');
-insert into [Types] ([Name]) values ('Ventosanzap');
-insert into [Types] ([Name]) values ('Solarbreeze');
-insert into [Types] ([Name]) values ('Latlux');
-insert into [Types] ([Name]) values ('Flexidy');
-insert into [Types] ([Name]) values ('Rank');
-insert into [Types] ([Name]) values ('Alphazap');
-insert into [Types] ([Name]) values ('Cardify');
-insert into [Types] ([Name]) values ('Opela');
 
 insert into [OutfitsClothes] ([OutfitId], [ClotheId]) values (7, 29);
 insert into [OutfitsClothes] ([OutfitId], [ClotheId]) values (43, 34);
@@ -424,54 +417,3 @@ insert into [ClothesColors] ([ClotheId], [ColorId]) values (22, 46);
 insert into [ClothesColors] ([ClotheId], [ColorId]) values (19, 19);
 insert into [ClothesColors] ([ClotheId], [ColorId]) values (17, 42);
 insert into [ClothesColors] ([ClotheId], [ColorId]) values (20, 2);
-
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (27, 41);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (47, 32);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (10, 47);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (25, 40);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (35, 9);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (46, 29);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (46, 35);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (44, 7);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (12, 36);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (8, 4);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (17, 16);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (8, 13);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (6, 45);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (21, 35);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (47, 31);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (9, 37);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (28, 41);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (46, 30);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (12, 43);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (7, 40);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (14, 45);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (50, 10);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (7, 1);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (49, 17);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (8, 25);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (35, 44);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (10, 25);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (44, 40);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (34, 25);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (37, 13);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (36, 20);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (29, 40);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (31, 47);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (10, 31);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (49, 19);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (18, 33);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (28, 21);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (6, 9);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (28, 20);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (47, 7);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (26, 19);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (20, 14);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (7, 33);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (1, 45);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (18, 40);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (8, 34);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (4, 15);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (37, 23);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (7, 38);
-insert into [ClothesTypes] ([ClotheId], [TypeId]) values (4, 21);

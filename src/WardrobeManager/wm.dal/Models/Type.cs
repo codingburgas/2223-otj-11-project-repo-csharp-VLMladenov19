@@ -14,4 +14,7 @@ public partial class Type
     [StringLength(50)]
     [Unicode(false)]
     public string Name { get; set; } = null!;
+
+    [InverseProperty("Type")]
+    public virtual ICollection<Clothe> Clothes { get; } = new List<Clothe>();
 }

@@ -14,6 +14,8 @@ namespace wm.console.ClotheMenu
             Console.WriteLine("============  Add Clothing  ============");
             Console.WriteLine();
 
+            // name
+            // type
             //(id);
 
             Console.WriteLine($"\n{"Press a key to back to Clothes List",38}");
