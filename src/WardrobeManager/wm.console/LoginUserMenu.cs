@@ -8,7 +8,7 @@ using wm.bll;
 
 namespace wm.console
 {
-    public class LoginMenu
+    public class LoginUserMenu
     {
         public static void Print()
         {
@@ -29,10 +29,13 @@ namespace wm.console
                 Print();
             }
 
+            var userId = UserService.GetUserIdByUsername(username);
+
             Console.WriteLine($"\n{"User Logged In",27}");
-            Console.WriteLine("========================================");
+            Console.WriteLine($"\n{"Press a key to go see your clothes",37}");
+            Console.WriteLine($"\n========================================");
             Console.ReadKey();
-            MainMenu.Print();
+            ClothesListMenu.Print(userId);
         }
 
         private static string InsertUsername()

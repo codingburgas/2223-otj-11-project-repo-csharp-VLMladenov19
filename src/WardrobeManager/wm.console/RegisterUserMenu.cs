@@ -8,73 +8,45 @@ using wm.bll;
 
 namespace wm.console
 {
-    public class UpdateMenu
+    public class RegisterUserMenu
     {
         public static void Print()
         {
             Console.Clear();
-            Console.WriteLine("===============  Update  ===============");
+            Console.WriteLine("=============== Register ===============");
             Console.WriteLine($"{"Type [B] to go back to Main Menu",36}\n");
 
-            string oldUsername = InsertOldUsername();
-            string newUsername = InsertNewUsername();
-            string newPassword = InsertNewPassword();
-            string newFName = InsertNewFirstName();
-            string newLName = InsertNewLastName();
-            string newPhone = InsertNewPhone();
-            string newEmail = InsertNewEmail();
+            string username = InsertUsername();
+            string password = InsertPassword();
+            string fName = InsertFirstName();
+            string lName = InsertLastName();
+            string phone = InsertPhone();
+            string email = InsertEmail();
 
-            UserService.UpdateUser(oldUsername, newUsername, newPassword, newFName, newLName, newPhone, newEmail);
+            UserService.RegisterUser(username, password, fName, lName, phone, email);
 
-            Console.WriteLine($"\n{"User Updated",26}");
-            Console.WriteLine($"\n{"Press a key to go to Main Menu",35}");
+            Console.WriteLine($"\n{"User Registered",28}");
+            Console.WriteLine($"\n{"Press a key to go to Main Menu", 35}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey();
             MainMenu.Print();
         }
 
-        private static string InsertOldUsername()
+        private static string InsertUsername()
         {
             Console.Write($"{"Username: ",20}");
             var username = Console.ReadLine();
 
-            if (username.ToUpper() == "B")
-            {
-                MainMenu.Print();
-            }
-
-            if (username.IsNullOrEmpty())
-            {
-                Console.WriteLine($"\n{"Username is required",30}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                Print();
-            }
-            if (UserService.GetUserIdByUsername(username) == -1)
-            {
-                Console.WriteLine($"\n{"User does not exist",29}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                Print();
-            }
-
-            return username;
-        }
-        private static string InsertNewUsername()
-        {
-            Console.Write($"{"Username: ",20}");
-            var username = Console.ReadLine();
-
-            if (username.ToUpper() == "B")
+            if(username.ToUpper() == "B") 
             {
                 MainMenu.Print();
             }
 
             while (UserService.CheckUsername(username) != 0)
             {
-                if (UserService.CheckUsername(username) == 1)
+                if(UserService.CheckUsername(username) == 1)
                 {
-                    Console.WriteLine($"\n{"Username is required",30}");
+                    Console.WriteLine($"\n{"Username is required", 30}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
@@ -97,13 +69,13 @@ namespace wm.console
             return username;
         }
 
-        private static string InsertNewPassword()
+        private static string InsertPassword()
         {
             Console.Write($"{"Password: ",20}");
             var password = Console.ReadLine();
             while (UserService.CheckPassword(password) != 0)
             {
-                if (UserService.CheckPassword(password) == 1)
+                if(UserService.CheckPassword(password) == 1)
                 {
                     Console.WriteLine($"\n{"Password is required",30}");
                     Console.WriteLine($"\n========================================");
@@ -112,28 +84,28 @@ namespace wm.console
                 }
                 if (UserService.CheckPassword(password) == 2)
                 {
-                    Console.WriteLine($"\n{"Password needs to be 4 to 12 characters",0}");
+                    Console.WriteLine($"\n{"Password needs to be 4 to 12 characters", 0}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
                 }
                 if (UserService.CheckPassword(password) == 3)
                 {
-                    Console.WriteLine($"\n{"String has empty characters",34}");
+                    Console.WriteLine($"\n{"String has empty characters", 34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
                 }
                 if (UserService.CheckPassword(password) == 4)
                 {
-                    Console.WriteLine($"\n{"Password must have a number",34}");
+                    Console.WriteLine($"\n{"Password must have a number", 34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
                 }
                 if (UserService.CheckPassword(password) == 5)
                 {
-                    Console.WriteLine($"\n{"Password has special symbols",34}");
+                    Console.WriteLine($"\n{"Password has special symbols", 34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
@@ -142,7 +114,7 @@ namespace wm.console
             return password;
         }
 
-        private static string InsertNewFirstName()
+        private static string InsertFirstName()
         {
             Console.Write($"{"First Name: ",22}");
             var firstName = Console.ReadLine();
@@ -166,7 +138,7 @@ namespace wm.console
             return firstName;
         }
 
-        private static string InsertNewLastName()
+        private static string InsertLastName()
         {
             Console.Write($"{"Last Name: ",21}");
             var lastName = Console.ReadLine();
@@ -190,7 +162,7 @@ namespace wm.console
             return lastName;
         }
 
-        private static string InsertNewPhone()
+        private static string InsertPhone()
         {
             Console.Write($"{"Phone: ",17}");
             var phone = Console.ReadLine();
@@ -221,7 +193,7 @@ namespace wm.console
             return phone;
         }
 
-        private static string InsertNewEmail()
+        private static string InsertEmail()
         {
             Console.Write($"{"Email: ",17}");
             var email = Console.ReadLine();

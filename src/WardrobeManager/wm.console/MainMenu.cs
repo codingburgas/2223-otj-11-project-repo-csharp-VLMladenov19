@@ -13,16 +13,17 @@ namespace wm.console
         {
             Console.Clear();
 
-            Console.WriteLine("[R] Register   [L] Login   [U] Update   [B] Back");
+            Console.WriteLine("[R] Register   [L] Login   [U] Update   [D] Delete   [B] Back");
             while(true)
             {
                 var input = Char.ToUpper(Console.ReadKey().KeyChar);
 
                 switch (input)
                 {
-                    case 'R': RegisterMenu.Print(); break;
-                    case 'L': LoginMenu.Print(); break;
-                    case 'U': UpdateMenu.Print(); break;
+                    case 'R': RegisterUserMenu.Print(); break;
+                    case 'L': LoginUserMenu.Print(); break;
+                    case 'U': UpdateUserMenu.Print(); break;
+                    case 'D': DeleteUserMenu.Print(); break;
                     case 'B': Environment.Exit(0); break;
                     default:
                         break;
