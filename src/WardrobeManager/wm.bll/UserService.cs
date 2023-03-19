@@ -64,9 +64,10 @@ namespace wm.bll
             UserRepository.UpdateUser(oldUsername, newUser);
         }
 
-        public static void DeleteUser(int id)
+        public static void DeleteUser(int userId)
         {
-            UserRepository.DeleteUser(id);
+            ClotheService.RemoveClotingByUserId(userId);
+            UserRepository.DeleteUser(userId);
         }
 
         public static int GetUserIdByUsername(string username)

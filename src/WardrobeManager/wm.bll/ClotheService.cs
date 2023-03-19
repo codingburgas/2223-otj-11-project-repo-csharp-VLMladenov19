@@ -29,18 +29,35 @@ namespace wm.bll
 
         public static int GetClothingId(string name, int userId)
         {
-            var user = GetClothesByUserId(userId).FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
+            var clothing = GetClothesByUserId(userId).FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
 
-            if(user == null)
+            if(clothing == null)
             {
                 return -1;
             }
-            return user.Id;
+            return clothing.Id;
         }
 
         public static void RemoveClothing(int clothingId)
         {
+            ColorBridgeRepository.RemoveAllByClotheId(clothingId);
+            OutfitBridgeRepository.RemoveAllByClotheId(clothingId);
             ClotheRepository.RemoveClothing(clothingId);
+        }
+
+        public static void RemoveClotingByUserId(int userId)
+        {
+            var clothing = ClotheRepository.GetAllClothes()
+                    .Where(c => c.UserId == userId)
+                    .ToList();
+
+            if (!clothing.IsNullOrEmpty())
+            {
+                foreach (var c in clothing)
+                {
+                    RemoveClothing(c.Id);
+                }
+            }
         }
     }
 }

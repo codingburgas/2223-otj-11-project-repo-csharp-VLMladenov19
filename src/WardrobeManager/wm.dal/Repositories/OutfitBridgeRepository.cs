@@ -22,9 +22,9 @@ namespace wm.dal.Repositories
             }
         }
 
-        public static void RemoveAllByUserId(int userId)
+        public static void RemoveAllByClotheId(int clotheId)
         {
-            var bridgeList = GetAllByClotheId(userId);
+            var bridgeList = GetAllByClotheId(clotheId);
             foreach (var c in bridgeList)
             {
                 RemoveRow(c);

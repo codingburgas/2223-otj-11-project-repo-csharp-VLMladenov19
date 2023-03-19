@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,18 +32,15 @@ namespace wm.dal.Repositories
             }
         }
 
-        public static void RemoveClothing(int id)
+        public static void RemoveClothing(int clotheId)
         {
             using (var context = new WardrobeManagerContext())
             {
                 var clothing = context.Clothes
-                    .FirstOrDefault(c => c.Id == id);
+                    .FirstOrDefault(c => c.Id == clotheId);
 
                 if(clothing != null)
                 {
-                    ColorBridgeRepository.RemoveAllByUserId(id);
-                    OutfitBridgeRepository.RemoveAllByUserId(id);
-
                     context.Clothes.Remove(clothing);
 
                     context.SaveChanges();
