@@ -35,18 +35,18 @@ namespace wm.dal.Repositories
         {
             using (var context = new WardrobeManagerContext())
             {
-                var clothing = context.Clothes.FirstOrDefault(c => c.Id == id);
-                var colorsBridge = context.ClothesColors
-                    .Where(i => i.ClotheId == id)
-                    .ToList();
-                foreach (var row in colorsBridge)
+                var clothing = context.Clothes
+                    .FirstOrDefault(c => c.Id == id);
+
+                if(clothing != null)
                 {
-                    context.ClothesColors.Remove(row);
+                    ColorBridgeRepository.RemoveAllByUserId(id);
+                    OutfitBridgeRepository.RemoveAllByUserId(id);
+
+                    context.Clothes.Remove(clothing);
+
+                    context.SaveChanges();
                 }
-
-                context.Clothes.Remove(clothing);
-
-                context.SaveChanges();
             }
         }
     }

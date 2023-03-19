@@ -25,16 +25,9 @@ namespace wm.console.ClotheMenu
             }
 
             string name = InsertName(userId);
-            int clothingId = ClotheService.GetClothingId(name, userId);
 
+            int clothingId = ClotheService.GetClothingId(name, userId);
             if (clothingId == -1)
-            {
-                Console.WriteLine($"\n{"User has no clothes",29}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                ClothesListMenu.Print(userId);
-            }
-            if (clothingId == -2)
             {
                 Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
                 Console.WriteLine($"\n========================================");

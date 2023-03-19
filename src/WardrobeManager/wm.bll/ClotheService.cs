@@ -29,17 +29,11 @@ namespace wm.bll
 
         public static int GetClothingId(string name, int userId)
         {
-            var usersList = GetClothesByUserId(userId);
+            var user = GetClothesByUserId(userId).FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
 
-            if(usersList.IsNullOrEmpty())
-            {
-                return -1;
-            }
-
-            var user = usersList.FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
             if(user == null)
             {
-                return -2;
+                return -1;
             }
             return user.Id;
         }

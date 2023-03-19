@@ -9,6 +9,18 @@ namespace wm.dal.Models;
 [Keyless]
 public partial class ClothesColor
 {
+    public ClothesColor()
+    {
+    }
+
+    public ClothesColor(int clotheId, int colorId, Clothe clothe, Color color)
+    {
+        ClotheId = clotheId;
+        ColorId = colorId;
+        Clothe = clothe;
+        Color = color;
+    }
+
     public int? ClotheId { get; set; }
 
     public int? ColorId { get; set; }
