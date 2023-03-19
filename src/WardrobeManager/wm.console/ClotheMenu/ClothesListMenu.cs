@@ -6,32 +6,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.dal.Models;
 
-namespace wm.console
+namespace wm.console.ClotheMenu
 {
     public class ClothesListMenu
     {
-        public static void Print(int id)
+        public static void Print(int userId)
         {
             Console.Clear();
             Console.WriteLine("============  Clothes List  ============");
             Console.WriteLine();
 
-            PrintClothesListByUserId(id);
+            PrintClothesListByUserId(userId);
 
-            Console.WriteLine($"\n{"Press a key to go to Main Menu",35}");
+            Console.WriteLine($"\n{"Press [A] key to Add new Clothes",36}");
+            Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
-            Console.ReadKey();
-            MainMenu.Print();
+
+            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            if (input == 'A')
+                AddClothingMenu.Print(userId);
+            else
+                MainMenu.Print();
         }
 
         private static void PrintClothesListByUserId(int userId)
         {
             var clothes = ClotheService.GetClothesByUserId(userId);
 
-            foreach(var item in clothes)
+            foreach (var item in clothes)
             {
-                Console.WriteLine($"{item.Name, 28}");
+                Console.WriteLine($"{item.Name,28}");
             }
         }
     }

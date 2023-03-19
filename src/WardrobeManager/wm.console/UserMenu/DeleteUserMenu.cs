@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 
-namespace wm.console
+namespace wm.console.UserMenu
 {
     public class DeleteUserMenu
     {
@@ -33,7 +33,7 @@ namespace wm.console
             UserService.DeleteUser(userId);
 
             Console.WriteLine($"\n{"User Deleted",26}");
-            Console.WriteLine($"\n{"Press a key to go to Main Menu",35}");
+            Console.WriteLine($"\n{"Press a key to back to Main Menu",36}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey();
             MainMenu.Print();

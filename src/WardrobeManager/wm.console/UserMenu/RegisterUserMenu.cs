@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 
-namespace wm.console
+namespace wm.console.UserMenu
 {
     public class RegisterUserMenu
     {
@@ -26,7 +26,7 @@ namespace wm.console
             UserService.RegisterUser(username, password, fName, lName, phone, email);
 
             Console.WriteLine($"\n{"User Registered",28}");
-            Console.WriteLine($"\n{"Press a key to go to Main Menu", 35}");
+            Console.WriteLine($"\n{"Press a key to back to Main Menu",36}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey();
             MainMenu.Print();
@@ -37,16 +37,16 @@ namespace wm.console
             Console.Write($"{"Username: ",20}");
             var username = Console.ReadLine();
 
-            if(username.ToUpper() == "B") 
+            if (username.ToUpper() == "B")
             {
                 MainMenu.Print();
             }
 
             while (UserService.CheckUsername(username) != 0)
             {
-                if(UserService.CheckUsername(username) == 1)
+                if (UserService.CheckUsername(username) == 1)
                 {
-                    Console.WriteLine($"\n{"Username is required", 30}");
+                    Console.WriteLine($"\n{"Username is required",30}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
@@ -75,7 +75,7 @@ namespace wm.console
             var password = Console.ReadLine();
             while (UserService.CheckPassword(password) != 0)
             {
-                if(UserService.CheckPassword(password) == 1)
+                if (UserService.CheckPassword(password) == 1)
                 {
                     Console.WriteLine($"\n{"Password is required",30}");
                     Console.WriteLine($"\n========================================");
@@ -84,28 +84,28 @@ namespace wm.console
                 }
                 if (UserService.CheckPassword(password) == 2)
                 {
-                    Console.WriteLine($"\n{"Password needs to be 4 to 12 characters", 0}");
+                    Console.WriteLine($"\n{"Password needs to be 4 to 12 characters",0}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
                 }
                 if (UserService.CheckPassword(password) == 3)
                 {
-                    Console.WriteLine($"\n{"String has empty characters", 34}");
+                    Console.WriteLine($"\n{"String has empty characters",34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
                 }
                 if (UserService.CheckPassword(password) == 4)
                 {
-                    Console.WriteLine($"\n{"Password must have a number", 34}");
+                    Console.WriteLine($"\n{"Password must have a number",34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
                 }
                 if (UserService.CheckPassword(password) == 5)
                 {
-                    Console.WriteLine($"\n{"Password has special symbols", 34}");
+                    Console.WriteLine($"\n{"Password has special symbols",34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();

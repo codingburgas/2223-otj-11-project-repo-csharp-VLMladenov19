@@ -8,18 +8,6 @@ namespace wm.console
         static void Main(string[] args)
         {
             MainMenu.Print();
-
-            //UserService.RegisterUser();
-
-            //string change = Console.ReadLine();
-            //UserService.UpdateUser(change, "vase", "change", "change", "change", 2, "change");
-
-            //string delete = Console.ReadLine();
-            //UserService.DeleteUser(UserService.GetUserIdByUsername(delete));
-
-            //string Username = Console.ReadLine();
-            //string Password = Console.ReadLine();
-            //Console.WriteLine(UserService.VerifyUser(Username, Password) ? "exists" : "doesn't exist");
         }
     }
 }

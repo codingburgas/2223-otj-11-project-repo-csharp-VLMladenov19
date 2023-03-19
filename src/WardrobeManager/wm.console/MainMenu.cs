@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.console.UserMenu;
 
 namespace wm.console
 {

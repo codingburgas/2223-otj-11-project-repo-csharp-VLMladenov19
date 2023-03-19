@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 
-namespace wm.console
+namespace wm.console.UserMenu
 {
     public class UpdateUserMenu
     {

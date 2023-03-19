@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.console.ClotheMenu;
 
-namespace wm.console
+namespace wm.console.UserMenu
 {
     public class LoginUserMenu
     {
@@ -14,7 +15,7 @@ namespace wm.console
         {
             Console.Clear();
             Console.WriteLine("===============  Log In  ===============");
-            Console.WriteLine($"{"Type [B] to go back to Main Menu", 36}\n");
+            Console.WriteLine($"{"Type [B] to go back to Main Menu",36}\n");
 
             string username = InsertUsername();
             string password = InsertPassword();
@@ -32,10 +33,15 @@ namespace wm.console
             var userId = UserService.GetUserIdByUsername(username);
 
             Console.WriteLine($"\n{"User Logged In",27}");
-            Console.WriteLine($"\n{"Press a key to go see your clothes",37}");
+            Console.WriteLine($"\n{"Press [C] key to go see your clothes",38}");
+            Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
-            Console.ReadKey();
-            ClothesListMenu.Print(userId);
+
+            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            if (input == 'C')
+                ClothesListMenu.Print(userId);
+            else
+                MainMenu.Print();
         }
 
         private static string InsertUsername()
@@ -63,7 +69,7 @@ namespace wm.console
         {
             Console.Write($"{"Password: ",20}");
             var password = Console.ReadLine();
-            if(password.IsNullOrEmpty())
+            if (password.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Password is required",30}");
                 Console.WriteLine($"\n========================================");
