@@ -21,7 +21,7 @@ namespace wm.bll
         public static int GetTypeIdByTypeName(string name)
         {
             var type = TypeRepository.GetAllTypes()
-                .FirstOrDefault(t => t.Name == name);
+                .FirstOrDefault(t => t.Name.ToUpper() == name.ToUpper());
 
             if(type == null)
             {

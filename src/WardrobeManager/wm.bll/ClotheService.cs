@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,28 @@ namespace wm.bll
             var clothe = new Clothe(name, userId, typeId);
 
             ClotheRepository.AddClothe(clothe);
+        }
+
+        public static int GetClothingId(string name, int userId)
+        {
+            var usersList = GetClothesByUserId(userId);
+
+            if(usersList.IsNullOrEmpty())
+            {
+                return -1;
+            }
+
+            var user = usersList.FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
+            if(user == null)
+            {
+                return -2;
+            }
+            return user.Id;
+        }
+
+        public static void RemoveClothing(int clothingId)
+        {
+            ClotheRepository.RemoveClothing(clothingId);
         }
     }
 }

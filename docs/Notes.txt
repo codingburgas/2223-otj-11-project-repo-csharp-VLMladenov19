@@ -14,3 +14,4 @@ Should I separate function to different classes in the UserService class
 Exception handling - Registration
 MainMenu.cs case 'B': Environment.Exit(0); ? is it good
 Unit testing with function that read from console (Console.ReadLine())
+Add bridge table row deletion when a row is deleted

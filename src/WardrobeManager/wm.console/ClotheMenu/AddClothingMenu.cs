@@ -31,10 +31,15 @@ namespace wm.console.ClotheMenu
             ClotheService.AddClothing(name, userId, typeId);
 
             Console.WriteLine($"\n{"Clothing Added",27}");
-            Console.WriteLine($"{"Press a key to back to Clothes List",38}");
+            Console.WriteLine($"\n{"Press [A] key to Add new Clothes",36}");
+            Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
-            Console.ReadKey();
-            ClothesListMenu.Print(userId);
+
+            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            if (input == 'A')
+                AddClothingMenu.Print(userId);
+            else
+                ClothesListMenu.Print(userId);
         }
 
         private static string InsertName(int userId)
@@ -46,10 +51,16 @@ namespace wm.console.ClotheMenu
             {
                 MainMenu.Print();
             }
-
             if (name.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print(userId);
+            }
+            if (ClotheService.GetClothingId(name, userId) != -2)
+            {
+                Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
