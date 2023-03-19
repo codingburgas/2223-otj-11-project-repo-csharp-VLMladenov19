@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
 using Microsoft.EntityFrameworkCore;
 
 namespace wm.dal.Models;
 
-[Keyless]
 public partial class OutfitsClothe
 {
     public OutfitsClothe()
@@ -22,13 +20,18 @@ public partial class OutfitsClothe
         Outfit = outfit;
     }
 
-    public int? ClotheId { get; set; }
+    [Key]
+    public int Id { get; set; }
 
     public int? OutfitId { get; set; }
 
+    public int? ClotheId { get; set; }
+
     [ForeignKey("ClotheId")]
+    [InverseProperty("OutfitsClothes")]
     public virtual Clothe? Clothe { get; set; }
 
     [ForeignKey("OutfitId")]
+    [InverseProperty("OutfitsClothes")]
     public virtual Outfit? Outfit { get; set; }
 }

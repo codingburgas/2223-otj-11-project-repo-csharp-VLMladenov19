@@ -48,6 +48,7 @@ CREATE TABLE [Colors] (
 )
 
 CREATE TABLE [OutfitsClothes] (
+	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[OutfitId] int,
 	[ClotheId] int,
 	FOREIGN KEY ([OutfitId]) REFERENCES [Outfits]([Id]),
@@ -55,6 +56,7 @@ CREATE TABLE [OutfitsClothes] (
 )
 
 CREATE TABLE [ClothesColors] (
+	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[ClotheId] int,
 	[ColorId] int,
 	FOREIGN KEY ([ClotheId]) REFERENCES [Clothes]([Id]),

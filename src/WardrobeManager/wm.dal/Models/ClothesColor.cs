@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace wm.dal.Models;
 
-[Keyless]
 public partial class ClothesColor
 {
     public ClothesColor()
@@ -21,13 +20,18 @@ public partial class ClothesColor
         Color = color;
     }
 
+    [Key]
+    public int Id { get; set; }
+
     public int? ClotheId { get; set; }
 
     public int? ColorId { get; set; }
 
     [ForeignKey("ClotheId")]
+    [InverseProperty("ClothesColors")]
     public virtual Clothe? Clothe { get; set; }
 
     [ForeignKey("ColorId")]
+    [InverseProperty("ClothesColors")]
     public virtual Color? Color { get; set; }
 }

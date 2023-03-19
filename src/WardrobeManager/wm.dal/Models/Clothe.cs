@@ -31,6 +31,12 @@ public partial class Clothe
 
     public int? TypeId { get; set; }
 
+    [InverseProperty("Clothe")]
+    public virtual ICollection<ClothesColor> ClothesColors { get; } = new List<ClothesColor>();
+
+    [InverseProperty("Clothe")]
+    public virtual ICollection<OutfitsClothe> OutfitsClothes { get; } = new List<OutfitsClothe>();
+
     [ForeignKey("TypeId")]
     [InverseProperty("Clothes")]
     public virtual Type? Type { get; set; }

@@ -14,4 +14,7 @@ public partial class Color
     [StringLength(50)]
     [Unicode(false)]
     public string Name { get; set; } = null!;
+
+    [InverseProperty("Color")]
+    public virtual ICollection<ClothesColor> ClothesColors { get; } = new List<ClothesColor>();
 }

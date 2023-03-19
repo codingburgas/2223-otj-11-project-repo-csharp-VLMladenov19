@@ -38,7 +38,7 @@ public partial class WardrobeManagerContext : DbContext
     {
         modelBuilder.Entity<Models.Clothe>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Clothes__3214EC078B83DD45");
+            entity.HasKey(e => e.Id).HasName("PK__Clothes__3214EC07660B54A2");
 
             entity.HasOne(d => d.Type).WithMany(p => p.Clothes).HasConstraintName("FK__Clothes__TypeId__403A8C7D");
 
@@ -49,19 +49,21 @@ public partial class WardrobeManagerContext : DbContext
 
         modelBuilder.Entity<Models.ClothesColor>(entity =>
         {
-            entity.HasOne(d => d.Clothe).WithMany().HasConstraintName("FK__ClothesCo__Cloth__46E78A0C");
+            entity.HasKey(e => e.Id).HasName("PK__ClothesC__3214EC073731B2C8");
 
-            entity.HasOne(d => d.Color).WithMany().HasConstraintName("FK__ClothesCo__Color__47DBAE45");
+            entity.HasOne(d => d.Clothe).WithMany(p => p.ClothesColors).HasConstraintName("FK__ClothesCo__Cloth__48CFD27E");
+
+            entity.HasOne(d => d.Color).WithMany(p => p.ClothesColors).HasConstraintName("FK__ClothesCo__Color__49C3F6B7");
         });
 
         modelBuilder.Entity<Models.Color>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Colors__3214EC075AF19DA2");
+            entity.HasKey(e => e.Id).HasName("PK__Colors__3214EC07A537D872");
         });
 
         modelBuilder.Entity<Models.Outfit>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Outfits__3214EC07D6557CD7");
+            entity.HasKey(e => e.Id).HasName("PK__Outfits__3214EC078A733504");
 
             entity.HasOne(d => d.User).WithMany(p => p.Outfits)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -70,19 +72,21 @@ public partial class WardrobeManagerContext : DbContext
 
         modelBuilder.Entity<Models.OutfitsClothe>(entity =>
         {
-            entity.HasOne(d => d.Clothe).WithMany().HasConstraintName("FK__OutfitsCl__Cloth__44FF419A");
+            entity.HasKey(e => e.Id).HasName("PK__OutfitsC__3214EC07406AE2A7");
 
-            entity.HasOne(d => d.Outfit).WithMany().HasConstraintName("FK__OutfitsCl__Outfi__440B1D61");
+            entity.HasOne(d => d.Clothe).WithMany(p => p.OutfitsClothes).HasConstraintName("FK__OutfitsCl__Cloth__45F365D3");
+
+            entity.HasOne(d => d.Outfit).WithMany(p => p.OutfitsClothes).HasConstraintName("FK__OutfitsCl__Outfi__44FF419A");
         });
 
         modelBuilder.Entity<Models.Type>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Types__3214EC075727E55D");
+            entity.HasKey(e => e.Id).HasName("PK__Types__3214EC075E86F894");
         });
 
         modelBuilder.Entity<Models.User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC075FC174FE");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC074453D081");
         });
 
         OnModelCreatingPartial(modelBuilder);

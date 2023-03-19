@@ -19,6 +19,9 @@ public partial class Outfit
 
     public int UserId { get; set; }
 
+    [InverseProperty("Outfit")]
+    public virtual ICollection<OutfitsClothe> OutfitsClothes { get; } = new List<OutfitsClothe>();
+
     [ForeignKey("UserId")]
     [InverseProperty("Outfits")]
     public virtual User User { get; set; } = null!;
