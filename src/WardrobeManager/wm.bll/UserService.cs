@@ -67,6 +67,7 @@ namespace wm.bll
         public static void DeleteUser(int userId)
         {
             ClotheService.RemoveClotingByUserId(userId);
+            OutfitService.RemoveOutfitByUserId(userId);
             UserRepository.DeleteUser(userId);
         }
 

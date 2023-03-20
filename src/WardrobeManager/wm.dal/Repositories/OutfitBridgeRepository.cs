@@ -10,12 +10,24 @@ namespace wm.dal.Repositories
 {
     public class OutfitBridgeRepository
     {
-        public static List<OutfitsClothe> GetAllByClotheId(int id)
+        public static List<OutfitsClothe> GetAllByClotheId(int clotheId)
         {
             using (var context = new WardrobeManagerContext())
             {
                 var list = context.OutfitsClothes
-                    .Where(c => c.ClotheId == id)
+                    .Where(c => c.ClotheId == clotheId)
+                    .ToList();
+
+                return list;
+            }
+        }
+
+        public static List<OutfitsClothe> GetAllByOutfitId(int outfitId)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                var list = context.OutfitsClothes
+                    .Where(c => c.OutfitId == outfitId)
                     .ToList();
 
                 return list;
@@ -25,6 +37,15 @@ namespace wm.dal.Repositories
         public static void RemoveAllByClotheId(int clotheId)
         {
             var bridgeList = GetAllByClotheId(clotheId);
+            foreach (var c in bridgeList)
+            {
+                RemoveRow(c);
+            }
+        }
+
+        public static void RemoveAllByOutfitId(int outfitId)
+        {
+            var bridgeList = GetAllByOutfitId(outfitId);
             foreach (var c in bridgeList)
             {
                 RemoveRow(c);
