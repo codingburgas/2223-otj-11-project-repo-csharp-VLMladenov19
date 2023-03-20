@@ -21,7 +21,7 @@ namespace wm.console.ClotheMenu
 
             ColorsBridgeService.AddRow(userId, clotheName, colorName);
 
-            Console.WriteLine($"\n{"Clothing Added",27}");
+            Console.WriteLine($"\n{"Color Added",25}");
             Console.WriteLine($"{"Press [C] key to Add more Colors",36}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
@@ -78,9 +78,7 @@ namespace wm.console.ClotheMenu
             }
             if (ColorService.GetColorIdByName(name) == -1)
             {
-                Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n{"Color not found",28}");
-                Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);

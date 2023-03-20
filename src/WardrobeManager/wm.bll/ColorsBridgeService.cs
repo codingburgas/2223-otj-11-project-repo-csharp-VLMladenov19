@@ -16,7 +16,23 @@ namespace wm.bll
             var colorId = ColorService.GetColorIdByName(colorName);
 
             ClothesColor clothesColor = new ClothesColor(clotheId, colorId);
-            ColorBridgeRepository.AddRows(clothesColor);
+
+            if(RowExists(clothesColor))
+            {
+                return;
+            }
+            else
+            {
+                ColorBridgeRepository.AddRows(clothesColor);
+            }
+        }
+
+        public static bool RowExists(ClothesColor clothesColor)
+        {
+            var list = ColorBridgeRepository.GetAll();
+            bool flag = list.Any(c => c.ClotheId == clothesColor.ClotheId && c.ColorId == clothesColor.ColorId);
+
+            return flag;
         }
     }
 }
