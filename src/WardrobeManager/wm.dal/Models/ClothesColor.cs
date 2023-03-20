@@ -12,6 +12,12 @@ public partial class ClothesColor
     {
     }
 
+    public ClothesColor(int clotheId, int colorId)
+    {
+        ClotheId = clotheId;
+        ColorId = colorId;
+    }
+
     public ClothesColor(int clotheId, int colorId, Clothe clothe, Color color)
     {
         ClotheId = clotheId;

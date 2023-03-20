@@ -21,6 +21,7 @@ namespace wm.console.ClotheMenu
             PrintClothesListByUserId(userId);
 
             Console.WriteLine($"{"Press [A] key to Add new Clothes",36}");
+            Console.WriteLine($"{"Press [C] key to Add Colors",34}");
             Console.WriteLine($"{"Press [D] key to Remove Clothing",36}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
@@ -28,7 +29,9 @@ namespace wm.console.ClotheMenu
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             if (input == 'A')
                 AddClothingMenu.Print(userId);
-            if (input == 'D')
+            else if (input == 'C')
+                AddColorMenu.Print(userId);
+            else if (input == 'D')
                 RemoveClothingMenu.Print(userId);
             else
                 MainMenu.Print();

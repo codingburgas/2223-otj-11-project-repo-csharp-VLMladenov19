@@ -11,6 +11,24 @@ namespace wm.bll
 {
     public class ClotheService
     {
+        public static Clothe GetClotheById(int clotheId)
+        {
+            Clothe clothe = ClotheRepository.GetAllClothes().FirstOrDefault(c => c.Id == clotheId);
+
+            return clothe;
+        }
+
+        public static int GetClotheIdByNameAndUserID(string name, int userId)
+        {
+            var clotheId = GetClothesByUserId(userId).FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
+
+            if(clotheId == null)
+            {
+                return -1;
+            }
+            return clotheId.Id;
+        }
+
         public static List<Clothe> GetClothesByUserId(int userId)
         {
             var clothes = ClotheRepository.GetAllClothes()

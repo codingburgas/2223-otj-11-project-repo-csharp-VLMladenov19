@@ -11,6 +11,16 @@ namespace wm.dal.Repositories
 {
     public class ColorBridgeRepository
     {
+        public static List<ClothesColor> GetAll()
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                var list = context.ClothesColors
+                    .ToList();
+
+                return list;
+            }
+        }
         public static List<ClothesColor> GetAllByClotheId(int id)
         {
             using (var context = new WardrobeManagerContext())
@@ -39,6 +49,19 @@ namespace wm.dal.Repositories
                 if(clothesColor != null)
                 {
                     context.ClothesColors.Remove(clothesColor);
+
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static void AddRows(ClothesColor clothesColor)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                if(clothesColor != null)
+                {
+                    context.ClothesColors.Add(clothesColor);
 
                     context.SaveChanges();
                 }
