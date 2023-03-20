@@ -10,7 +10,7 @@ namespace wm.bll
 {
     public class OutfitService
     {
-        public static void RemoveClothing(int outfitId)
+        public static void RemoveOutfit(int outfitId)
         {
             OutfitBridgeRepository.RemoveAllByOutfitId(outfitId);
             OutfitRepository.RemoveOutfit(outfitId);
@@ -26,7 +26,7 @@ namespace wm.bll
             {
                 foreach (var c in outfits)
                 {
-                    RemoveClothing(c.Id);
+                    RemoveOutfit(c.Id);
                 }
             }
         }
