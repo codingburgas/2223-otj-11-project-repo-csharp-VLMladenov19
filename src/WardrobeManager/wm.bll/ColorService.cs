@@ -10,6 +10,13 @@ namespace wm.bll
 {
     public class ColorService
     {
+        public static List<Color> GetAll()
+        {
+            var list = ColorRepository.GetAll();
+
+            return list;
+        }
+
         public static int GetColorIdByName(string colorName)
         {
             var color = ColorRepository.GetAll().FirstOrDefault(c => c.Name.ToUpper() == colorName.ToUpper());

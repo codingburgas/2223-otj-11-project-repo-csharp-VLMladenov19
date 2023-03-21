@@ -10,6 +10,13 @@ namespace wm.bll
 {
     public class ColorsBridgeService
     {
+        public static List<ClothesColor> GetAll()
+        {
+            var list = ColorBridgeRepository.GetAll();
+
+            return list;
+        }
+
         public static void AddRow(int userId, string clotheName, string colorName)
         {
             var clotheId = ClotheService.GetClotheIdByNameAndUserID(clotheName, userId);

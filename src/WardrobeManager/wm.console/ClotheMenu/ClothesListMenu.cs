@@ -41,6 +41,8 @@ namespace wm.console.ClotheMenu
         {
             var clothes = ClotheService.GetClothesByUserId(userId);
             var types = TypeService.GetAllTypes();
+            var colors = ColorService.GetAll();
+            var colorBridge = ColorsBridgeService.GetAll();
 
             var joined = clothes
                 .Join(
@@ -49,13 +51,49 @@ namespace wm.console.ClotheMenu
                     t => t.Id,
                     (c, t) => new
                     {
+                        Id = c.Id,
                         Name = c.Name,
                         Type = t.Name
-                    });
+                    })
+                .Join(
+                    colorBridge,
+                    c => c.Id,
+                    cc => cc.ClotheId,
+                    (c, cc) => new
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Type = c.Type,
+                        ColorId = cc.ColorId
+                    })
+                .Join(
+                    colors,
+                    c => c.ColorId,
+                    co => co.Id,
+                    (c, co) => new
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Type = c.Name,
+                        Color = co.Name
+                    })
+                .ToList();
+
+            //var joined = clothes
+            //    .Join(types,
+            //    c => c.TypeId,
+            //    t => t.Id,
+            //    (c, t) => new
+            //    {
+            //        Id = c.Id,
+            //        ClotheName = c.Name,
+            //        Type = t.Name
+            //    })
+            //    .Join()
 
             foreach (var item in joined)
             {
-                Console.WriteLine($"{item.Name,18} : {item.Type}");
+                Console.WriteLine($"{item.Name,18} : {item.Type} : {item.Color}");
             }
             Console.WriteLine();
         }
