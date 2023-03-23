@@ -39,14 +39,14 @@ namespace wm.console.ClotheMenu
 
         private static void PrintClothesListByUserId(int userId)
         {
-            var clothes = ClotheService.GetClothesByUserId(userId);
-            var types = TypeService.GetAllTypes();
-            var colors = ColorService.GetAll();
-            var colorBridge = ColorsBridgeService.GetAll();
+            var clothesList = ClotheService.GetClothesByUserId(userId);
+            var typesList = TypeService.GetAllTypes();
+            var colorBridgeList = ColorsBridgeService.GetAll();
+            var colorsList = ColorService.GetAll();
 
-            var joined = clothes
+            var clothesTypesColors = clothesList
                 .Join(
-                    types,
+                    typesList,
                     c => c.TypeId,
                     t => t.Id,
                     (c, t) => new
@@ -56,7 +56,7 @@ namespace wm.console.ClotheMenu
                         Type = t.Name
                     })
                 .Join(
-                    colorBridge,
+                    colorBridgeList,
                     c => c.Id,
                     cc => cc.ClotheId,
                     (c, cc) => new
@@ -67,33 +67,65 @@ namespace wm.console.ClotheMenu
                         ColorId = cc.ColorId
                     })
                 .Join(
-                    colors,
+                    colorsList,
                     c => c.ColorId,
                     co => co.Id,
                     (c, co) => new
                     {
                         Id = c.Id,
                         Name = c.Name,
-                        Type = c.Name,
+                        Type = c.Type,
                         Color = co.Name
                     })
                 .ToList();
 
-            //var joined = clothes
-            //    .Join(types,
-            //    c => c.TypeId,
-            //    t => t.Id,
-            //    (c, t) => new
-            //    {
-            //        Id = c.Id,
-            //        ClotheName = c.Name,
-            //        Type = t.Name
-            //    })
-            //    .Join()
+            var dic = new Dictionary<string, List<string>>();
 
-            foreach (var item in joined)
+            foreach(var i in clothesTypesColors)
             {
-                Console.WriteLine($"{item.Name,18} : {item.Type} : {item.Color}");
+                if (dic.ContainsKey($"{i.Name} {i.Type}"))
+                {
+                    dic[$"{i.Name} {i.Type}"].Add(i.Color);
+                }
+                else
+                {
+                    dic[$"{i.Name} {i.Type}"] = new List<string> { i.Color };
+                }
+            }
+
+            var clothesTypes = clothesList
+                .Join(
+                    typesList,
+                    c => c.TypeId,
+                    t => t.Id,
+                    (c, t) => new
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Type = t.Name
+                    });
+
+            foreach (var i in clothesTypes)
+            {
+                if (dic.ContainsKey($"{i.Name} {i.Type}"))
+                {
+                    dic[$"{i.Name} {i.Type}"].Add(String.Empty);
+                }
+                else
+                {
+                    dic[$"{i.Name} {i.Type}"] = new List<string> { String.Empty };
+                }
+            }
+
+            foreach (var item in dic)
+            {
+                var valueList = item.Value
+                    .Where(c => !c.IsNullOrEmpty());
+                var joinedColors = String.Join(", ", valueList);
+                var colorTypes = item.Key.Split(" ");
+
+                Console.Write($"{colorTypes[0], 10} : {colorTypes[1]} : {joinedColors}");
+                Console.WriteLine();
             }
             Console.WriteLine();
         }
