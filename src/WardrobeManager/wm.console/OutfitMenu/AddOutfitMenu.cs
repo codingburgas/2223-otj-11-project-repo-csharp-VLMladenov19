@@ -16,7 +16,7 @@ namespace wm.console.OutfitMenu
         {
             Console.Clear();
             Console.WriteLine("============   Add Outfit   ============");
-            Console.WriteLine($"{"Type [B] to go back to Main Menu",36}\n");
+            Console.WriteLine($"{"Type [B] to go back",30}\n");
 
             string name = InsertName(userId);
             var date = DateTime.Today;
@@ -42,7 +42,7 @@ namespace wm.console.OutfitMenu
 
             if (name.ToUpper() == "B")
             {
-                MainMenu.Print();
+                OutfitsListMenu.Print(userId);
             }
             if (name.IsNullOrEmpty())
             {

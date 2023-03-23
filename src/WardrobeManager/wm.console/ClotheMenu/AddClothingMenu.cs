@@ -14,7 +14,7 @@ namespace wm.console.ClotheMenu
         {
             Console.Clear();
             Console.WriteLine("============  Add Clothing  ============");
-            Console.WriteLine($"{"Type [B] to go back to Main Menu",36}\n");
+            Console.WriteLine($"{"Type [B] to go back",30}\n");
 
             string name = InsertName(userId);
             string type = InsertType(userId);
@@ -49,7 +49,7 @@ namespace wm.console.ClotheMenu
 
             if (name.ToUpper() == "B")
             {
-                MainMenu.Print();
+                ClothesListMenu.Print(userId);
             }
             if (name.IsNullOrEmpty())
             {

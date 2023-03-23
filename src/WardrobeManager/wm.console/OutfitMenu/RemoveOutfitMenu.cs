@@ -15,7 +15,7 @@ namespace wm.console.OutfitMenu
         {
             Console.Clear();
             Console.WriteLine("============ Remove Outfit  ============");
-            Console.WriteLine($"{"Type [B] to go back to Main Menu",36}\n");
+            Console.WriteLine($"{"Type [B] to go back",30}\n");
 
             if (OutfitService.GetOutfitsByUserId(userId).IsNullOrEmpty())
             {
@@ -52,7 +52,7 @@ namespace wm.console.OutfitMenu
 
             if (name.ToUpper() == "B")
             {
-                MainMenu.Print();
+                OutfitsListMenu.Print(userId);
             }
             if (name.IsNullOrEmpty())
             {
