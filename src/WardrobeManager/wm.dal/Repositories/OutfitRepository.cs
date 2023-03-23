@@ -36,5 +36,15 @@ namespace wm.dal.Repositories
                 }
             }
         }
+
+        public static void AddOutfit(Outfit outfit)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                context.Outfits.Add(outfit);
+
+                context.SaveChanges();
+            }
+        }
     }
 }

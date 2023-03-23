@@ -18,9 +18,9 @@ namespace wm.console.ClotheMenu
             Console.WriteLine("============  Clothes List  ============");
             Console.WriteLine();
 
-            PrintClothesListByUserId(userId);
+            PrintClothesList(userId);
 
-            Console.WriteLine($"{"Press [A] key to Add new Clothes",36}");
+            Console.WriteLine($"\n{"Press [A] key to Add new Clothes",36}");
             Console.WriteLine($"{"Press [C] key to Add Colors",34}");
             Console.WriteLine($"{"Press [D] key to Remove Clothing",36}");
             Console.WriteLine($"{"or any other key to go back",34}");
@@ -37,7 +37,7 @@ namespace wm.console.ClotheMenu
                 MainMenu.Print();
         }
 
-        private static void PrintClothesListByUserId(int userId)
+        private static void PrintClothesList(int userId)
         {
             var clothesList = ClotheService.GetClothesByUserId(userId);
             var typesList = TypeService.GetAllTypes();
@@ -127,7 +127,6 @@ namespace wm.console.ClotheMenu
                 Console.Write($"{colorTypes[0], 10} : {colorTypes[1]} : {joinedColors}");
                 Console.WriteLine();
             }
-            Console.WriteLine();
         }
     }
 }

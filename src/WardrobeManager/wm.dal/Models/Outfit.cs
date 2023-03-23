@@ -8,6 +8,17 @@ namespace wm.dal.Models;
 
 public partial class Outfit
 {
+    public Outfit()
+    {
+    }
+
+    public Outfit(string name, DateTime date, int userId)
+    {
+        Name = name;
+        Date = date;
+        UserId = userId;
+    }
+
     [Key]
     public int Id { get; set; }
 
