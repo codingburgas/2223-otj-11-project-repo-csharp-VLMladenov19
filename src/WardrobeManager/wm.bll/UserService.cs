@@ -25,8 +25,8 @@ namespace wm.bll
             if (user != null)
             {
                 var saltedPassword = Password + user.Salt;
-                Password = HashPassword(saltedPassword);
-                if(user.Password == Password)
+                string hashedPass = HashPassword(saltedPassword);
+                if(user.Password == hashedPass)
                 {
                     verifyUser = true;
                 }
