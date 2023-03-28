@@ -71,7 +71,7 @@ namespace wm.console.ClotheMenu
             }
             if (name.IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"Name is required",28}");
+                Console.WriteLine($"\n{"Color is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);

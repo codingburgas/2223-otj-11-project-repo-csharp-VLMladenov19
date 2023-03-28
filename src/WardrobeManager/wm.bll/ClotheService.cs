@@ -91,5 +91,16 @@ namespace wm.bll
                 ColorBridgeRepository.RemoveAllByClotheId(clothing.Id);
             }
         }
+
+        public static void RemoveColorFromClothing(string clothingName, int colorId, int userId)
+        {
+            var clothingId = GetClotheIdByNameAndUserID(clothingName, userId);
+            var clotheColor = ColorBridgeRepository.GetAllByClotheId(clothingId).FirstOrDefault(c => c.ColorId == colorId);
+
+            if (clotheColor != null)
+            {
+                ColorBridgeRepository.RemoveRow(clotheColor);
+            }
+        }
     }
 }

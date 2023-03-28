@@ -24,6 +24,7 @@ namespace wm.console.ClotheMenu
             Console.WriteLine($"{"Press [C] key to Add Colors",34}");
             Console.WriteLine($"{"Press [D] key to Remove Clothing",36}");
             Console.WriteLine($"{"Press [E] key to Edit Clothing",35}");
+            Console.WriteLine($"{"Press [R] key to Remove Colors from a Clothing",43}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
@@ -36,6 +37,8 @@ namespace wm.console.ClotheMenu
                 RemoveClothingMenu.Print(userId);
             else if (input == 'E')
                 EditClothingMenu.Print(userId);
+            else if (input == 'R')
+                RemoveColorMenu.Print(userId);
             else
                 MainMenu.Print();
         }
