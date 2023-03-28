@@ -77,5 +77,19 @@ namespace wm.bll
                 }
             }
         }
+
+        public static void EditClothing(string oldClothingName, string newClothingName, int userId, int typeId)
+        {
+            var clothing = GetClotheById(GetClothingId(oldClothingName, userId));
+
+            if(clothing != null)
+            {
+                clothing.Name = newClothingName;
+                clothing.TypeId = typeId;
+
+                ClotheRepository.EditClothing(clothing);
+                ColorBridgeRepository.RemoveAllByClotheId(clothing.Id);
+            }
+        }
     }
 }
