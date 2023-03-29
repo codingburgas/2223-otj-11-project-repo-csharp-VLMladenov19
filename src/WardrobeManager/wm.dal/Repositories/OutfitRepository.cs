@@ -46,5 +46,22 @@ namespace wm.dal.Repositories
                 context.SaveChanges();
             }
         }
+
+        public static void EditOutfit(Outfit newOutfit)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                var oldOutfit = context.Outfits
+                    .FirstOrDefault(c => c.Id == newOutfit.Id);
+
+                if (oldOutfit != null)
+                {
+                    oldOutfit.Name = newOutfit.Name;
+                    oldOutfit.Date = newOutfit.Date;
+                }
+
+                context.SaveChanges();
+            }
+        }
     }
 }

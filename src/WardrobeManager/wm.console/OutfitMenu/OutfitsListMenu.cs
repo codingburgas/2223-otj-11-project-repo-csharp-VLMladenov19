@@ -21,6 +21,7 @@ namespace wm.console.OutfitMenu
 
             Console.WriteLine($"\n{"Press [P] key to See Clothes of Outfit",38}");
             Console.WriteLine($"{"Press [A] key to Create new Outfit",37}");
+            Console.WriteLine($"{"Press [E] key to Edit an Outfit",36}");
             Console.WriteLine($"{"Press [D] key to Delete an Outfit",37}");
             Console.WriteLine($"{"Press [C] key to Add Clothes",35}");
             Console.WriteLine($"{"or any other key to go back",34}");
@@ -31,6 +32,8 @@ namespace wm.console.OutfitMenu
                 PrintClothesByOutfitMenu.Print(userId);
             else if (input == 'A')
                 AddOutfitMenu.Print(userId);
+            else if (input == 'E')
+                EditOutfitMenu.Print(userId);
             else if (input == 'D')
                 RemoveOutfitMenu.Print(userId);
             else if (input == 'C')

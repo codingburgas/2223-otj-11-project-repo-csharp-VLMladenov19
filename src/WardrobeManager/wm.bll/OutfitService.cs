@@ -57,5 +57,19 @@ namespace wm.bll
 
             return outfits;
         }
+
+        public static void EditOutfit(string oldName, string newName, DateTime newDate, int userId)
+        {
+            var outfit = GetOutfitsByUserId(userId).FirstOrDefault(o => o.Id == GetOutfitId(oldName, userId));
+
+            if(outfit != null)
+            {
+                outfit.Name = newName;
+                outfit.Date = newDate;
+
+                OutfitRepository.EditOutfit(outfit);
+                OutfitBridgeRepository.RemoveAllByOutfitId(outfit.Id);
+            }
+        }
     }
 }
