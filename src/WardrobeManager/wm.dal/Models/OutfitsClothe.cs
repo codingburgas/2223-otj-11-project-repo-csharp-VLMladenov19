@@ -12,12 +12,18 @@ public partial class OutfitsClothe
     {
     }
 
-    public OutfitsClothe(int clotheId, int outfitId, Clothe clothe, Outfit outfit)
+    public OutfitsClothe(int outfitId, int clotheId)
     {
-        ClotheId = clotheId;
         OutfitId = outfitId;
-        Clothe = clothe;
+        ClotheId = clotheId;
+    }
+
+    public OutfitsClothe(int outfitId, int clotheId, Outfit outfit, Clothe clothe)
+    {
+        OutfitId = outfitId;
+        ClotheId = clotheId;
         Outfit = outfit;
+        Clothe = clothe;
     }
 
     [Key]

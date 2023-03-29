@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.console.ClotheMenu;
 
-namespace wm.console.ClotheMenu
+namespace wm.console.OutfitMenu
 {
-    public class AddClothingMenu
+    public class AddClothesToOutfitMenu
     {
         public static void Print(int userId)
         {
@@ -16,40 +17,31 @@ namespace wm.console.ClotheMenu
             Console.WriteLine("============  Add Clothing  ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
 
-            string name = InsertName(userId);
-            string type = InsertType(userId);
-            var typeId = TypeService.GetTypeIdByTypeName(type);
+            string outfitName = InsertOutfitName(userId);
+            string clotheName = InsertClothingName(userId);
 
-            if(typeId == -1)
-            {
-                Console.WriteLine($"\n{"Type does not exist",29}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                Print(userId);
-            }
-
-            ClotheService.AddClothing(name, userId, typeId);
+            OutfitService.AddClothing(outfitName, clotheName, userId);
 
             Console.WriteLine($"\n{"Clothing Added",27}");
-            Console.WriteLine($"{"Press [A] key to Add new Clothes",36}");
+            Console.WriteLine($"{"Press [C] key to Add Clothes",35}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
-            if (input == 'A')
-                AddClothingMenu.Print(userId);
+            if (input == 'C')
+                AddClothesToOutfitMenu.Print(userId);
             else
-                ClothesListMenu.Print(userId);
+                OutfitsListMenu.Print(userId);
         }
 
-        private static string InsertName(int userId)
+        private static string InsertOutfitName(int userId)
         {
-            Console.Write($"{"Name: ",22}");
+            Console.Write($"{"Outfit: ",23}");
             var name = Console.ReadLine();
 
             if (name.ToUpper() == "B")
             {
-                ClothesListMenu.Print(userId);
+                OutfitsListMenu.Print(userId);
             }
             if (name.IsNullOrEmpty())
             {
@@ -58,9 +50,9 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClothingId(name, userId) != -1)
+            if (OutfitService.GetOutfitId(name, userId) == -1)
             {
-                Console.WriteLine($"\n{"Name already in use",30}");
+                Console.WriteLine($"\n{"Outfit not found",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
@@ -69,25 +61,31 @@ namespace wm.console.ClotheMenu
             return name;
         }
 
-        private static string InsertType(int userId)
+        private static string InsertClothingName(int userId)
         {
-            Console.Write($"{"Type: ",22}");
-            var type = Console.ReadLine();
+            Console.Write($"{"Clothing: ",24}");
+            var name = Console.ReadLine();
 
-            if (type.ToUpper() == "B")
+            if (name.ToUpper() == "B")
             {
-                MainMenu.Print();
+                OutfitsListMenu.Print(userId);
             }
-
-            if (type.IsNullOrEmpty())
+            if (name.IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"Type is required",28}");
+                Console.WriteLine($"\n{"Name is required",28}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print(userId);
+            }
+            if (ClotheService.GetClothingId(name, userId) == -1)
+            {
+                Console.WriteLine($"\n{"Outfit not found",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
 
-            return type;
+            return name;
         }
     }
 }
