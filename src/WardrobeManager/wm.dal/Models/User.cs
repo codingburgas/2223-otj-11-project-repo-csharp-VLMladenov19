@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace wm.dal.Models;
 
-[Index("Username", Name = "UQ__Users__536C85E4C21953E1", IsUnique = true)]
+[Index("Username", Name = "UQ__Users__536C85E4BE1942C2", IsUnique = true)]
 public partial class User
 {
     public User()

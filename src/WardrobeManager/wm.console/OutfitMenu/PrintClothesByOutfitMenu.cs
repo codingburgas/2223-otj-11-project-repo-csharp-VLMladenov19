@@ -15,7 +15,7 @@ namespace wm.console.OutfitMenu
         {
             Console.Clear();
             Console.WriteLine("============     Outfit     ============");
-            Console.WriteLine();
+            Console.WriteLine($"{"Type [B] to go back",30}\n");
 
             string outfitName = InsertOutfitName(userId);
             PrintClothes(outfitName, userId);

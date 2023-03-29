@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace wm.dal.Models;
 
+[Index("Name", Name = "UQ__Colors__737584F620F7D463", IsUnique = true)]
 public partial class Color
 {
     [Key]

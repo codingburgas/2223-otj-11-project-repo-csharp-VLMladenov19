@@ -19,7 +19,9 @@ namespace wm.console.OutfitMenu
             Console.WriteLine($"{"Type [B] to go back",30}\n");
 
             string name = InsertName(userId);
-            var date = DateTime.Today;
+
+            Console.WriteLine($"\n{"Date syntax: DD.MM.YYYY",32}");
+            var date = InsertDate(userId);
 
             OutfitService.AddOutfit(name, date, userId);
 
@@ -60,6 +62,35 @@ namespace wm.console.OutfitMenu
             }
 
             return name;
+        }
+
+        private static DateTime InsertDate(int userId)
+        {
+            Console.Write($"{"Date: ",22}");
+            var date = Console.ReadLine();
+
+            if (date.ToUpper() == "B")
+            {
+                OutfitsListMenu.Print(userId);
+            }
+            if (date.IsNullOrEmpty())
+            {
+                Console.WriteLine($"\n{"Date is required",28}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print(userId);
+            }
+
+            DateTime parsedDate = DateTime.Parse(date);
+            if (parsedDate < DateTime.Now)
+            {
+                Console.WriteLine($"\n{"Date has already passed",32}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print(userId);
+            }
+
+            return parsedDate;
         }
     }
 }
