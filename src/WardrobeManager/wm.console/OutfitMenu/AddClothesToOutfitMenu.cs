@@ -20,7 +20,7 @@ namespace wm.console.OutfitMenu
             string outfitName = InsertOutfitName(userId);
             string clotheName = InsertClothingName(userId);
 
-            OutfitService.AddClothing(outfitName, clotheName, userId);
+            OutfitsBridgeService.AddRow(outfitName, clotheName, userId);
 
             Console.WriteLine($"\n{"Clothing Added",27}");
             Console.WriteLine($"{"Press [C] key to Add Clothes",35}");

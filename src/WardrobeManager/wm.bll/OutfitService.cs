@@ -38,20 +38,6 @@ namespace wm.bll
             OutfitRepository.AddOutfit(outfit);
         }
 
-        public static void AddClothing(string outfitName, string clothingName, int userId)
-        {
-            var outfit = GetOutfitsByUserId(userId)
-                .FirstOrDefault(o => o.Name.ToUpper() == outfitName.ToUpper());
-            var clothing = ClotheService.GetClothesByUserId(userId)
-                .FirstOrDefault(c => c.Name.ToUpper() == clothingName.ToUpper());
-            
-            if(outfit != null && clothing != null)
-            {
-                var outfitClothing = new OutfitsClothe(outfit.Id, clothing.Id);
-                OutfitBridgeRepository.AddRow(outfitClothing);
-            }
-        }
-
         public static int GetOutfitId(string name, int userId)
         {
             var clothing = GetOutfitsByUserId(userId).FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());

@@ -10,6 +10,17 @@ namespace wm.dal.Repositories
 {
     public class OutfitBridgeRepository
     {
+        public static List<OutfitsClothe> GetAll()
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                var list = context.OutfitsClothes
+                    .ToList();
+
+                return list;
+            }
+        }
+
         public static List<OutfitsClothe> GetAllByClotheId(int clotheId)
         {
             using (var context = new WardrobeManagerContext())

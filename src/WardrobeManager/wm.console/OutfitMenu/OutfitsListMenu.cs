@@ -19,14 +19,17 @@ namespace wm.console.OutfitMenu
 
             PrintOutfitList(userId);
 
-            Console.WriteLine($"\n{"Press [A] key to Create new Outfit",37}");
+            Console.WriteLine($"\n{"Press [P] key to See Clothes of Outfit",38}");
+            Console.WriteLine($"{"Press [A] key to Create new Outfit",37}");
             Console.WriteLine($"{"Press [D] key to Delete an Outfit",37}");
             Console.WriteLine($"{"Press [C] key to Add Clothes",35}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
-            if (input == 'A')
+            if (input == 'P')
+                PrintClothesByOutfitMenu.Print(userId);
+            else if (input == 'A')
                 AddOutfitMenu.Print(userId);
             else if (input == 'D')
                 RemoveOutfitMenu.Print(userId);
