@@ -103,19 +103,20 @@ namespace wm.console.OutfitMenu
                     })
                 .ToList();
 
-            clothesTypesColors.Where(c => outfitBridgeList.Any(o => c.Id == o.ClotheId));
-
             var dic = new Dictionary<string, List<string>>();
 
             foreach (var i in clothesTypesColors)
             {
-                if (dic.ContainsKey($"{i.Name} {i.Type}"))
+                if(outfitBridgeList.Any(c => c.ClotheId == i.Id))
                 {
-                    dic[$"{i.Name} {i.Type}"].Add(i.Color);
-                }
-                else
-                {
-                    dic[$"{i.Name} {i.Type}"] = new List<string> { i.Color };
+                    if (dic.ContainsKey($"{i.Name} {i.Type}"))
+                    {
+                        dic[$"{i.Name} {i.Type}"].Add(i.Color);
+                    }
+                    else
+                    {
+                        dic[$"{i.Name} {i.Type}"] = new List<string> { i.Color };
+                    }
                 }
             }
 
@@ -131,17 +132,18 @@ namespace wm.console.OutfitMenu
                         Type = t.Name
                     });
 
-            clothesTypes.Where(c => outfitBridgeList.Any(o => c.Id == o.ClotheId));
-
             foreach (var i in clothesTypes)
             {
-                if (dic.ContainsKey($"{i.Name} {i.Type}"))
+                if (outfitBridgeList.Any(c => c.ClotheId == i.Id))
                 {
-                    dic[$"{i.Name} {i.Type}"].Add(String.Empty);
-                }
-                else
-                {
-                    dic[$"{i.Name} {i.Type}"] = new List<string> { String.Empty };
+                    if (dic.ContainsKey($"{i.Name} {i.Type}"))
+                    {
+                        dic[$"{i.Name} {i.Type}"].Add(String.Empty);
+                    }
+                    else
+                    {
+                        dic[$"{i.Name} {i.Type}"] = new List<string> { String.Empty };
+                    }
                 }
             }
 

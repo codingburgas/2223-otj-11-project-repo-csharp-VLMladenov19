@@ -79,7 +79,7 @@ namespace wm.console.OutfitMenu
             }
             if (ClotheService.GetClothingId(name, userId) == -1)
             {
-                Console.WriteLine($"\n{"Outfit not found",28}");
+                Console.WriteLine($"\n{"Clothing not found",29}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
