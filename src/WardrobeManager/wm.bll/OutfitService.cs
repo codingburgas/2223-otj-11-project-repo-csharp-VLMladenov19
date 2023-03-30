@@ -71,5 +71,16 @@ namespace wm.bll
                 OutfitBridgeRepository.RemoveAllByOutfitId(outfit.Id);
             }
         }
+
+        public static void RemoveClothingFromOutfit(string outfitName, int clothingId, int userId)
+        {
+            var outfitId = GetOutfitId(outfitName, userId);
+            var outfitClothe = OutfitBridgeRepository.GetAllByOutfitId(outfitId).FirstOrDefault(c => c.ClotheId == clothingId);
+
+            if (outfitClothe != null)
+            {
+                OutfitBridgeRepository.RemoveRow(outfitClothe);
+            }
+        }
     }
 }
