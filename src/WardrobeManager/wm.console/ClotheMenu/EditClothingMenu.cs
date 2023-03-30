@@ -16,20 +16,11 @@ namespace wm.console.ClotheMenu
             Console.WriteLine("============  Edit Clothe ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
 
-            string oldName = InsertOldName(userId);
-            string newName = InsertNewName(userId);
-            string type = InsertType(userId);
-            var typeId = TypeService.GetTypeId(type);
+            string oldClotheName = InsertOldName(userId);
+            string newClotheName = InsertNewName(userId);
+            int clotheTypeId = InsertNewType(userId);
 
-            if (typeId == -1)
-            {
-                Console.WriteLine($"\n{"Type does not exist",29}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                Print(userId);
-            }
-
-            ClotheService.EditClothe(oldName, newName, userId, typeId);
+            ClotheService.EditClothe(oldClotheName, newClotheName, userId, clotheTypeId);
 
             Console.WriteLine($"\n{"Clothe Eddited",28}");
             Console.WriteLine($"\n{"Press [E] key to Edit another Clothes",38}");
@@ -37,29 +28,30 @@ namespace wm.console.ClotheMenu
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
-            if (input == 'E')
-                AddClotheMenu.Print(userId);
-            else
-                ClothesListMenu.Print(userId);
+            switch (input)
+            {
+                case 'E': EditClotheMenu.Print(userId); break;
+                default: ClothesListMenu.Print(userId); break;
+            }
         }
 
         private static string InsertOldName(int userId)
         {
             Console.Write($"{"Old Name: ",24}");
-            var name = Console.ReadLine();
+            var oldClotheName = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if (oldClotheName.ToUpper() == "B")
             {
                 ClothesListMenu.Print(userId);
             }
-            if (name.IsNullOrEmpty())
+            if (oldClotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClotheId(name, userId) == -1)
+            if (ClotheService.GetClotheId(oldClotheName, userId) == -1)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -67,26 +59,26 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            return name;
+            return oldClotheName;
         }
 
         private static string InsertNewName(int userId)
         {
             Console.Write($"{"New Name: ",24}");
-            var name = Console.ReadLine();
+            var newClotheName = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if (newClotheName.ToUpper() == "B")
             {
                 ClothesListMenu.Print(userId);
             }
-            if (name.IsNullOrEmpty())
+            if (newClotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClotheId(name, userId) != -1)
+            if (ClotheService.GetClotheId(newClotheName, userId) != -1)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
@@ -94,20 +86,20 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            return name;
+            return newClotheName;
         }
 
-        private static string InsertType(int userId)
+        private static int InsertNewType(int userId)
         {
             Console.Write($"{"Type: ",22}");
-            var type = Console.ReadLine();
+            string? clotheTypeName = Console.ReadLine();
 
-            if (type.ToUpper() == "B")
+            if (clotheTypeName.ToUpper() == "B")
             {
                 MainMenu.Print();
             }
 
-            if (type.IsNullOrEmpty())
+            if (clotheTypeName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Type is required",28}");
                 Console.WriteLine($"\n========================================");
@@ -115,7 +107,16 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            return type;
+            int clotheTypeId = TypeService.GetTypeId(clotheTypeName);
+            if (clotheTypeId == -1)
+            {
+                Console.WriteLine($"\n{"Type does not exist",29}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print(userId);
+            }
+
+            return clotheTypeId;
         }
     }
 }

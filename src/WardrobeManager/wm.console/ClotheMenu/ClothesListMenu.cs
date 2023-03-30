@@ -29,27 +29,43 @@ namespace wm.console.ClotheMenu
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
-            if (input == 'A')
-                AddClotheMenu.Print(userId);
-            else if (input == 'C')
-                AddColorMenu.Print(userId);
-            else if (input == 'D')
-                RemoveClotheMenu.Print(userId);
-            else if (input == 'E')
-                EditClotheMenu.Print(userId);
-            else if (input == 'R')
-                RemoveColorMenu.Print(userId);
-            else
-                MainMenu.Print();
+            switch (input)
+            {
+                case 'A': AddClotheMenu.Print(userId); break;
+                case 'C': AddColorMenu.Print(userId); break;
+                case 'D': RemoveClotheMenu.Print(userId); break;
+                case 'E': EditClotheMenu.Print(userId); ; break;
+                case 'R': RemoveColorMenu.Print(userId); break;
+                default: MainMenu.Print(); break;
+            }
         }
 
         private static void PrintClothesList(int userId)
         {
-            var clothesList = ClotheService.GetClothesByUserId(userId);
-            var typesList = TypeService.GetAll();
-            var colorBridgeList = ColorBridgeService.GetAll();
-            var colorsList = ColorService.GetAll();
+            Dictionary<string, List<string>> clothes = GetFullClothes(userId);
 
+            foreach (var item in clothes)
+            {
+                var valueList = item.Value
+                    .Where(c => !c.IsNullOrEmpty());
+                var joinedColors = String.Join(", ", valueList);
+                var colorTypes = item.Key.Split(" ");
+
+                Console.Write($"{colorTypes[0], 10} : {colorTypes[1]} : {joinedColors}");
+                Console.WriteLine();
+            }
+        }
+
+        private static Dictionary<string, List<string>> GetFullClothes(int userId)
+        {
+            List<Clothe> clothesList = ClotheService.GetClothesByUserId(userId);
+            List<dal.Models.Type> typesList = TypeService.GetAll();
+            List<ClothesColor> colorBridgeList = ColorBridgeService.GetAll();
+            List<Color> colorsList = ColorService.GetAll();
+
+            Dictionary<string, List<string>> dic = new Dictionary<string, List<string>>();
+
+            // Create a list with every clothing that has at least 1 color
             var clothesTypesColors = clothesList
                 .Join(
                     typesList,
@@ -85,9 +101,7 @@ namespace wm.console.ClotheMenu
                     })
                 .ToList();
 
-            var dic = new Dictionary<string, List<string>>();
-
-            foreach(var i in clothesTypesColors)
+            foreach (var i in clothesTypesColors)
             {
                 if (dic.ContainsKey($"{i.Name} {i.Type}"))
                 {
@@ -99,6 +113,7 @@ namespace wm.console.ClotheMenu
                 }
             }
 
+            // Create a list with every clothing
             var clothesTypes = clothesList
                 .Join(
                     typesList,
@@ -109,7 +124,8 @@ namespace wm.console.ClotheMenu
                         Id = c.Id,
                         Name = c.Name,
                         Type = t.Name
-                    });
+                    })
+                .ToList();
 
             foreach (var i in clothesTypes)
             {
@@ -123,16 +139,7 @@ namespace wm.console.ClotheMenu
                 }
             }
 
-            foreach (var item in dic)
-            {
-                var valueList = item.Value
-                    .Where(c => !c.IsNullOrEmpty());
-                var joinedColors = String.Join(", ", valueList);
-                var colorTypes = item.Key.Split(" ");
-
-                Console.Write($"{colorTypes[0], 10} : {colorTypes[1]} : {joinedColors}");
-                Console.WriteLine();
-            }
+            return dic;
         }
     }
 }

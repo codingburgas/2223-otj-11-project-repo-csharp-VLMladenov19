@@ -27,14 +27,6 @@ namespace wm.console.ClotheMenu
             string name = InsertName(userId);
 
             int clotheId = ClotheService.GetClotheId(name, userId);
-            if (clotheId == -1)
-            {
-                Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                Print(userId);
-            }
-
             ClotheService.RemoveClothe(clotheId);
 
             Console.WriteLine($"\n{"Clothe Removed",28}");
@@ -47,13 +39,13 @@ namespace wm.console.ClotheMenu
         private static string InsertName(int userId)
         {
             Console.Write($"{"Name: ",22}");
-            var name = Console.ReadLine();
+            var clotheName = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if (clotheName.ToUpper() == "B")
             {
                 ClothesListMenu.Print(userId);
             }
-            if (name.IsNullOrEmpty())
+            if (clotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
@@ -61,7 +53,16 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            return name;
+            int clotheId = ClotheService.GetClotheId(clotheName, userId);
+            if (clotheId == -1)
+            {
+                Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print(userId);
+            }
+
+            return clotheName;
         }
     }
 }

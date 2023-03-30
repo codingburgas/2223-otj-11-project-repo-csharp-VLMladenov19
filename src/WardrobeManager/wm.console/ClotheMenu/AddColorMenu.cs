@@ -27,29 +27,30 @@ namespace wm.console.ClotheMenu
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
-            if (input == 'C')
-                AddColorMenu.Print(userId);
-            else
-                ClothesListMenu.Print(userId);
+            switch (input)
+            {
+                case 'C': AddColorMenu.Print(userId); break;
+                default: ClothesListMenu.Print(userId); break;
+            }
         }
 
         private static string InsertClotheName(int userId)
         {
             Console.Write($"{"Clothe name: ",25}");
-            var name = Console.ReadLine();
+            var clotheName = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if (clotheName.ToUpper() == "B")
             {
                 ClothesListMenu.Print(userId);
             }
-            if (name.IsNullOrEmpty())
+            if (clotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClotheId(name, userId) == -1)
+            if (ClotheService.GetClotheId(clotheName, userId) == -1)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -57,26 +58,26 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            return name;
+            return clotheName;
         }
 
         private static string InsertColorName(int userId)
         {
             Console.Write($"{"Color name: ",24}");
-            var name = Console.ReadLine();
+            var colorName = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if (colorName.ToUpper() == "B")
             {
                 MainMenu.Print();
             }
-            if (name.IsNullOrEmpty())
+            if (colorName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Color is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ColorService.GetColorId(name) == -1)
+            if (ColorService.GetColorId(colorName) == -1)
             {
                 Console.WriteLine($"\n{"Color not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -84,7 +85,7 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            return name;
+            return colorName;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.dal.Models;
 
 namespace wm.console.ClotheMenu
 {
@@ -16,19 +17,10 @@ namespace wm.console.ClotheMenu
             Console.WriteLine("============  Add Clothe  ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
 
-            string name = InsertName(userId);
-            string type = InsertType(userId);
-            var typeId = TypeService.GetTypeId(type);
+            string clotheName = InsertClotheName(userId);
+            int typeId = InsertType(userId);
 
-            if(typeId == -1)
-            {
-                Console.WriteLine($"\n{"Type does not exist",29}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                Print(userId);
-            }
-
-            ClotheService.AddClothe(name, userId, typeId);
+            ClotheService.AddClothe(clotheName, userId, typeId);
 
             Console.WriteLine($"\n{"Clothe Added",27}");
             Console.WriteLine($"{"Press [A] key to Add new Clothes",36}");
@@ -36,13 +28,14 @@ namespace wm.console.ClotheMenu
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
-            if (input == 'A')
-                AddClotheMenu.Print(userId);
-            else
-                ClothesListMenu.Print(userId);
+            switch(input)
+            {
+                case 'A': AddClotheMenu.Print(userId); break;
+                default: ClothesListMenu.Print(userId); break;
+            }
         }
 
-        private static string InsertName(int userId)
+        private static string InsertClotheName(int userId)
         {
             Console.Write($"{"Name: ",22}");
             var name = Console.ReadLine();
@@ -69,17 +62,17 @@ namespace wm.console.ClotheMenu
             return name;
         }
 
-        private static string InsertType(int userId)
+        private static int InsertType(int userId)
         {
             Console.Write($"{"Type: ",22}");
-            var type = Console.ReadLine();
+            string? typeName = Console.ReadLine();
 
-            if (type.ToUpper() == "B")
+            if (typeName.ToUpper() == "B")
             {
                 MainMenu.Print();
             }
 
-            if (type.IsNullOrEmpty())
+            if (typeName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Type is required",28}");
                 Console.WriteLine($"\n========================================");
@@ -87,7 +80,16 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            return type;
+            int typeId = TypeService.GetTypeId(typeName);
+            if (typeId == -1)
+            {
+                Console.WriteLine($"\n{"Type does not exist",29}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print(userId);
+            }
+
+            return typeId;
         }
     }
 }
