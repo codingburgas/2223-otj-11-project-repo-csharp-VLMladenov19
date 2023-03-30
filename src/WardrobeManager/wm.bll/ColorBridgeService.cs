@@ -30,15 +30,6 @@ namespace wm.bll
             }
         }
 
-        public static bool RowExists(ClothesColor clothesColor)
-        {
-            List<ClothesColor> list = ColorBridgeRepository.GetAll();
-            bool flag = list
-                .Any(c => c.ClotheId == clothesColor.ClotheId && c.ColorId == clothesColor.ColorId);
-
-            return flag;
-        }
-
         public static void RemoveAllByClotheId(int clotheId)
         {
             List<ClothesColor> bridgeList = ColorBridgeRepository.GetAllByClotheId(clotheId);
@@ -47,6 +38,15 @@ namespace wm.bll
             {
                 ColorBridgeRepository.RemoveRow(c);
             }
+        }
+
+        public static bool RowExists(ClothesColor clothesColor)
+        {
+            List<ClothesColor> list = ColorBridgeRepository.GetAll();
+            bool flag = list
+                .Any(c => c.ClotheId == clothesColor.ClotheId && c.ColorId == clothesColor.ColorId);
+
+            return flag;
         }
     }
 }

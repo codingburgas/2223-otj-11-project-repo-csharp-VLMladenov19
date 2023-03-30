@@ -17,15 +17,6 @@ namespace wm.bll
             return outfitsClothes;
         }
 
-        public static bool RowExists(OutfitsClothe outfitsClothe)
-        {
-            List<OutfitsClothe> list = GetAll();
-            bool flag = list
-                .Any(o => o.OutfitId == outfitsClothe.OutfitId && o.ClotheId == outfitsClothe.ClotheId);
-
-            return flag;
-        }
-
         public static void AddRow(string outfitName, string clotheName, int userId)
         {
             var outfit = OutfitService.GetOutfit(outfitName, userId);
@@ -58,6 +49,15 @@ namespace wm.bll
             {
                 OutfitBridgeRepository.RemoveRow(c);
             }
+        }
+
+        public static bool RowExists(OutfitsClothe outfitsClothe)
+        {
+            List<OutfitsClothe> list = GetAll();
+            bool flag = list
+                .Any(o => o.OutfitId == outfitsClothe.OutfitId && o.ClotheId == outfitsClothe.ClotheId);
+
+            return flag;
         }
     }
 }

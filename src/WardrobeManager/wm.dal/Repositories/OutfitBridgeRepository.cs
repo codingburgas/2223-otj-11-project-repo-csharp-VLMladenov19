@@ -45,6 +45,16 @@ namespace wm.dal.Repositories
             }
         }
 
+        public static void AddRow(OutfitsClothe outfitsClothe)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                context.OutfitsClothes.Add(outfitsClothe);
+
+                context.SaveChanges();
+            }
+        }
+
         public static void RemoveRow(OutfitsClothe outfitsClothe)
         {
             using (var context = new WardrobeManagerContext())
@@ -55,16 +65,6 @@ namespace wm.dal.Repositories
 
                     context.SaveChanges();
                 }
-            }
-        }
-
-        public static void AddRow(OutfitsClothe outfitsClothe)
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                context.OutfitsClothes.Add(outfitsClothe);
-
-                context.SaveChanges();
             }
         }
     }

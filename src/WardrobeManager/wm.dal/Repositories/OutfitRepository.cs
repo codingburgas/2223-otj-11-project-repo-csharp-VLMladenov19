@@ -21,6 +21,16 @@ namespace wm.dal.Repositories
             }
         }
 
+        public static void AddOutfit(Outfit outfit)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                context.Outfits.Add(outfit);
+
+                context.SaveChanges();
+            }
+        }
+
         public static void RemoveOutfit(int outfitId)
         {
             using (var context = new WardrobeManagerContext())
@@ -34,16 +44,6 @@ namespace wm.dal.Repositories
 
                     context.SaveChanges();
                 }
-            }
-        }
-
-        public static void AddOutfit(Outfit outfit)
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                context.Outfits.Add(outfit);
-
-                context.SaveChanges();
             }
         }
 

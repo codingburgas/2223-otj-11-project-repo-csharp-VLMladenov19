@@ -15,25 +15,15 @@ namespace wm.bll
 {
     public class UserService
     {
-        public static bool VerifyUser(string Username, string Password)
+        public static int GetUserIdByUsername(string username)
         {
-            bool verifyUser = false;
+            User user = UserRepository.GetUserByUsername(username);
 
-            User? user = UserRepository.GetAllUsers()
-                .FirstOrDefault(user => user.Username == Username);
-
-            if (user != null)
+            if (user == null)
             {
-                string saltedPassword = Password + user.Salt;
-                string hashedPass = HashPassword(saltedPassword);
-
-                if(user.Password == hashedPass)
-                {
-                    verifyUser = true;
-                }
+                return -1;
             }
-
-            return verifyUser;
+            return user.Id;
         }
 
         public static void RegisterUser(string username, string password, string fName, string lName, string phone, string email) 
@@ -50,12 +40,19 @@ namespace wm.bll
             }
         }
 
+        public static void DeleteUser(int userId)
+        {
+            ClotheService.RemoveUserClothes(userId);
+            OutfitService.RemoveUserOutfits(userId);
+            UserRepository.DeleteUser(userId);
+        }
+
         public static void UpdateUser(string oldUsername, string newUsername, string newPassword, string newFName, string newLName, string newPhone, string newEmail)
         {
             User oldUser = UserRepository.GetUserByUsername(oldUsername);
             User newUser = new User(newUsername, newPassword, newFName, newLName, newPhone, newEmail);
 
-            if(oldUser != null)
+            if (oldUser != null)
             {
                 newUser.Id = oldUser.Id;
                 newUser.Salt = GenerateSalt();
@@ -66,22 +63,25 @@ namespace wm.bll
             UserRepository.UpdateUser(oldUsername, newUser);
         }
 
-        public static void DeleteUser(int userId)
+        public static bool VerifyUser(string Username, string Password)
         {
-            ClotheService.RemoveUserClothes(userId);
-            OutfitService.RemoveUserOutfits(userId);
-            UserRepository.DeleteUser(userId);
-        }
+            bool verifyUser = false;
 
-        public static int GetUserIdByUsername(string username)
-        {
-            User user = UserRepository.GetUserByUsername(username);
+            User? user = UserRepository.GetAllUsers()
+                .FirstOrDefault(user => user.Username == Username);
 
-            if(user == null)
+            if (user != null)
             {
-                return -1;
+                string saltedPassword = Password + user.Salt;
+                string hashedPass = HashPassword(saltedPassword);
+
+                if (user.Password == hashedPass)
+                {
+                    verifyUser = true;
+                }
             }
-            return user.Id;
+
+            return verifyUser;
         }
 
         public static string GenerateSalt()

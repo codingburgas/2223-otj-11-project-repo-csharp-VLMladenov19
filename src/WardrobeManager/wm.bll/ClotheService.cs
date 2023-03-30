@@ -43,23 +43,23 @@ namespace wm.bll
             return clothes;
         }
 
-        public static void AddClothe(string name, int userId, int typeId)
-        {
-            Clothe clothe = new Clothe(name, userId, typeId);
-
-            ClotheRepository.AddClothe(clothe);
-        }
-
         public static int GetClotheId(string name, int userId)
         {
             Clothe? clothe = GetClothesByUserId(userId)
                 .FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
 
-            if(clothe == null)
+            if (clothe == null)
             {
                 return -1;
             }
             return clothe.Id;
+        }
+
+        public static void AddClothe(string name, int userId, int typeId)
+        {
+            Clothe clothe = new Clothe(name, userId, typeId);
+
+            ClotheRepository.AddClothe(clothe);
         }
 
         public static void RemoveClothe(int clotheId)
@@ -84,6 +84,17 @@ namespace wm.bll
             }
         }
 
+        public static void RemoveColorFromClothe(string clotheName, int colorId, int userId)
+        {
+            int clotheId = GetClotheId(clotheName, userId);
+            ClothesColor? clotheColor = ColorBridgeRepository.GetAllByClotheId(clotheId).FirstOrDefault(c => c.ColorId == colorId);
+
+            if (clotheColor != null)
+            {
+                ColorBridgeRepository.RemoveRow(clotheColor);
+            }
+        }
+
         public static void EditClothe(string oldClotheName, string newClotheName, int userId, int typeId)
         {
             Clothe? clothe = GetClotheById(GetClotheId(oldClotheName, userId));
@@ -95,17 +106,6 @@ namespace wm.bll
 
                 ClotheRepository.EditClothe(clothe);
                 ColorBridgeService.RemoveAllByClotheId(clothe.Id);
-            }
-        }
-
-        public static void RemoveColorFromClothe(string clotheName, int colorId, int userId)
-        {
-            int clotheId = GetClotheId(clotheName, userId);
-            ClothesColor? clotheColor = ColorBridgeRepository.GetAllByClotheId(clotheId).FirstOrDefault(c => c.ColorId == colorId);
-
-            if (clotheColor != null)
-            {
-                ColorBridgeRepository.RemoveRow(clotheColor);
             }
         }
     }

@@ -26,33 +26,6 @@ namespace wm.bll
             return outfit;
         }
 
-        public static void RemoveOutfit(int outfitId)
-        {
-            OutfitBridgeService.RemoveAllByOutfitId(outfitId);
-            OutfitRepository.RemoveOutfit(outfitId);
-        }
-
-        public static void RemoveUserOutfits(int userId)
-        {
-            List<Outfit> outfits = GetAll()
-                    .Where(c => c.UserId == userId)
-                    .ToList();
-
-            if (!outfits.IsNullOrEmpty())
-            {
-                foreach (var c in outfits)
-                {
-                    RemoveOutfit(c.Id);
-                }
-            }
-        }
-        public static void AddOutfit(string name, DateTime date, int userId)
-        {
-            Outfit outfit = new Outfit(name, date, userId);
-
-            OutfitRepository.AddOutfit(outfit);
-        }
-
         public static int GetOutfitId(string name, int userId)
         {
             Outfit? clothe = GetOutfitsByUserId(userId)
@@ -74,17 +47,31 @@ namespace wm.bll
             return outfits;
         }
 
-        public static void EditOutfit(string oldName, string newName, DateTime newDate, int userId)
+        public static void AddOutfit(string name, DateTime date, int userId)
         {
-            Outfit? outfit = GetOutfit(oldName, userId);
+            Outfit outfit = new Outfit(name, date, userId);
 
-            if(outfit != null)
+            OutfitRepository.AddOutfit(outfit);
+        }
+
+        public static void RemoveOutfit(int outfitId)
+        {
+            OutfitBridgeService.RemoveAllByOutfitId(outfitId);
+            OutfitRepository.RemoveOutfit(outfitId);
+        }
+
+        public static void RemoveUserOutfits(int userId)
+        {
+            List<Outfit> outfits = GetAll()
+                    .Where(c => c.UserId == userId)
+                    .ToList();
+
+            if (!outfits.IsNullOrEmpty())
             {
-                outfit.Name = newName;
-                outfit.Date = newDate;
-
-                OutfitRepository.EditOutfit(outfit);
-                OutfitBridgeService.RemoveAllByOutfitId(outfit.Id);
+                foreach (var c in outfits)
+                {
+                    RemoveOutfit(c.Id);
+                }
             }
         }
 
@@ -97,6 +84,20 @@ namespace wm.bll
             if (outfitClothe != null)
             {
                 OutfitBridgeRepository.RemoveRow(outfitClothe);
+            }
+        }
+
+        public static void EditOutfit(string oldName, string newName, DateTime newDate, int userId)
+        {
+            Outfit? outfit = GetOutfit(oldName, userId);
+
+            if(outfit != null)
+            {
+                outfit.Name = newName;
+                outfit.Date = newDate;
+
+                OutfitRepository.EditOutfit(outfit);
+                OutfitBridgeService.RemoveAllByOutfitId(outfit.Id);
             }
         }
     }
