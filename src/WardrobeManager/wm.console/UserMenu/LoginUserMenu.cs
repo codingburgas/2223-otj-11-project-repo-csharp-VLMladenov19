@@ -21,9 +21,7 @@ namespace wm.console.UserMenu
             string username = InsertUsername();
             string password = InsertPassword();
 
-            bool verification = UserService.VerifyUser(username, password);
-
-            if (verification == false)
+            if (!UserService.VerifyUser(username, password))
             {
                 Console.WriteLine($"\n{"Wrong Username or Password",33}");
                 Console.WriteLine($"\n========================================");
@@ -40,12 +38,12 @@ namespace wm.console.UserMenu
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
-            if (input == 'C')
-                ClothesListMenu.Print(userId);
-            else if (input == 'O')
-                OutfitsListMenu.Print(userId);
-            else
-                MainMenu.Print();
+            switch (input)
+            {
+                case 'C': ClothesListMenu.Print(userId); break;
+                case 'O': OutfitsListMenu.Print(userId); break;
+                default: MainMenu.Print(); break;
+            }
         }
 
         private static string InsertUsername()
@@ -57,7 +55,6 @@ namespace wm.console.UserMenu
             {
                 MainMenu.Print();
             }
-
             if (username.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Username is required",30}");
@@ -73,6 +70,7 @@ namespace wm.console.UserMenu
         {
             Console.Write($"{"Password: ",20}");
             var password = Console.ReadLine();
+
             if (password.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Password is required",30}");

@@ -19,9 +19,7 @@ namespace wm.console.UserMenu
             string username = InsertUsername();
             string password = InsertPassword();
 
-            bool verification = UserService.VerifyUser(username, password);
-
-            if (verification == false)
+            if (!UserService.VerifyUser(username, password))
             {
                 Console.WriteLine($"\n{"Wrong Username or Password",33}");
                 Console.WriteLine($"\n========================================");

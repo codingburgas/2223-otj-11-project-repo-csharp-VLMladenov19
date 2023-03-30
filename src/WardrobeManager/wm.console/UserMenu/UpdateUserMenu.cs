@@ -36,7 +36,7 @@ namespace wm.console.UserMenu
         private static string InsertOldUsername()
         {
             Console.Write($"{"Username: ",20}");
-            var username = Console.ReadLine();
+            string? username = Console.ReadLine();
 
             if (username.ToUpper() == "B")
             {
@@ -63,14 +63,14 @@ namespace wm.console.UserMenu
         private static string InsertNewUsername()
         {
             Console.Write($"{"Username: ",20}");
-            var username = Console.ReadLine();
+            string? username = Console.ReadLine();
 
             if (username.ToUpper() == "B")
             {
                 MainMenu.Print();
             }
 
-            while (UserService.CheckUsername(username) != 0)
+            if (UserService.CheckUsername(username) != 0)
             {
                 if (UserService.CheckUsername(username) == 1)
                 {
@@ -100,8 +100,9 @@ namespace wm.console.UserMenu
         private static string InsertNewPassword()
         {
             Console.Write($"{"Password: ",20}");
-            var password = Console.ReadLine();
-            while (UserService.CheckPassword(password) != 0)
+            string? password = Console.ReadLine();
+
+            if (UserService.CheckPassword(password) != 0)
             {
                 if (UserService.CheckPassword(password) == 1)
                 {
@@ -145,8 +146,9 @@ namespace wm.console.UserMenu
         private static string InsertNewFirstName()
         {
             Console.Write($"{"First Name: ",22}");
-            var firstName = Console.ReadLine();
-            while (UserService.CheckName(firstName) != 0)
+            string? firstName = Console.ReadLine();
+
+            if (UserService.CheckName(firstName) != 0)
             {
                 if (UserService.CheckName(firstName) == 1)
                 {
@@ -169,8 +171,9 @@ namespace wm.console.UserMenu
         private static string InsertNewLastName()
         {
             Console.Write($"{"Last Name: ",21}");
-            var lastName = Console.ReadLine();
-            while (UserService.CheckName(lastName) != 0)
+            string? lastName = Console.ReadLine();
+
+            if (UserService.CheckName(lastName) != 0)
             {
                 if (UserService.CheckName(lastName) == 1)
                 {
@@ -193,8 +196,9 @@ namespace wm.console.UserMenu
         private static string InsertNewPhone()
         {
             Console.Write($"{"Phone: ",17}");
-            var phone = Console.ReadLine();
-            while (UserService.CheckPhone(phone) != 0)
+            string? phone = Console.ReadLine();
+
+            if (UserService.CheckPhone(phone) != 0)
             {
                 if (UserService.CheckPhone(phone) == 1)
                 {
@@ -224,8 +228,9 @@ namespace wm.console.UserMenu
         private static string InsertNewEmail()
         {
             Console.Write($"{"Email: ",17}");
-            var email = Console.ReadLine();
-            while (UserService.CheckEmail(email) != 0)
+            string? email = Console.ReadLine();
+
+            if (UserService.CheckEmail(email) != 0)
             {
                 if (UserService.CheckEmail(email) == 1)
                 {
