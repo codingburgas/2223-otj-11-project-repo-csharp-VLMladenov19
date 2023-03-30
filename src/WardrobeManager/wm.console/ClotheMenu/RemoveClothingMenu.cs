@@ -8,7 +8,7 @@ using wm.bll;
 
 namespace wm.console.ClotheMenu
 {
-    public class RemoveClothingMenu
+    public class RemoveClotheMenu
     {
         public static void Print(int userId)
         {
@@ -26,8 +26,8 @@ namespace wm.console.ClotheMenu
 
             string name = InsertName(userId);
 
-            int clothingId = ClotheService.GetClothingId(name, userId);
-            if (clothingId == -1)
+            int clotheId = ClotheService.GetClotheId(name, userId);
+            if (clotheId == -1)
             {
                 Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
                 Console.WriteLine($"\n========================================");
@@ -35,9 +35,9 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            ClotheService.RemoveClothing(clothingId);
+            ClotheService.RemoveClothe(clotheId);
 
-            Console.WriteLine($"\n{"Clothing Removed",28}");
+            Console.WriteLine($"\n{"Clothe Removed",28}");
             Console.WriteLine($"{"Press a key to back to Clothes List",38}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey();

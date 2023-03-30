@@ -8,18 +8,18 @@ using wm.bll;
 
 namespace wm.console.ClotheMenu
 {
-    public class EditClothingMenu
+    public class EditClotheMenu
     {
         public static void Print(int userId)
         {
             Console.Clear();
-            Console.WriteLine("============  Edit Clothing ============");
+            Console.WriteLine("============  Edit Clothe ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
 
             string oldName = InsertOldName(userId);
             string newName = InsertNewName(userId);
             string type = InsertType(userId);
-            var typeId = TypeService.GetTypeIdByTypeName(type);
+            var typeId = TypeService.GetTypeId(type);
 
             if (typeId == -1)
             {
@@ -29,16 +29,16 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            ClotheService.EditClothing(oldName, newName, userId, typeId);
+            ClotheService.EditClothe(oldName, newName, userId, typeId);
 
-            Console.WriteLine($"\n{"Clothing Eddited",28}");
+            Console.WriteLine($"\n{"Clothe Eddited",28}");
             Console.WriteLine($"\n{"Press [E] key to Edit another Clothes",38}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             if (input == 'E')
-                AddClothingMenu.Print(userId);
+                AddClotheMenu.Print(userId);
             else
                 ClothesListMenu.Print(userId);
         }
@@ -59,7 +59,7 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClothingId(name, userId) == -1)
+            if (ClotheService.GetClotheId(name, userId) == -1)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -86,7 +86,7 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClothingId(name, userId) != -1)
+            if (ClotheService.GetClotheId(name, userId) != -1)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");

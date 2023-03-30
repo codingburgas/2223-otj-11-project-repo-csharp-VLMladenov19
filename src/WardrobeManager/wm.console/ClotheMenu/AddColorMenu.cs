@@ -49,7 +49,7 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClothingId(name, userId) == -1)
+            if (ClotheService.GetClotheId(name, userId) == -1)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -76,7 +76,7 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ColorService.GetColorIdByName(name) == -1)
+            if (ColorService.GetColorId(name) == -1)
             {
                 Console.WriteLine($"\n{"Color not found",28}");
                 Console.WriteLine($"\n========================================");

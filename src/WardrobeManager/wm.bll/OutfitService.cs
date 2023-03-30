@@ -11,15 +11,30 @@ namespace wm.bll
 {
     public class OutfitService
     {
+        public static List<Outfit> GetAll()
+        {
+            List<Outfit> outfits = OutfitRepository.GetAllOutfits();
+
+            return outfits;
+        }
+
+        public static Outfit? GetOutfit(string outfitName, int userId)
+        {
+            Outfit? outfit = OutfitService.GetOutfitsByUserId(userId)
+                .FirstOrDefault(o => o.Name.ToUpper() == outfitName.ToUpper());
+
+            return outfit;
+        }
+
         public static void RemoveOutfit(int outfitId)
         {
-            OutfitBridgeRepository.RemoveAllByOutfitId(outfitId);
+            OutfitBridgeService.RemoveAllByOutfitId(outfitId);
             OutfitRepository.RemoveOutfit(outfitId);
         }
 
-        public static void RemoveOutfitByUserId(int userId)
+        public static void RemoveUserOutfits(int userId)
         {
-            var outfits = OutfitRepository.GetAllOutfits()
+            List<Outfit> outfits = GetAll()
                     .Where(c => c.UserId == userId)
                     .ToList();
 
@@ -33,25 +48,26 @@ namespace wm.bll
         }
         public static void AddOutfit(string name, DateTime date, int userId)
         {
-            var outfit = new Outfit(name, date, userId);
+            Outfit outfit = new Outfit(name, date, userId);
 
             OutfitRepository.AddOutfit(outfit);
         }
 
         public static int GetOutfitId(string name, int userId)
         {
-            var clothing = GetOutfitsByUserId(userId).FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
+            Outfit? clothe = GetOutfitsByUserId(userId)
+                .FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
 
-            if (clothing == null)
+            if (clothe == null)
             {
                 return -1;
             }
-            return clothing.Id;
+            return clothe.Id;
         }
 
         public static List<Outfit> GetOutfitsByUserId(int userId)
         {
-            var outfits = OutfitRepository.GetAllOutfits()
+            List<Outfit> outfits = OutfitService.GetAll()
                 .Where(c => c.UserId == userId)
                 .ToList();
 
@@ -60,7 +76,7 @@ namespace wm.bll
 
         public static void EditOutfit(string oldName, string newName, DateTime newDate, int userId)
         {
-            var outfit = GetOutfitsByUserId(userId).FirstOrDefault(o => o.Id == GetOutfitId(oldName, userId));
+            Outfit? outfit = GetOutfit(oldName, userId);
 
             if(outfit != null)
             {
@@ -68,14 +84,15 @@ namespace wm.bll
                 outfit.Date = newDate;
 
                 OutfitRepository.EditOutfit(outfit);
-                OutfitBridgeRepository.RemoveAllByOutfitId(outfit.Id);
+                OutfitBridgeService.RemoveAllByOutfitId(outfit.Id);
             }
         }
 
-        public static void RemoveClothingFromOutfit(string outfitName, int clothingId, int userId)
+        public static void RemoveClotheFromOutfit(string outfitName, int clotheId, int userId)
         {
-            var outfitId = GetOutfitId(outfitName, userId);
-            var outfitClothe = OutfitBridgeRepository.GetAllByOutfitId(outfitId).FirstOrDefault(c => c.ClotheId == clothingId);
+            int outfitId = GetOutfitId(outfitName, userId);
+            OutfitsClothe? outfitClothe = OutfitBridgeRepository.GetOutfitClothes(outfitId)
+                .FirstOrDefault(c => c.ClotheId == clotheId);
 
             if (outfitClothe != null)
             {

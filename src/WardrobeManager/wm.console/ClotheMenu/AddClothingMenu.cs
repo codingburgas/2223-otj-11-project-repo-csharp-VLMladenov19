@@ -8,17 +8,17 @@ using wm.bll;
 
 namespace wm.console.ClotheMenu
 {
-    public class AddClothingMenu
+    public class AddClotheMenu
     {
         public static void Print(int userId)
         {
             Console.Clear();
-            Console.WriteLine("============  Add Clothing  ============");
+            Console.WriteLine("============  Add Clothe  ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
 
             string name = InsertName(userId);
             string type = InsertType(userId);
-            var typeId = TypeService.GetTypeIdByTypeName(type);
+            var typeId = TypeService.GetTypeId(type);
 
             if(typeId == -1)
             {
@@ -28,16 +28,16 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            ClotheService.AddClothing(name, userId, typeId);
+            ClotheService.AddClothe(name, userId, typeId);
 
-            Console.WriteLine($"\n{"Clothing Added",27}");
+            Console.WriteLine($"\n{"Clothe Added",27}");
             Console.WriteLine($"{"Press [A] key to Add new Clothes",36}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             if (input == 'A')
-                AddClothingMenu.Print(userId);
+                AddClotheMenu.Print(userId);
             else
                 ClothesListMenu.Print(userId);
         }
@@ -58,7 +58,7 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClothingId(name, userId) != -1)
+            if (ClotheService.GetClotheId(name, userId) != -1)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");

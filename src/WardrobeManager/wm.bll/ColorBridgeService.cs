@@ -12,23 +12,19 @@ namespace wm.bll
     {
         public static List<ClothesColor> GetAll()
         {
-            var list = ColorBridgeRepository.GetAll();
+            List<ClothesColor> clothesColors = ColorBridgeRepository.GetAll();
 
-            return list;
+            return clothesColors;
         }
 
         public static void AddRow(int userId, string clotheName, string colorName)
         {
-            var clotheId = ClotheService.GetClothingId(clotheName, userId);
-            var colorId = ColorService.GetColorIdByName(colorName);
+            int clotheId = ClotheService.GetClotheId(clotheName, userId);
+            int colorId = ColorService.GetColorId(colorName);
 
             ClothesColor clothesColor = new ClothesColor(clotheId, colorId);
 
-            if(RowExists(clothesColor))
-            {
-                return;
-            }
-            else
+            if (!RowExists(clothesColor))
             {
                 ColorBridgeRepository.AddRows(clothesColor);
             }
@@ -36,15 +32,17 @@ namespace wm.bll
 
         public static bool RowExists(ClothesColor clothesColor)
         {
-            var list = ColorBridgeRepository.GetAll();
-            bool flag = list.Any(c => c.ClotheId == clothesColor.ClotheId && c.ColorId == clothesColor.ColorId);
+            List<ClothesColor> list = ColorBridgeRepository.GetAll();
+            bool flag = list
+                .Any(c => c.ClotheId == clothesColor.ClotheId && c.ColorId == clothesColor.ColorId);
 
             return flag;
         }
 
         public static void RemoveAllByClotheId(int clotheId)
         {
-            var bridgeList = ColorBridgeRepository.GetAllByClotheId(clotheId);
+            List<ClothesColor> bridgeList = ColorBridgeRepository.GetAllByClotheId(clotheId);
+
             foreach (var c in bridgeList)
             {
                 ColorBridgeRepository.RemoveRow(c);

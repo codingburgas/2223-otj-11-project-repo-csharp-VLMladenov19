@@ -14,15 +14,15 @@ namespace wm.console.OutfitMenu
         public static void Print(int userId)
         {
             Console.Clear();
-            Console.WriteLine("============  Add Clothing  ============");
+            Console.WriteLine("============  Add Clothe  ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
 
             string outfitName = InsertOutfitName(userId);
-            string clotheName = InsertClothingName(userId);
+            string clotheName = InsertClotheName(userId);
 
             OutfitBridgeService.AddRow(outfitName, clotheName, userId);
 
-            Console.WriteLine($"\n{"Clothing Added",27}");
+            Console.WriteLine($"\n{"Clothe Added",27}");
             Console.WriteLine($"{"Press [C] key to Add Clothes",35}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
@@ -61,9 +61,9 @@ namespace wm.console.OutfitMenu
             return name;
         }
 
-        private static string InsertClothingName(int userId)
+        private static string InsertClotheName(int userId)
         {
-            Console.Write($"{"Clothing: ",24}");
+            Console.Write($"{"Clothe: ",24}");
             var name = Console.ReadLine();
 
             if (name.ToUpper() == "B")
@@ -77,9 +77,9 @@ namespace wm.console.OutfitMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClothingId(name, userId) == -1)
+            if (ClotheService.GetClotheId(name, userId) == -1)
             {
-                Console.WriteLine($"\n{"Clothing not found",29}");
+                Console.WriteLine($"\n{"Clothe not found",29}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);

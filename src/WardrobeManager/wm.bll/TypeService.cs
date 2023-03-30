@@ -10,18 +10,25 @@ namespace wm.bll
 {
     public class TypeService
     {
-        public static List<dal.Models.Type> GetAllTypes()
+        public static List<dal.Models.Type> GetAll()
         {
-            var types = TypeRepository.GetAllTypes()
+            List<wm.dal.Models.Type> types = TypeRepository.GetAllTypes()
                 .ToList();
 
             return types;
         }
 
-        public static int GetTypeIdByTypeName(string name)
+        public static dal.Models.Type? GetType(string name)
         {
-            var type = TypeRepository.GetAllTypes()
+            dal.Models.Type? type = GetAll()
                 .FirstOrDefault(t => t.Name.ToUpper() == name.ToUpper());
+
+            return type;
+        }
+
+        public static int GetTypeId(string typeName)
+        {
+            dal.Models.Type? type = GetType(typeName);
 
             if(type == null)
             {

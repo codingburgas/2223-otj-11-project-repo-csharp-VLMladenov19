@@ -12,14 +12,15 @@ namespace wm.bll
     {
         public static List<Color> GetAll()
         {
-            var list = ColorRepository.GetAll();
+            List<Color> colors = ColorRepository.GetAll();
 
-            return list;
+            return colors;
         }
 
-        public static int GetColorIdByName(string colorName)
+        public static int GetColorId(string colorName)
         {
-            var color = ColorRepository.GetAll().FirstOrDefault(c => c.Name.ToUpper() == colorName.ToUpper());
+            Color? color = ColorRepository.GetAll()
+                .FirstOrDefault(c => c.Name.ToUpper() == colorName.ToUpper());
 
             if(color == null)
             {
@@ -28,9 +29,9 @@ namespace wm.bll
             return color.Id;
         }
 
-        public static Color GetColorById(int colorId)
+        public static Color? GetColorById(int colorId)
         {
-            Color color = ColorRepository.GetAll().FirstOrDefault(c => c.Id == colorId);
+            Color? color = ColorRepository.GetAll().FirstOrDefault(c => c.Id == colorId);
 
             return color;
         }

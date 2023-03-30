@@ -14,7 +14,7 @@ namespace wm.dal.Repositories
         {
             using (var context = new WardrobeManagerContext())
             {
-                var list = context.Types
+                List<Models.Type> list = context.Types
                     .ToList();
 
                 return list;

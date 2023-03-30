@@ -33,7 +33,7 @@ namespace wm.dal.Repositories
             }
         }
 
-        public static List<OutfitsClothe> GetAllByOutfitId(int outfitId)
+        public static List<OutfitsClothe> GetOutfitClothes(int outfitId)
         {
             using (var context = new WardrobeManagerContext())
             {
@@ -42,24 +42,6 @@ namespace wm.dal.Repositories
                     .ToList();
 
                 return list;
-            }
-        }
-
-        public static void RemoveAllByClotheId(int clotheId)
-        {
-            var bridgeList = GetAllByClotheId(clotheId);
-            foreach (var c in bridgeList)
-            {
-                RemoveRow(c);
-            }
-        }
-
-        public static void RemoveAllByOutfitId(int outfitId)
-        {
-            var bridgeList = GetAllByOutfitId(outfitId);
-            foreach (var c in bridgeList)
-            {
-                RemoveRow(c);
             }
         }
 

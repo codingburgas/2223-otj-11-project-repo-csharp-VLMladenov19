@@ -25,11 +25,11 @@ namespace wm.console.ClotheMenu
                 ClothesListMenu.Print(userId);
             }
 
-            string clothingName = InsertName(userId);
+            string clotheName = InsertName(userId);
             string colorName = InsertColor(userId);
-            var colorId = ColorService.GetColorIdByName(colorName);
+            var colorId = ColorService.GetColorId(colorName);
 
-            ClotheService.RemoveColorFromClothing(clothingName, colorId, userId);
+            ClotheService.RemoveColorFromClothe(clotheName, colorId, userId);
 
             Console.WriteLine($"\n{"Color Removed",27}");
             Console.WriteLine($"{"Press a key to back to Clothes List",38}");
@@ -55,8 +55,8 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            int clothingId = ClotheService.GetClothingId(name, userId);
-            if (clothingId == -1)
+            int clotheId = ClotheService.GetClotheId(name, userId);
+            if (clotheId == -1)
             {
                 Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
                 Console.WriteLine($"\n========================================");
@@ -83,7 +83,7 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ColorService.GetColorIdByName(colorName) == -1)
+            if (ColorService.GetColorId(colorName) == -1)
             {
                 Console.WriteLine($"\n{"Color not found",28}");
                 Console.WriteLine($"\n========================================");

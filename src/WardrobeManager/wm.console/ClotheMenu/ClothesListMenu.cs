@@ -22,21 +22,21 @@ namespace wm.console.ClotheMenu
 
             Console.WriteLine($"\n{"Press [A] key to Add new Clothes",36}");
             Console.WriteLine($"{"Press [C] key to Add Colors",34}");
-            Console.WriteLine($"{"Press [D] key to Remove Clothing",36}");
-            Console.WriteLine($"{"Press [E] key to Edit Clothing",35}");
-            Console.WriteLine($"{"Press [R] key to Remove Colors from a Clothing",43}");
+            Console.WriteLine($"{"Press [D] key to Remove Clothe",36}");
+            Console.WriteLine($"{"Press [E] key to Edit Clothe",35}");
+            Console.WriteLine($"{"Press [R] key to Remove Colors from a Clothe",43}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             if (input == 'A')
-                AddClothingMenu.Print(userId);
+                AddClotheMenu.Print(userId);
             else if (input == 'C')
                 AddColorMenu.Print(userId);
             else if (input == 'D')
-                RemoveClothingMenu.Print(userId);
+                RemoveClotheMenu.Print(userId);
             else if (input == 'E')
-                EditClothingMenu.Print(userId);
+                EditClotheMenu.Print(userId);
             else if (input == 'R')
                 RemoveColorMenu.Print(userId);
             else
@@ -46,7 +46,7 @@ namespace wm.console.ClotheMenu
         private static void PrintClothesList(int userId)
         {
             var clothesList = ClotheService.GetClothesByUserId(userId);
-            var typesList = TypeService.GetAllTypes();
+            var typesList = TypeService.GetAll();
             var colorBridgeList = ColorBridgeService.GetAll();
             var colorsList = ColorService.GetAll();
 

@@ -26,12 +26,12 @@ namespace wm.console.OutfitMenu
             }
 
             string outfitName = InsertName(userId);
-            string clothingName = InsertColor(userId);
+            string clotheName = InsertColor(userId);
 
-            var clothingId = ClotheService.GetClothingId(clothingName, userId);
-            OutfitService.RemoveClothingFromOutfit(outfitName, clothingId, userId);
+            var clotheId = ClotheService.GetClotheId(clotheName, userId);
+            OutfitService.RemoveClotheFromOutfit(outfitName, clotheId, userId);
 
-            Console.WriteLine($"\n{"Clothing Removed",29}");
+            Console.WriteLine($"\n{"Clothe Removed",29}");
             Console.WriteLine($"{"Press a key to back to Outfits List",38}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey();
@@ -67,29 +67,29 @@ namespace wm.console.OutfitMenu
 
         private static string InsertColor(int userId)
         {
-            Console.Write($"{"Clothing: ",24}");
-            var clothingName = Console.ReadLine();
+            Console.Write($"{"Clothe: ",24}");
+            var clotheName = Console.ReadLine();
 
-            if (clothingName.ToUpper() == "B")
+            if (clotheName.ToUpper() == "B")
             {
                 ClothesListMenu.Print(userId);
             }
-            if (clothingName.IsNullOrEmpty())
+            if (clotheName.IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"Clothing is required",30}");
+                Console.WriteLine($"\n{"Clothe is required",30}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClothingId(clothingName, userId) == -1)
+            if (ClotheService.GetClotheId(clotheName, userId) == -1)
             {
-                Console.WriteLine($"\n{"Clothing not found",30}");
+                Console.WriteLine($"\n{"Clothe not found",30}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
 
-            return clothingName;
+            return clotheName;
         }
     }
 }

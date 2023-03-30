@@ -19,13 +19,14 @@ namespace wm.bll
         {
             bool verifyUser = false;
 
-            var user = UserRepository.GetAllUsers()
+            User? user = UserRepository.GetAllUsers()
                 .FirstOrDefault(user => user.Username == Username);
 
             if (user != null)
             {
-                var saltedPassword = Password + user.Salt;
+                string saltedPassword = Password + user.Salt;
                 string hashedPass = HashPassword(saltedPassword);
+
                 if(user.Password == hashedPass)
                 {
                     verifyUser = true;
@@ -34,12 +35,13 @@ namespace wm.bll
 
             return verifyUser;
         }
+
         public static void RegisterUser(string username, string password, string fName, string lName, string phone, string email) 
         {
-            var user = new User(username, password, fName, lName, phone, email);
+            User user = new User(username, password, fName, lName, phone, email);
 
             user.Salt = GenerateSalt();
-            var saltedPassword = user.Password + user.Salt;
+            string saltedPassword = user.Password + user.Salt;
             user.Password = HashPassword(saltedPassword);
 
             if (user != null) 
@@ -50,14 +52,14 @@ namespace wm.bll
 
         public static void UpdateUser(string oldUsername, string newUsername, string newPassword, string newFName, string newLName, string newPhone, string newEmail)
         {
-            var oldUser = UserRepository.GetUserByUsername(oldUsername);
-            var newUser = new User(newUsername, newPassword, newFName, newLName, newPhone, newEmail);
+            User oldUser = UserRepository.GetUserByUsername(oldUsername);
+            User newUser = new User(newUsername, newPassword, newFName, newLName, newPhone, newEmail);
 
             if(oldUser != null)
             {
                 newUser.Id = oldUser.Id;
                 newUser.Salt = GenerateSalt();
-                var saltedPassword = newUser.Password + newUser.Salt;
+                string saltedPassword = newUser.Password + newUser.Salt;
                 newUser.Password = HashPassword(saltedPassword);
             }
 
@@ -67,13 +69,14 @@ namespace wm.bll
         public static void DeleteUser(int userId)
         {
             ClotheService.RemoveUserClothes(userId);
-            OutfitService.RemoveOutfitByUserId(userId);
+            OutfitService.RemoveUserOutfits(userId);
             UserRepository.DeleteUser(userId);
         }
 
         public static int GetUserIdByUsername(string username)
         {
-            var user = UserRepository.GetUserByUsername(username);
+            User user = UserRepository.GetUserByUsername(username);
+
             if(user == null)
             {
                 return -1;
@@ -83,21 +86,23 @@ namespace wm.bll
 
         public static string GenerateSalt()
         {
-            var rnd = new Random();
+            Random rnd = new Random();
 
-            var rndBytes = new byte[16];
+            byte[] rndBytes = new byte[16];
             rnd.NextBytes(rndBytes);
 
-            return Convert.ToHexString(rndBytes);
+            string salt = Convert.ToHexString(rndBytes);
+
+            return salt;
         }
 
         public static string HashPassword(string password)
         {
             SHA256 hash = SHA256.Create();
 
-            var passBytes = Encoding.Default.GetBytes(password);
+            byte[] passBytes = Encoding.Default.GetBytes(password);
 
-            var hashedPass = Convert.ToHexString(hash.ComputeHash(passBytes));
+            string hashedPass = Convert.ToHexString(hash.ComputeHash(passBytes));
 
             return hashedPass;
         }

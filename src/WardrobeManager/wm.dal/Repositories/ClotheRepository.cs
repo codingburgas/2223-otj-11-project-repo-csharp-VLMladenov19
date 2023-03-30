@@ -32,33 +32,33 @@ namespace wm.dal.Repositories
             }
         }
 
-        public static void RemoveClothing(int clotheId)
+        public static void RemoveClothe(int clotheId)
         {
             using (var context = new WardrobeManagerContext())
             {
-                var clothing = context.Clothes
+                var clothe = context.Clothes
                     .FirstOrDefault(c => c.Id == clotheId);
 
-                if(clothing != null)
+                if(clothe != null)
                 {
-                    context.Clothes.Remove(clothing);
+                    context.Clothes.Remove(clothe);
 
                     context.SaveChanges();
                 }
             }
         }
 
-        public static void EditClothing(Clothe newClothing)
+        public static void EditClothe(Clothe newClothe)
         {
             using (var context = new WardrobeManagerContext())
             {
-                var oldClothing = context.Clothes
-                    .FirstOrDefault(c => c.Id == newClothing.Id);
+                var oldClothe = context.Clothes
+                    .FirstOrDefault(c => c.Id == newClothe.Id);
 
-                if(oldClothing != null)
+                if(oldClothe != null)
                 {
-                    oldClothing.Name = newClothing.Name;
-                    oldClothing.TypeId = newClothing.TypeId;
+                    oldClothe.Name = newClothe.Name;
+                    oldClothe.TypeId = newClothe.TypeId;
                 }
 
                 context.SaveChanges();
