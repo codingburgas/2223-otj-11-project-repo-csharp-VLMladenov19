@@ -65,7 +65,7 @@ namespace wm.console.OutfitMenu
 
             var clothesList = ClotheService.GetClothesByUserId(userId);
             var typesList = TypeService.GetAllTypes();
-            var colorBridgeList = ColorsBridgeService.GetAll();
+            var colorBridgeList = ColorBridgeService.GetAll();
             var colorsList = ColorService.GetAll();
 
             var clothesTypesColors = clothesList

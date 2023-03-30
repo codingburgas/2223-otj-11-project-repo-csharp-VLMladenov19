@@ -11,27 +11,17 @@ namespace wm.bll
 {
     public class ClotheService
     {
-        public static Clothe GetClotheById(int clotheId)
+        public static Clothe? GetClotheById(int clotheId)
         {
-            Clothe clothe = ClotheRepository.GetAllClothes().FirstOrDefault(c => c.Id == clotheId);
+            Clothe? clothe = ClotheRepository.GetAllClothes()
+                .FirstOrDefault(c => c.Id == clotheId);
 
             return clothe;
         }
 
-        public static int GetClotheIdByNameAndUserID(string name, int userId)
-        {
-            var clotheId = GetClothesByUserId(userId).FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
-
-            if(clotheId == null)
-            {
-                return -1;
-            }
-            return clotheId.Id;
-        }
-
         public static List<Clothe> GetClothesByUserId(int userId)
         {
-            var clothes = ClotheRepository.GetAllClothes()
+            List<Clothe> clothes = ClotheRepository.GetAllClothes()
                 .Where(c => c.UserId == userId)
                 .ToList();
 
@@ -40,14 +30,15 @@ namespace wm.bll
 
         public static void AddClothing(string name, int userId, int typeId)
         {
-            var clothe = new Clothe(name, userId, typeId);
+            Clothe clothe = new Clothe(name, userId, typeId);
 
             ClotheRepository.AddClothe(clothe);
         }
 
         public static int GetClothingId(string name, int userId)
         {
-            var clothing = GetClothesByUserId(userId).FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
+            Clothe? clothing = GetClothesByUserId(userId)
+                .FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
 
             if(clothing == null)
             {
@@ -58,14 +49,14 @@ namespace wm.bll
 
         public static void RemoveClothing(int clothingId)
         {
-            ColorBridgeRepository.RemoveAllByClotheId(clothingId);
+            ColorBridgeService.RemoveAllByClotheId(clothingId);
             OutfitBridgeRepository.RemoveAllByClotheId(clothingId);
             ClotheRepository.RemoveClothing(clothingId);
         }
 
-        public static void RemoveClotingByUserId(int userId)
+        public static void RemoveUserClothes(int userId)
         {
-            var clothing = ClotheRepository.GetAllClothes()
+            List<Clothe> clothing = ClotheRepository.GetAllClothes()
                     .Where(c => c.UserId == userId)
                     .ToList();
 
@@ -80,7 +71,7 @@ namespace wm.bll
 
         public static void EditClothing(string oldClothingName, string newClothingName, int userId, int typeId)
         {
-            var clothing = GetClotheById(GetClothingId(oldClothingName, userId));
+            Clothe? clothing = GetClotheById(GetClothingId(oldClothingName, userId));
 
             if(clothing != null)
             {
@@ -88,14 +79,14 @@ namespace wm.bll
                 clothing.TypeId = typeId;
 
                 ClotheRepository.EditClothing(clothing);
-                ColorBridgeRepository.RemoveAllByClotheId(clothing.Id);
+                ColorBridgeService.RemoveAllByClotheId(clothing.Id);
             }
         }
 
         public static void RemoveColorFromClothing(string clothingName, int colorId, int userId)
         {
-            var clothingId = GetClotheIdByNameAndUserID(clothingName, userId);
-            var clotheColor = ColorBridgeRepository.GetAllByClotheId(clothingId).FirstOrDefault(c => c.ColorId == colorId);
+            int clothingId = GetClothingId(clothingName, userId);
+            ClothesColor? clotheColor = ColorBridgeRepository.GetAllByClotheId(clothingId).FirstOrDefault(c => c.ColorId == colorId);
 
             if (clotheColor != null)
             {

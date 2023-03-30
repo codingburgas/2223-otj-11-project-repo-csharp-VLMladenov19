@@ -19,7 +19,7 @@ namespace wm.console.ClotheMenu
             string clotheName = InsertClotheName(userId);
             string colorName = InsertColorName(userId);
 
-            ColorsBridgeService.AddRow(userId, clotheName, colorName);
+            ColorBridgeService.AddRow(userId, clotheName, colorName);
 
             Console.WriteLine($"\n{"Color Added",25}");
             Console.WriteLine($"{"Press [C] key to Add more Colors",36}");

@@ -8,7 +8,7 @@ using wm.dal.Repositories;
 
 namespace wm.bll
 {
-    public class OutfitsBridgeService
+    public class OutfitBridgeService
     {
         public static bool RowExists(OutfitsClothe outfitsClothe)
         {

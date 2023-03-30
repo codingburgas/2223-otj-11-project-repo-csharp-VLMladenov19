@@ -33,15 +33,6 @@ namespace wm.dal.Repositories
             }
         }
 
-        public static void RemoveAllByClotheId(int clotheId)
-        {
-            var bridgeList = GetAllByClotheId(clotheId);
-            foreach (var c in bridgeList)
-            {
-                RemoveRow(c);
-            }
-        }
-
         public static void RemoveRow(ClothesColor clothesColor)
         {
             using (var context = new WardrobeManagerContext())

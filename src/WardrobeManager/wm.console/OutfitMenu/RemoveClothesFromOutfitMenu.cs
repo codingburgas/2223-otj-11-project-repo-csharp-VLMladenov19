@@ -81,7 +81,7 @@ namespace wm.console.OutfitMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClotheIdByNameAndUserID(clothingName, userId) == -1)
+            if (ClotheService.GetClothingId(clothingName, userId) == -1)
             {
                 Console.WriteLine($"\n{"Clothing not found",30}");
                 Console.WriteLine($"\n========================================");

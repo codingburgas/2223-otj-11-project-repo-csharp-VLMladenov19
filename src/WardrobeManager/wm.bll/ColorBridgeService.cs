@@ -8,7 +8,7 @@ using wm.dal.Repositories;
 
 namespace wm.bll
 {
-    public class ColorsBridgeService
+    public class ColorBridgeService
     {
         public static List<ClothesColor> GetAll()
         {
@@ -19,7 +19,7 @@ namespace wm.bll
 
         public static void AddRow(int userId, string clotheName, string colorName)
         {
-            var clotheId = ClotheService.GetClotheIdByNameAndUserID(clotheName, userId);
+            var clotheId = ClotheService.GetClothingId(clotheName, userId);
             var colorId = ColorService.GetColorIdByName(colorName);
 
             ClothesColor clothesColor = new ClothesColor(clotheId, colorId);
@@ -40,6 +40,15 @@ namespace wm.bll
             bool flag = list.Any(c => c.ClotheId == clothesColor.ClotheId && c.ColorId == clothesColor.ColorId);
 
             return flag;
+        }
+
+        public static void RemoveAllByClotheId(int clotheId)
+        {
+            var bridgeList = ColorBridgeRepository.GetAllByClotheId(clotheId);
+            foreach (var c in bridgeList)
+            {
+                ColorBridgeRepository.RemoveRow(c);
+            }
         }
     }
 }

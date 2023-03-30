@@ -14,7 +14,7 @@ namespace wm.dal.Repositories
         {
             using (var context = new WardrobeManagerContext())
             {
-                context.Add(user);
+                context.Users.Add(user);
 
                 context.SaveChanges();
             }
