@@ -26,7 +26,7 @@ namespace wm.console.OutfitMenu
             }
 
             string outfitName = InsertName(userId);
-            string clotheName = InsertColor(userId);
+            string clotheName = InsertClothe(userId);
 
             var clotheId = ClotheService.GetClotheId(clotheName, userId);
             OutfitService.RemoveClotheFromOutfit(outfitName, clotheId, userId);
@@ -65,7 +65,7 @@ namespace wm.console.OutfitMenu
             return outfitName;
         }
 
-        private static string InsertColor(int userId)
+        private static string InsertClothe(int userId)
         {
             Console.Write($"{"Clothe: ",24}");
             var clotheName = Console.ReadLine();

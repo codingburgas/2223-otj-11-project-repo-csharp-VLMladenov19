@@ -25,29 +25,30 @@ namespace wm.console.OutfitMenu
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
-            if (input == 'P')
-                PrintClothesByOutfitMenu.Print(userId);
-            else
-                OutfitsListMenu.Print(userId);
+            switch(input)
+            {
+                case 'P': PrintClothesByOutfitMenu.Print(userId); break;
+                default: OutfitsListMenu.Print(userId); break;
+            }
         }
 
         private static string InsertOutfitName(int userId)
         {
             Console.Write($"{"Outfit: ",23}");
-            var name = Console.ReadLine();
+            var outfitName = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if (outfitName.ToUpper() == "B")
             {
                 OutfitsListMenu.Print(userId);
             }
-            if (name.IsNullOrEmpty())
+            if (outfitName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
-            if (OutfitService.GetOutfitId(name, userId) == -1)
+            if (OutfitService.GetOutfitId(outfitName, userId) == -1)
             {
                 Console.WriteLine($"\n{"Outfit not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -55,7 +56,7 @@ namespace wm.console.OutfitMenu
                 Print(userId);
             }
 
-            return name;
+            return outfitName;
         }
 
         private static void PrintClothes(string outfitName, int userId)

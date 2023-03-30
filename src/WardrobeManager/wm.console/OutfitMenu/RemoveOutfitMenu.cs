@@ -25,17 +25,9 @@ namespace wm.console.OutfitMenu
                 OutfitsListMenu.Print(userId);
             }
 
-            string name = InsertName(userId);
+            string outfitName = InsertName(userId);
 
-            int outfitId = OutfitService.GetOutfitId(name, userId);
-            if (outfitId == -1)
-            {
-                Console.WriteLine($"\n{"Name is wrong or outfit does not exist",39}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                Print(userId);
-            }
-
+            int outfitId = OutfitService.GetOutfitId(outfitName, userId);
             OutfitService.RemoveOutfit(outfitId);
 
             Console.WriteLine($"\n{"Outfit Removed",27}");
@@ -48,13 +40,13 @@ namespace wm.console.OutfitMenu
         private static string InsertName(int userId)
         {
             Console.Write($"{"Name: ",22}");
-            var name = Console.ReadLine();
+            var outfitName = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if (outfitName.ToUpper() == "B")
             {
                 OutfitsListMenu.Print(userId);
             }
-            if (name.IsNullOrEmpty())
+            if (outfitName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
@@ -62,7 +54,16 @@ namespace wm.console.OutfitMenu
                 Print(userId);
             }
 
-            return name;
+            int outfitId = OutfitService.GetOutfitId(outfitName, userId);
+            if (outfitId == -1)
+            {
+                Console.WriteLine($"\n{"Name is wrong or outfit does not exist",39}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print(userId);
+            }
+
+            return outfitName;
         }
     }
 }

@@ -28,29 +28,30 @@ namespace wm.console.OutfitMenu
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
-            if (input == 'C')
-                AddClothesToOutfitMenu.Print(userId);
-            else
-                OutfitsListMenu.Print(userId);
+            switch(input)
+            {
+                case 'C': AddClothesToOutfitMenu.Print(userId); break;
+                default: OutfitsListMenu.Print(userId); break;
+            }
         }
 
         private static string InsertOutfitName(int userId)
         {
             Console.Write($"{"Outfit: ",23}");
-            var name = Console.ReadLine();
+            var outfitName = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if (outfitName.ToUpper() == "B")
             {
                 OutfitsListMenu.Print(userId);
             }
-            if (name.IsNullOrEmpty())
+            if (outfitName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
-            if (OutfitService.GetOutfitId(name, userId) == -1)
+            if (OutfitService.GetOutfitId(outfitName, userId) == -1)
             {
                 Console.WriteLine($"\n{"Outfit not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -58,26 +59,26 @@ namespace wm.console.OutfitMenu
                 Print(userId);
             }
 
-            return name;
+            return outfitName;
         }
 
         private static string InsertClotheName(int userId)
         {
             Console.Write($"{"Clothe: ",24}");
-            var name = Console.ReadLine();
+            var clotheName = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if (clotheName.ToUpper() == "B")
             {
                 OutfitsListMenu.Print(userId);
             }
-            if (name.IsNullOrEmpty())
+            if (clotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClotheId(name, userId) == -1)
+            if (ClotheService.GetClotheId(clotheName, userId) == -1)
             {
                 Console.WriteLine($"\n{"Clothe not found",29}");
                 Console.WriteLine($"\n========================================");
@@ -85,7 +86,7 @@ namespace wm.console.OutfitMenu
                 Print(userId);
             }
 
-            return name;
+            return clotheName;
         }
     }
 }
