@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using wm.dal.Repositories;
+using wm.util;
 
 namespace wm.bll
 {
@@ -32,7 +33,8 @@ namespace wm.bll
 
             if(type == null)
             {
-                return -1;
+                ErrorCodes error = ErrorCodes.InvalidObject;
+                return (int)error;
             }
             return type.Id;
         }

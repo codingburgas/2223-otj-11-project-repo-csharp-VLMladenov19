@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\wm.bll\wm.bll.csproj" />
+    <ProjectReference Include="..\wm.util\wm.util.csproj" />
   </ItemGroup>
 
 </Project>

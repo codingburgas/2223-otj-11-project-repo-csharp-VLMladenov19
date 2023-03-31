@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 using wm.dal.Models;
+using wm.util;
 
 namespace wm.console.ClotheMenu
 {
@@ -51,7 +52,10 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClotheId(name, userId) != -1)
+
+            int clotheId = ClotheService.GetClotheId(name, userId);
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (clotheId != (int)error)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
@@ -80,8 +84,9 @@ namespace wm.console.ClotheMenu
                 Print(userId);
             }
 
-            int typeId = TypeService.GetTypeId(typeName);
-            if (typeId == -1)
+            int typeId = TypeService.GetTypeId(typeName); 
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (typeId == (int)error)
             {
                 Console.WriteLine($"\n{"Type does not exist",29}");
                 Console.WriteLine($"\n========================================");

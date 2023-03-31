@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.util;
 
 namespace wm.console.UserMenu
 {
@@ -50,7 +51,10 @@ namespace wm.console.UserMenu
                 Console.ReadKey();
                 Print();
             }
-            if (UserService.GetUserIdByUsername(username) == -1)
+
+            int userId = UserService.GetUserIdByUsername(username);
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (userId == (int)error)
             {
                 Console.WriteLine($"\n{"User does not exist",29}");
                 Console.WriteLine($"\n========================================");

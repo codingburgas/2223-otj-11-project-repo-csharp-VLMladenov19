@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using wm.dal.Repositories;
+using wm.util;
 
 namespace wm.bll
 {
@@ -21,7 +22,8 @@ namespace wm.bll
 
             if (user == null)
             {
-                return -1;
+                ErrorCodes error = ErrorCodes.InvalidObject;
+                return (int)error;
             }
             return user.Id;
         }

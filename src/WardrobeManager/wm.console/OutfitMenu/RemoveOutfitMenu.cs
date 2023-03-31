@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 using wm.console.ClotheMenu;
+using wm.util;
 
 namespace wm.console.OutfitMenu
 {
@@ -55,7 +56,8 @@ namespace wm.console.OutfitMenu
             }
 
             int outfitId = OutfitService.GetOutfitId(outfitName, userId);
-            if (outfitId == -1)
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (outfitId == (int)error)
             {
                 Console.WriteLine($"\n{"Name is wrong or outfit does not exist",39}");
                 Console.WriteLine($"\n========================================");

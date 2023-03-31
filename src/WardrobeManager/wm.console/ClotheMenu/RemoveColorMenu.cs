@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 using wm.dal.Repositories;
+using wm.util;
 
 namespace wm.console.ClotheMenu
 {
@@ -55,7 +56,8 @@ namespace wm.console.ClotheMenu
             }
 
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
-            if (clotheId == -1)
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (clotheId == (int)error)
             {
                 Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
                 Console.WriteLine($"\n========================================");
@@ -82,15 +84,16 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ColorService.GetColorId(colorName) == -1)
+
+            int colorId = ColorService.GetColorId(colorName);
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (colorId == (int)error)
             {
                 Console.WriteLine($"\n{"Color not found",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
                 Print(userId);
             }
-
-            var colorId = ColorService.GetColorId(colorName);
 
             return colorId;
         }

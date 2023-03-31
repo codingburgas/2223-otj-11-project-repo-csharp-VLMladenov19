@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.util;
 
 namespace wm.console.ClotheMenu
 {
@@ -50,7 +51,10 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClotheId(clotheName, userId) == -1)
+
+            int clotheId = ClotheService.GetClotheId(clotheName, userId);
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (clotheId == (int)error)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -77,7 +81,10 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ColorService.GetColorId(colorName) == -1)
+
+            int colorId = ColorService.GetColorId(colorName);
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (colorId == (int)error)
             {
                 Console.WriteLine($"\n{"Color not found",28}");
                 Console.WriteLine($"\n========================================");

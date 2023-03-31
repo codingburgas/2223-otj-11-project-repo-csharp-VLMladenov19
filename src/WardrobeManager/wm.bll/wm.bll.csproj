@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\wm.dal\wm.dal.csproj" />
+    <ProjectReference Include="..\wm.util\wm.util.csproj" />
   </ItemGroup>
 
 </Project>

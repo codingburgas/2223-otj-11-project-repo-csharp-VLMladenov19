@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.util;
 
 namespace wm.console.ClotheMenu
 {
@@ -51,7 +52,10 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClotheId(oldClotheName, userId) == -1)
+
+            int clotheId = ClotheService.GetClotheId(oldClotheName, userId);
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (clotheId == (int)error)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -78,7 +82,10 @@ namespace wm.console.ClotheMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (ClotheService.GetClotheId(newClotheName, userId) != -1)
+
+            int clotheId = ClotheService.GetClotheId(newClotheName, userId);
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (clotheId != (int)error)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
@@ -108,7 +115,8 @@ namespace wm.console.ClotheMenu
             }
 
             int clotheTypeId = TypeService.GetTypeId(clotheTypeName);
-            if (clotheTypeId == -1)
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (clotheTypeId == (int)error)
             {
                 Console.WriteLine($"\n{"Type does not exist",29}");
                 Console.WriteLine($"\n========================================");

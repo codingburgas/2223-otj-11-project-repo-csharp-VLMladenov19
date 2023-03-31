@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.dal.Models;
 using wm.dal.Repositories;
+using wm.util;
 
 namespace wm.bll
 {
@@ -24,7 +25,8 @@ namespace wm.bll
 
             if(color == null)
             {
-                return -1;
+                ErrorCodes error = ErrorCodes.InvalidObject;
+                return (int)error;
             }
             return color.Id;
         }

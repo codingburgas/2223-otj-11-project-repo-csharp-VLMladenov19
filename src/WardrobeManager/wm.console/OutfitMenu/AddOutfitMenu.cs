@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 using wm.console.ClotheMenu;
+using wm.util;
 
 namespace wm.console.OutfitMenu
 {
@@ -54,7 +55,10 @@ namespace wm.console.OutfitMenu
                 Console.ReadKey();
                 Print(userId);
             }
-            if (OutfitService.GetOutfitId(outfitName, userId) != -1)
+
+            int outfitId = OutfitService.GetOutfitId(outfitName, userId);
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (outfitId != (int)error)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");

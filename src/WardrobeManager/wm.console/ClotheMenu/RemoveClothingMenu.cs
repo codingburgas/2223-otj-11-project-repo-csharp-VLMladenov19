@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.util;
 
 namespace wm.console.ClotheMenu
 {
@@ -54,7 +55,8 @@ namespace wm.console.ClotheMenu
             }
 
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
-            if (clotheId == -1)
+            ErrorCodes error = ErrorCodes.InvalidObject;
+            if (clotheId == (int)error)
             {
                 Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
                 Console.WriteLine($"\n========================================");

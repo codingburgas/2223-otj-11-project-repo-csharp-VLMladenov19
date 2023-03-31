@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.dal.Models;
 using wm.dal.Repositories;
+using wm.util;
 
 namespace wm.bll
 {
@@ -50,7 +51,8 @@ namespace wm.bll
 
             if (clothe == null)
             {
-                return -1;
+                ErrorCodes error = ErrorCodes.InvalidObject;
+                return (int)error;
             }
             return clothe.Id;
         }
