@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using wm.bll;
 using wm.console.ClotheMenu;
 using wm.console.OutfitMenu;
+using wm.dal.Models;
+using wm.util;
 
 namespace wm.console.UserMenu
 {
@@ -29,7 +31,8 @@ namespace wm.console.UserMenu
                 Print();
             }
 
-            var userId = UserService.GetUserIdByUsername(username);
+            User? loggedUser = UserService.GetUserByUsername(username);
+            UserLog.LoggedUser = loggedUser;
 
             Console.WriteLine($"\n{"User Logged In",27}");
             Console.WriteLine($"\n{"Press [C] key to go see your clothes",38}");
@@ -40,8 +43,8 @@ namespace wm.console.UserMenu
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             switch (input)
             {
-                case 'C': ClothesListMenu.Print(userId); break;
-                case 'O': OutfitsListMenu.Print(userId); break;
+                case 'C': ClothesListMenu.Print(); break;
+                case 'O': OutfitsListMenu.Print(); break;
                 default: MainMenu.Print(); break;
             }
         }

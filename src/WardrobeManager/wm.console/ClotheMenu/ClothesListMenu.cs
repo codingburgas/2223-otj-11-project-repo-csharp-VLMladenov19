@@ -7,16 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 using wm.dal.Models;
+using wm.util;
 
 namespace wm.console.ClotheMenu
 {
     public class ClothesListMenu
     {
-        public static void Print(int userId)
+        public static void Print()
         {
             Console.Clear();
             Console.WriteLine("============  Clothes List  ============");
             Console.WriteLine();
+
+            int userId = UserLog.LoggedUser.Id;
 
             PrintClothesList(userId);
 
@@ -31,11 +34,11 @@ namespace wm.console.ClotheMenu
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             switch (input)
             {
-                case 'A': AddClotheMenu.Print(userId); break;
-                case 'C': AddColorMenu.Print(userId); break;
-                case 'D': RemoveClotheMenu.Print(userId); break;
-                case 'E': EditClotheMenu.Print(userId); ; break;
-                case 'R': RemoveColorMenu.Print(userId); break;
+                case 'A': AddClotheMenu.Print(); break;
+                case 'C': AddColorMenu.Print(); break;
+                case 'D': RemoveClotheMenu.Print(); break;
+                case 'E': EditClotheMenu.Print(); ; break;
+                case 'R': RemoveColorMenu.Print(); break;
                 default: MainMenu.Print(); break;
             }
         }

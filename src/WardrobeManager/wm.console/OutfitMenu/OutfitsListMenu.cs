@@ -6,16 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 using wm.console.ClotheMenu;
+using wm.util;
 
 namespace wm.console.OutfitMenu
 {
     public class OutfitsListMenu
     {
-        public static void Print(int userId)
+        public static void Print()
         {
             Console.Clear();
             Console.WriteLine("============  Outfits List  ============");
             Console.WriteLine();
+
+            int userId = UserLog.LoggedUser.Id;
 
             PrintOutfitList(userId);
 
@@ -32,12 +35,12 @@ namespace wm.console.OutfitMenu
 
             switch(input)
             {
-                case 'P': PrintClothesByOutfitMenu.Print(userId); break;
-                case 'A': AddOutfitMenu.Print(userId); break;
-                case 'E': EditOutfitMenu.Print(userId); break;
-                case 'D': RemoveOutfitMenu.Print(userId); break;
-                case 'C': AddClothesToOutfitMenu.Print(userId); break;
-                case 'R': RemoveClothesFromOutfitMenu.Print(userId); break;
+                case 'P': PrintClothesByOutfitMenu.Print(); break;
+                case 'A': AddOutfitMenu.Print(); break;
+                case 'E': EditOutfitMenu.Print(); break;
+                case 'D': RemoveOutfitMenu.Print(); break;
+                case 'C': AddClothesToOutfitMenu.Print(); break;
+                case 'R': RemoveClothesFromOutfitMenu.Print(); break;
                 default: MainMenu.Print(); break;
             }
         }

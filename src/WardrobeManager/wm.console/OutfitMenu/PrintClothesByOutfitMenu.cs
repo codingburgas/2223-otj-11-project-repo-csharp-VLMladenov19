@@ -12,11 +12,13 @@ namespace wm.console.OutfitMenu
 {
     public class PrintClothesByOutfitMenu
     {
-        public static void Print(int userId)
+        public static void Print()
         {
             Console.Clear();
             Console.WriteLine("============     Outfit     ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
+
+            int userId = UserLog.LoggedUser.Id;
 
             string outfitName = InsertOutfitName(userId);
             PrintClothes(outfitName, userId);
@@ -28,8 +30,8 @@ namespace wm.console.OutfitMenu
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             switch(input)
             {
-                case 'P': PrintClothesByOutfitMenu.Print(userId); break;
-                default: OutfitsListMenu.Print(userId); break;
+                case 'P': PrintClothesByOutfitMenu.Print(); break;
+                default: OutfitsListMenu.Print(); break;
             }
         }
 
@@ -40,14 +42,14 @@ namespace wm.console.OutfitMenu
 
             if (outfitName.ToUpper() == "B")
             {
-                OutfitsListMenu.Print(userId);
+                OutfitsListMenu.Print();
             }
             if (outfitName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             int outfitId = OutfitService.GetOutfitId(outfitName, userId);
@@ -56,7 +58,7 @@ namespace wm.console.OutfitMenu
                 Console.WriteLine($"\n{"Outfit not found",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             return outfitName;

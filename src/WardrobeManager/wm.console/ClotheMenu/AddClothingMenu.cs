@@ -12,11 +12,13 @@ namespace wm.console.ClotheMenu
 {
     public class AddClotheMenu
     {
-        public static void Print(int userId)
+        public static void Print()
         {
             Console.Clear();
             Console.WriteLine("============  Add Clothe  ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
+
+            int userId = UserLog.LoggedUser.Id;
 
             string clotheName = InsertClotheName(userId);
             int typeId = InsertType(userId);
@@ -31,8 +33,8 @@ namespace wm.console.ClotheMenu
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             switch(input)
             {
-                case 'A': AddClotheMenu.Print(userId); break;
-                default: ClothesListMenu.Print(userId); break;
+                case 'A': AddClotheMenu.Print(); break;
+                default: ClothesListMenu.Print(); break;
             }
         }
 
@@ -43,14 +45,14 @@ namespace wm.console.ClotheMenu
 
             if (name.ToUpper() == "B")
             {
-                ClothesListMenu.Print(userId);
+                ClothesListMenu.Print();
             }
             if (name.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             int clotheId = ClotheService.GetClotheId(name, userId);
@@ -59,7 +61,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             return name;
@@ -80,7 +82,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Type is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             int typeId = TypeService.GetTypeId(typeName);
@@ -89,7 +91,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Type does not exist",29}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             return typeId;

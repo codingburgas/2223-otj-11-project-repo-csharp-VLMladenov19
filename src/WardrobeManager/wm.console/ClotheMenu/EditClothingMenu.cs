@@ -11,11 +11,13 @@ namespace wm.console.ClotheMenu
 {
     public class EditClotheMenu
     {
-        public static void Print(int userId)
+        public static void Print()
         {
             Console.Clear();
             Console.WriteLine("============  Edit Clothe ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
+
+            int userId = UserLog.LoggedUser.Id;
 
             string oldClotheName = InsertOldName(userId);
             string newClotheName = InsertNewName(userId);
@@ -31,8 +33,8 @@ namespace wm.console.ClotheMenu
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             switch (input)
             {
-                case 'E': EditClotheMenu.Print(userId); break;
-                default: ClothesListMenu.Print(userId); break;
+                case 'E': EditClotheMenu.Print(); break;
+                default: ClothesListMenu.Print(); break;
             }
         }
 
@@ -43,14 +45,14 @@ namespace wm.console.ClotheMenu
 
             if (oldClotheName.ToUpper() == "B")
             {
-                ClothesListMenu.Print(userId);
+                ClothesListMenu.Print();
             }
             if (oldClotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             int clotheId = ClotheService.GetClotheId(oldClotheName, userId);
@@ -59,7 +61,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             return oldClotheName;
@@ -72,14 +74,14 @@ namespace wm.console.ClotheMenu
 
             if (newClotheName.ToUpper() == "B")
             {
-                ClothesListMenu.Print(userId);
+                ClothesListMenu.Print();
             }
             if (newClotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             int clotheId = ClotheService.GetClotheId(newClotheName, userId);
@@ -88,7 +90,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             return newClotheName;
@@ -109,7 +111,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Type is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             int clotheTypeId = TypeService.GetTypeId(clotheTypeName);
@@ -118,7 +120,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Type does not exist",29}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             return clotheTypeId;

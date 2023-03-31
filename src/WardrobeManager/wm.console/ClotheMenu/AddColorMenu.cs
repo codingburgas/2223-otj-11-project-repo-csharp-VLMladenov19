@@ -11,11 +11,13 @@ namespace wm.console.ClotheMenu
 {
     public class AddColorMenu
     {
-        public static void Print(int userId)
+        public static void Print()
         {
             Console.Clear();
             Console.WriteLine("============   Add Colors   ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
+
+            int userId = UserLog.LoggedUser.Id;
 
             string clotheName = InsertClotheName(userId);
             string colorName = InsertColorName(userId);
@@ -30,8 +32,8 @@ namespace wm.console.ClotheMenu
             var input = Char.ToUpper(Console.ReadKey().KeyChar);
             switch (input)
             {
-                case 'C': AddColorMenu.Print(userId); break;
-                default: ClothesListMenu.Print(userId); break;
+                case 'C': AddColorMenu.Print(); break;
+                default: ClothesListMenu.Print(); break;
             }
         }
 
@@ -42,14 +44,14 @@ namespace wm.console.ClotheMenu
 
             if (clotheName.ToUpper() == "B")
             {
-                ClothesListMenu.Print(userId);
+                ClothesListMenu.Print();
             }
             if (clotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
@@ -58,7 +60,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n============================= ===========");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             return clotheName;
@@ -78,7 +80,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Color is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             int colorId = ColorService.GetColorId(colorName);
@@ -87,7 +89,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Color not found",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             return colorName;

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
 using wm.console.UserMenu;
+using wm.util;
 
 namespace wm.console
 {
@@ -13,6 +14,7 @@ namespace wm.console
         public static void Print()
         {
             Console.Clear();
+            UserLog.LoggedUser = null;
 
             Console.WriteLine("[R] Register   [L] Login   [U] Update   [D] Delete   [B] Back");
             while(true)

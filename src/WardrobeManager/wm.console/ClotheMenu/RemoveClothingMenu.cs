@@ -11,18 +11,20 @@ namespace wm.console.ClotheMenu
 {
     public class RemoveClotheMenu
     {
-        public static void Print(int userId)
+        public static void Print()
         {
             Console.Clear();
             Console.WriteLine("============ Remove Cloting ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
+
+            int userId = UserLog.LoggedUser.Id;
 
             if (ClotheService.GetClothesByUserId(userId).IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"User has no clothes",29}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                ClothesListMenu.Print(userId);
+                ClothesListMenu.Print();
             }
 
             string name = InsertName(userId);
@@ -34,7 +36,7 @@ namespace wm.console.ClotheMenu
             Console.WriteLine($"{"Press a key to back to Clothes List",38}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey();
-            ClothesListMenu.Print(userId);
+            ClothesListMenu.Print();
         }
 
         private static string InsertName(int userId)
@@ -44,14 +46,14 @@ namespace wm.console.ClotheMenu
 
             if (clotheName.ToUpper() == "B")
             {
-                ClothesListMenu.Print(userId);
+                ClothesListMenu.Print();
             }
             if (clotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
@@ -60,7 +62,7 @@ namespace wm.console.ClotheMenu
                 Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey();
-                Print(userId);
+                Print();
             }
 
             return clotheName;

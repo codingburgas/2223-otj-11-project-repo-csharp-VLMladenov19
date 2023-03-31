@@ -27,6 +27,14 @@ namespace wm.bll
             return user.Id;
         }
 
+        public static User? GetUserByUsername(string username)
+        {
+            User? user = UserRepository.GetAllUsers()
+                .FirstOrDefault(user => user.Username == username);
+
+            return user;
+        }
+
         public static void RegisterUser(string username, string password, string fName, string lName, string phone, string email) 
         {
             User user = new User(username, password, fName, lName, phone, email);
@@ -68,8 +76,7 @@ namespace wm.bll
         {
             bool verifyUser = false;
 
-            User? user = UserRepository.GetAllUsers()
-                .FirstOrDefault(user => user.Username == Username);
+            User? user = GetUserByUsername(Username);
 
             if (user != null)
             {
