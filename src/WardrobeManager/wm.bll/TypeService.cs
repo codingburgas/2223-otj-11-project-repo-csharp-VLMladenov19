@@ -33,8 +33,7 @@ namespace wm.bll
 
             if(type == null)
             {
-                ErrorCodes error = ErrorCodes.InvalidObject;
-                return (int)error;
+                return (int)ErrorCodes.InvalidObject;
             }
             return type.Id;
         }

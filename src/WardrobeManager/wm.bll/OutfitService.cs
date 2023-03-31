@@ -34,8 +34,7 @@ namespace wm.bll
 
             if (clothe == null)
             {
-                ErrorCodes error = ErrorCodes.InvalidObject;
-                return (int)error;
+                return (int)ErrorCodes.InvalidObject;
             }
             return clothe.Id;
         }

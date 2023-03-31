@@ -51,8 +51,7 @@ namespace wm.console.OutfitMenu
             }
 
             int outfitId = OutfitService.GetOutfitId(outfitName, userId);
-            ErrorCodes error = ErrorCodes.InvalidObject;
-            if (outfitId == (int)error)
+            if (outfitId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Outfit not found",28}");
                 Console.WriteLine($"\n========================================");

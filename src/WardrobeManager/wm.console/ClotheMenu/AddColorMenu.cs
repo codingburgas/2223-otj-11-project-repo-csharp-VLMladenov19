@@ -53,11 +53,10 @@ namespace wm.console.ClotheMenu
             }
 
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
-            ErrorCodes error = ErrorCodes.InvalidObject;
-            if (clotheId == (int)error)
+            if (clotheId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
-                Console.WriteLine($"\n========================================");
+                Console.WriteLine($"\n============================= ===========");
                 Console.ReadKey();
                 Print(userId);
             }
@@ -83,8 +82,7 @@ namespace wm.console.ClotheMenu
             }
 
             int colorId = ColorService.GetColorId(colorName);
-            ErrorCodes error = ErrorCodes.InvalidObject;
-            if (colorId == (int)error)
+            if (colorId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Color not found",28}");
                 Console.WriteLine($"\n========================================");

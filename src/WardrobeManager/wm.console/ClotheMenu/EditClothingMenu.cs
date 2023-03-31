@@ -54,8 +54,7 @@ namespace wm.console.ClotheMenu
             }
 
             int clotheId = ClotheService.GetClotheId(oldClotheName, userId);
-            ErrorCodes error = ErrorCodes.InvalidObject;
-            if (clotheId == (int)error)
+            if (clotheId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -84,8 +83,7 @@ namespace wm.console.ClotheMenu
             }
 
             int clotheId = ClotheService.GetClotheId(newClotheName, userId);
-            ErrorCodes error = ErrorCodes.InvalidObject;
-            if (clotheId != (int)error)
+            if (clotheId != (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
@@ -115,8 +113,7 @@ namespace wm.console.ClotheMenu
             }
 
             int clotheTypeId = TypeService.GetTypeId(clotheTypeName);
-            ErrorCodes error = ErrorCodes.InvalidObject;
-            if (clotheTypeId == (int)error)
+            if (clotheTypeId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Type does not exist",29}");
                 Console.WriteLine($"\n========================================");

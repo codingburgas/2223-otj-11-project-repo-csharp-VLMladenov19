@@ -22,8 +22,7 @@ namespace wm.bll
 
             if (user == null)
             {
-                ErrorCodes error = ErrorCodes.InvalidObject;
-                return (int)error;
+                return (int)ErrorCodes.InvalidObject;
             }
             return user.Id;
         }
@@ -113,94 +112,94 @@ namespace wm.bll
         {
             if(username.IsNullOrEmpty())
             {
-                return 1;
+                return (int)ErrorCodes.NullArgument;
             }
             if(username.Length < 4 || username.Length > 12)
             {
-                return 2;
+                return (int)ErrorCodes.InvalidArgumentLength;
             }
-            if(UserService.GetUserIdByUsername(username) != -1)
+            if(UserService.GetUserIdByUsername(username) != (int)ErrorCodes.InvalidObject)
             {
-                return 3;
+                return (int)ErrorCodes.ObjectTaken;
             }
-            return 0;
+            return (int)ErrorCodes.None;
         }
 
         public static int CheckPassword(string password)
         {
             if (string.IsNullOrEmpty(password))
             {
-                return 1;
+                return (int)ErrorCodes.NullArgument;
             }
 
             if (password.Length < 4 || password.Length > 12)
             {
-                return 2;
+                return (int)ErrorCodes.InvalidArgumentLength;
             }
 
             if (password.Where(c => Char.IsWhiteSpace(c)).Any())
             {
-                return 3;
+                return (int)ErrorCodes.ArgumentHasSpaces;
             }
 
             if (!password.Any(c => Char.IsDigit(c)))
             {
-                return 4;
+                return (int)ErrorCodes.ArgumentHasNoNumbers;
             }
 
             string specialCharacters = @"\|!#$%&/()=?»«@£§€{}.-;'<>_,";
             if (password.Any(c => specialCharacters.Any(x => x == c)))
             {
-                return 5;
+                return (int)ErrorCodes.ArgumentHasSymbols;
             }
 
-            return 0;
+            return (int)ErrorCodes.None;
         }
         public static int CheckName(string name)
         {
             if (name.IsNullOrEmpty())
             {
-                return 1;
+                return (int)ErrorCodes.NullArgument;
             }
             if (name.Any(c => Char.IsDigit(c)))
             {
-                return 2;
+                return (int)ErrorCodes.ArgumentHasNumbers;
             }
-            return 0;
+            return (int)ErrorCodes.None;
         }
 
         public static int CheckPhone(string phone)
         {
             if (phone.IsNullOrEmpty())
             {
-                return 1;
+                return (int)ErrorCodes.NullArgument;
             }
             if (phone.Length < 10 || phone.Length > 15)
             {
-                return 2;
+                return (int)ErrorCodes.InvalidArgumentLength;
             }
             if (phone.Any(c => Char.IsLetter(c)))
             {
-                return 3;
+                return (int)ErrorCodes.ArgumentHasLetters;
             }
-            return 0;
+            return (int)ErrorCodes.None;
         }
 
         public static int CheckEmail(string email)
         {
             if (email.IsNullOrEmpty())
             {
-                return 1;
+                return (int)ErrorCodes.NullArgument;
             }
             if (!email.Any(c => c == '@') || email.Count(c => c == '@') > 1)
             {
-                return 2;
+                return (int)ErrorCodes.EmailHasNoAtSign;
             }
             if (email.Substring(email.IndexOf('@')).Length < 4)
             {
-                return 3;
+                return (int)ErrorCodes.EmailHasNoDomain;
             }
-            return 0;
+            return (int)ErrorCodes.None;
         }
     }
 }

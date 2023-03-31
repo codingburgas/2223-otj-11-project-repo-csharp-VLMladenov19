@@ -57,8 +57,7 @@ namespace wm.console.OutfitMenu
             }
 
             int outfitId = OutfitService.GetOutfitId(oldOutfitName, userId);
-            ErrorCodes error = ErrorCodes.InvalidObject;
-            if (outfitId == (int)error)
+            if (outfitId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Outfit not found",28}");
                 Console.WriteLine($"\n========================================");
@@ -87,8 +86,7 @@ namespace wm.console.OutfitMenu
             }
 
             int outfitId = OutfitService.GetOutfitId(newOutfitName, userId);
-            ErrorCodes error = ErrorCodes.InvalidObject;
-            if (outfitId != (int)error)
+            if (outfitId != (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");

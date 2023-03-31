@@ -55,8 +55,7 @@ namespace wm.console.ClotheMenu
             }
 
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
-            ErrorCodes error = ErrorCodes.InvalidObject;
-            if (clotheId == (int)error)
+            if (clotheId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
                 Console.WriteLine($"\n========================================");

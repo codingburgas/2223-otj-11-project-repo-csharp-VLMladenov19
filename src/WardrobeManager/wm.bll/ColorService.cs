@@ -25,8 +25,7 @@ namespace wm.bll
 
             if(color == null)
             {
-                ErrorCodes error = ErrorCodes.InvalidObject;
-                return (int)error;
+                return (int)ErrorCodes.InvalidObject;
             }
             return color.Id;
         }
