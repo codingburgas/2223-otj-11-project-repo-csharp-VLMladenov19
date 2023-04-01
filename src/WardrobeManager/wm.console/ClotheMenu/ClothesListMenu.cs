@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
+using wm.console.OutfitMenu;
 using wm.dal.Models;
 using wm.util;
 
@@ -28,6 +29,7 @@ namespace wm.console.ClotheMenu
             Console.WriteLine($"{"Press [D] key to Remove Clothe",36}");
             Console.WriteLine($"{"Press [E] key to Edit Clothe",35}");
             Console.WriteLine($"{"Press [R] key to Remove Colors from a Clothe",43}");
+            Console.WriteLine($"{"Press [L] key to see Users Outfits",38}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
@@ -39,6 +41,7 @@ namespace wm.console.ClotheMenu
                 case 'D': RemoveClotheMenu.Print(); break;
                 case 'E': EditClotheMenu.Print(); ; break;
                 case 'R': RemoveColorMenu.Print(); break;
+                case 'L': OutfitsListMenu.Print(); break;
                 default: MainMenu.Print(); break;
             }
         }

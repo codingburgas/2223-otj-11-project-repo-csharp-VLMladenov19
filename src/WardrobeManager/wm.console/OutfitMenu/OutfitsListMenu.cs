@@ -28,6 +28,7 @@ namespace wm.console.OutfitMenu
             Console.WriteLine($"{"Press [D] key to Delete an Outfit",37}");
             Console.WriteLine($"{"Press [C] key to Add Clothes",35}");
             Console.WriteLine($"{"Press [R] key to Remove Clothes",36}");
+            Console.WriteLine($"{"Press [L] key to see Users Clothes",38}");
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
@@ -41,6 +42,7 @@ namespace wm.console.OutfitMenu
                 case 'D': RemoveOutfitMenu.Print(); break;
                 case 'C': AddClothesToOutfitMenu.Print(); break;
                 case 'R': RemoveClothesFromOutfitMenu.Print(); break;
+                case 'L': ClothesListMenu.Print(); break;
                 default: MainMenu.Print(); break;
             }
         }
