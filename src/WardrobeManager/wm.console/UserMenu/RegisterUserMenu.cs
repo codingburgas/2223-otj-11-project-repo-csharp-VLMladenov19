@@ -43,29 +43,27 @@ namespace wm.console.UserMenu
                 MainMenu.Print();
             }
 
-            if (UserService.CheckUsername(username) != (int)ErrorCodes.None)
+            switch(UserService.CheckUsername(username))
             {
-                if (UserService.CheckUsername(username) == (int)ErrorCodes.NullArgument)
-                {
+                case (int)ErrorCodes.NullArgument:
                     Console.WriteLine($"\n{"Username is required",30}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckUsername(username) == (int)ErrorCodes.InvalidArgumentLength)
-                {
+                    break;
+                case (int)ErrorCodes.InvalidArgumentLength:
                     Console.WriteLine($"\n{"Username must be from 4 to 12 characters"}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckUsername(username) == (int)ErrorCodes.ObjectTaken)
-                {
+                    break;
+                case (int)ErrorCodes.ObjectTaken:
                     Console.WriteLine($"\n{"Username already in use",31}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
+                    break;
+                default: break;
             }
             return username;
         }
@@ -75,43 +73,39 @@ namespace wm.console.UserMenu
             Console.Write($"{"Password: ",20}");
             string? password = Console.ReadLine();
 
-            if (UserService.CheckPassword(password) != (int)ErrorCodes.None)
+            switch(UserService.CheckPassword(password))
             {
-                if (UserService.CheckPassword(password) == (int)ErrorCodes.NullArgument)
-                {
+                case (int)ErrorCodes.NullArgument:
                     Console.WriteLine($"\n{"Password is required",30}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckPassword(password) == (int)ErrorCodes.InvalidArgumentLength)
-                {
+                    break;
+                case (int)ErrorCodes.InvalidArgumentLength:
                     Console.WriteLine($"\n{"Password needs to be 4 to 12 characters",0}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckPassword(password) == (int)ErrorCodes.ArgumentHasSpaces)
-                {
+                    break;
+                case (int)ErrorCodes.ArgumentHasSpaces:
                     Console.WriteLine($"\n{"String has empty characters",34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckPassword(password) == (int)ErrorCodes.ArgumentHasNoNumbers)
-                {
+                    break;
+                case (int)ErrorCodes.ArgumentHasNoNumbers:
                     Console.WriteLine($"\n{"Password must have a number",34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckPassword(password) == (int)ErrorCodes.ArgumentHasSymbols)
-                {
+                    break;
+                case (int)ErrorCodes.ArgumentHasSymbols:
                     Console.WriteLine($"\n{"Password has special symbols",34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
+                    break;
+                default: break;
             }
             return password;
         }
@@ -121,22 +115,21 @@ namespace wm.console.UserMenu
             Console.Write($"{"First Name: ",22}");
             string? firstName = Console.ReadLine();
 
-            if (UserService.CheckName(firstName) != (int)ErrorCodes.None)
+            switch(UserService.CheckName(firstName))
             {
-                if (UserService.CheckName(firstName) == (int)ErrorCodes.NullArgument)
-                {
+                case (int)ErrorCodes.NullArgument:
                     Console.WriteLine($"\n{"First Name is required",31}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckName(firstName) == (int)ErrorCodes.ArgumentHasNumbers)
-                {
+                    break;
+                case (int)ErrorCodes.ArgumentHasNumbers:
                     Console.WriteLine($"\n{"First Name must not have numbers",36}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
+                    break;
+                default: break;
             }
             return firstName;
         }
@@ -146,22 +139,21 @@ namespace wm.console.UserMenu
             Console.Write($"{"Last Name: ",21}");
             string? lastName = Console.ReadLine();
 
-            if (UserService.CheckName(lastName) != (int)ErrorCodes.None)
+            switch (UserService.CheckName(lastName))
             {
-                if (UserService.CheckName(lastName) == (int)ErrorCodes.NullArgument)
-                {
+                case (int)ErrorCodes.NullArgument:
                     Console.WriteLine($"\n{"Last Name is required",31}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckName(lastName) == (int)ErrorCodes.ArgumentHasNumbers)
-                {
+                    break;
+                case (int)ErrorCodes.ArgumentHasNumbers:
                     Console.WriteLine($"\n{"Last Name must not have numbers",36}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
+                    break;
+                default: break;
             }
             return lastName;
         }
@@ -171,29 +163,27 @@ namespace wm.console.UserMenu
             Console.Write($"{"Phone: ",17}");
             string? phone = Console.ReadLine();
 
-            if (UserService.CheckPhone(phone) != (int)ErrorCodes.None)
+            switch(UserService.CheckPhone(phone))
             {
-                if (UserService.CheckPhone(phone) == (int)ErrorCodes.NullArgument)
-                {
+                case (int)ErrorCodes.NullArgument:
                     Console.WriteLine($"\n{"Phone is required",28}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckPhone(phone) == (int)ErrorCodes.InvalidArgumentLength)
-                {
+                    break;
+                case (int)ErrorCodes.InvalidArgumentLength:
                     Console.WriteLine($"\n{"Phone must 10 to 15 characters",35}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckPhone(phone) == (int)ErrorCodes.ArgumentHasLetters)
-                {
+                    break;
+                case (int)ErrorCodes.ArgumentHasLetters:
                     Console.WriteLine($"\n{"Phone must not have letters",34}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
+                    break;
+                default: break;
             }
             return phone;
         }
@@ -202,30 +192,28 @@ namespace wm.console.UserMenu
         {
             Console.Write($"{"Email: ",17}");
             string? email = Console.ReadLine();
-
-            if (UserService.CheckEmail(email) != (int)ErrorCodes.None)
+            
+            switch(UserService.CheckEmail(email))
             {
-                if (UserService.CheckEmail(email) == (int)ErrorCodes.NullArgument)
-                {
+                case (int)ErrorCodes.NullArgument:
                     Console.WriteLine($"\n{"Email is required",28}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckEmail(email) == (int)ErrorCodes.EmailHasNoAtSign)
-                {
+                    break;
+                case (int)ErrorCodes.EmailHasNoAtSign:
                     Console.WriteLine($"\n{"Email is invalid",28}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
-                if (UserService.CheckEmail(email) == (int)ErrorCodes.EmailHasNoDomain)
-                {
+                    break;
+                case (int)ErrorCodes.EmailHasNoDomain:
                     Console.WriteLine($"\n{"Email has no domain",29}");
                     Console.WriteLine($"\n========================================");
                     Console.ReadKey();
                     Print();
-                }
+                    break;
+                default: break;
             }
             return email;
         }
