@@ -76,7 +76,7 @@ namespace wm.bll
         {
             bool verifyUser = false;
 
-            User? user = GetUserByUsername(Username);
+            User? user = UserRepository.GetUserByUsername(Username);
 
             if (user != null)
             {
