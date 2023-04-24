@@ -1,6 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,13 +103,13 @@ namespace wm.console.OutfitMenu
         private static DateTime InsertNewDate(int userId)
         {
             Console.Write($"{"Date: ",22}");
-            var newDate = Console.ReadLine();
+            var outfitDate = Console.ReadLine();
 
-            if (newDate.ToUpper() == "B")
+            if (outfitDate.ToUpper() == "B")
             {
                 OutfitsListMenu.Print();
             }
-            if (newDate.IsNullOrEmpty())
+            if (outfitDate.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Date is required",28}");
                 Console.WriteLine($"\n========================================");
@@ -116,8 +117,15 @@ namespace wm.console.OutfitMenu
                 Print();
             }
 
-            DateTime parsedNewDate = DateTime.Parse(newDate);
-            if (parsedNewDate <= DateTime.Now)
+            DateTime parsedDate;
+            if (!DateTime.TryParseExact(outfitDate, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+            {
+                Console.WriteLine($"\n{"Date is invalid",28}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print();
+            }
+            if (parsedDate < DateTime.Now)
             {
                 Console.WriteLine($"\n{"Date has already passed",32}");
                 Console.WriteLine($"\n========================================");
@@ -125,7 +133,7 @@ namespace wm.console.OutfitMenu
                 Print();
             }
 
-            return parsedNewDate;
+            return parsedDate;
         }
     }
 }

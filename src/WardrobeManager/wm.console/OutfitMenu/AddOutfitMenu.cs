@@ -87,7 +87,14 @@ namespace wm.console.OutfitMenu
                 Print();
             }
 
-            DateTime parsedDate = DateTime.Parse(outfitDate);
+            DateTime parsedDate;
+            if(!DateTime.TryParseExact(outfitDate, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+            {
+                Console.WriteLine($"\n{"Date is invalid",28}");
+                Console.WriteLine($"\n========================================");
+                Console.ReadKey();
+                Print();
+            }
             if (parsedDate < DateTime.Now)
             {
                 Console.WriteLine($"\n{"Date has already passed",32}");
