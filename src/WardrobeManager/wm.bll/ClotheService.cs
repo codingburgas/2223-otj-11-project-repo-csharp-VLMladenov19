@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using wm.dal.Data;
 using wm.dal.Models;
 using wm.dal.Repositories;
 using wm.util;
@@ -14,9 +15,14 @@ namespace wm.bll
     {
         public static List<Clothe> GetAll()
         {
-            List<Clothe> clothes = ClotheRepository.GetAllClothes();
+            using (var context = new WardrobeManagerContext())
+            {
+                var clotheRepository = new ClotheRepository(context);
 
-            return clothes;
+                List<Clothe> clothes = clotheRepository.GetAllClothes().ToList();
+
+                return clothes;
+            }
         }
 
         public static Clothe? GetClothe(string clotheName, int userId)
@@ -58,16 +64,26 @@ namespace wm.bll
 
         public static void AddClothe(string name, int userId, int typeId)
         {
-            Clothe clothe = new Clothe(name, userId, typeId);
+            using(var context = new WardrobeManagerContext())
+            {
+                var clotheRepository = new ClotheRepository(context);
 
-            ClotheRepository.AddClothe(clothe);
+                Clothe clothe = new Clothe(name, userId, typeId);
+
+                clotheRepository.AddClothe(clothe);
+            }
         }
 
         public static void RemoveClothe(int clotheId)
         {
-            ColorBridgeService.RemoveAllByClotheId(clotheId);
-            OutfitBridgeService.RemoveAllByClotheId(clotheId);
-            ClotheRepository.RemoveClothe(clotheId);
+            using(var context = new WardrobeManagerContext())
+            {
+                var clotheRepository = new ClotheRepository(context);
+
+                ColorBridgeService.RemoveAllByClotheId(clotheId);
+                OutfitBridgeService.RemoveAllByClotheId(clotheId);
+                clotheRepository.RemoveClothe(clotheId);
+            }
         }
 
         public static void RemoveUserClothes(int userId)
@@ -98,15 +114,19 @@ namespace wm.bll
 
         public static void EditClothe(string oldClotheName, string newClotheName, int userId, int typeId)
         {
-            Clothe? clothe = GetClotheById(GetClotheId(oldClotheName, userId));
-
-            if(clothe != null)
+            using(var context = new WardrobeManagerContext())
             {
-                clothe.Name = newClotheName;
-                clothe.TypeId = typeId;
+                var clotheRepository = new ClotheRepository(context);
+                Clothe? clothe = GetClotheById(GetClotheId(oldClotheName, userId));
 
-                ClotheRepository.EditClothe(clothe);
-                ColorBridgeService.RemoveAllByClotheId(clothe.Id);
+                if (clothe != null)
+                {
+                    clothe.Name = newClotheName;
+                    clothe.TypeId = typeId;
+
+                    clotheRepository.EditClothe(clothe);
+                    ColorBridgeService.RemoveAllByClotheId(clothe.Id);
+                }
             }
         }
     }
