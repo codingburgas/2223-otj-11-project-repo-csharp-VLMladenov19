@@ -101,22 +101,27 @@ namespace wm.bll
 
         public static bool VerifyUser(string Username, string Password)
         {
-            bool verifyUser = false;
-
-            User? user = userRepository.GetUserByUsername(Username);
-
-            if (user != null)
+            using (var context = new WardrobeManagerContext())
             {
-                string saltedPassword = Password + user.Salt;
-                string hashedPass = HashPassword(saltedPassword);
+                UserRepository userRepository = new(context);
 
-                if (user.Password == hashedPass)
+                bool verifyUser = false;
+
+                User? user = userRepository.GetUserByUsername(Username);
+
+                if (user != null)
                 {
-                    verifyUser = true;
-                }
-            }
+                    string saltedPassword = Password + user.Salt;
+                    string hashedPass = HashPassword(saltedPassword);
 
-            return verifyUser;
+                    if (user.Password == hashedPass)
+                    {
+                        verifyUser = true;
+                    }
+                }
+
+                return verifyUser;
+            }
         }
 
         public static string GenerateSalt()
