@@ -67,7 +67,7 @@ namespace wm.console.OutfitMenu
         private static void PrintClothes(string outfitName, int userId)
         {
             int outfitId = OutfitService.GetOutfitId(outfitName, userId);
-            var outfitBridgeList = OutfitBridgeRepository.GetOutfitClothes(outfitId);
+            var outfitBridgeList = OutfitBridgeService.GetOutfitClothes(outfitId);
 
             var clothesList = ClotheService.GetClothesByUserId(userId);
             var typesList = TypeService.GetAll();

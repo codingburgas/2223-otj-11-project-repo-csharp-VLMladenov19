@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,61 +11,53 @@ namespace wm.dal.Repositories
 {
     public class OutfitBridgeRepository
     {
-        public static List<OutfitsClothe> GetAll()
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                var list = context.OutfitsClothes
-                    .ToList();
+        private readonly WardrobeManagerContext _context;
 
-                return list;
-            }
+        public OutfitBridgeRepository(WardrobeManagerContext context)
+        {
+            _context = context;
         }
 
-        public static List<OutfitsClothe> GetAllByClotheId(int clotheId)
+        public IEnumerable<OutfitsClothe> GetAll()
         {
-            using (var context = new WardrobeManagerContext())
-            {
-                var list = context.OutfitsClothes
-                    .Where(c => c.ClotheId == clotheId)
-                    .ToList();
+            var list = _context.OutfitsClothes
+                .ToList();
 
-                return list;
-            }
+            return list;
         }
 
-        public static List<OutfitsClothe> GetOutfitClothes(int outfitId)
+        public IEnumerable<OutfitsClothe> GetAllByClotheId(int clotheId)
         {
-            using (var context = new WardrobeManagerContext())
-            {
-                var list = context.OutfitsClothes
-                    .Where(c => c.OutfitId == outfitId)
-                    .ToList();
+            var list = _context.OutfitsClothes
+                .Where(c => c.ClotheId == clotheId)
+                .ToList();
 
-                return list;
-            }
+            return list;
         }
 
-        public static void AddRow(OutfitsClothe outfitsClothe)
+        public IEnumerable<OutfitsClothe> GetOutfitClothes(int outfitId)
         {
-            using (var context = new WardrobeManagerContext())
-            {
-                context.OutfitsClothes.Add(outfitsClothe);
+            var list = _context.OutfitsClothes
+                .Where(c => c.OutfitId == outfitId)
+                .ToList();
 
-                context.SaveChanges();
-            }
+            return list;
         }
 
-        public static void RemoveRow(OutfitsClothe outfitsClothe)
+        public void AddRow(OutfitsClothe outfitsClothe)
         {
-            using (var context = new WardrobeManagerContext())
-            {
-                if (outfitsClothe != null)
-                {
-                    context.OutfitsClothes.Remove(outfitsClothe);
+            _context.OutfitsClothes.Add(outfitsClothe);
 
-                    context.SaveChanges();
-                }
+            _context.SaveChanges();
+        }
+
+        public void RemoveRow(OutfitsClothe outfitsClothe)
+        {
+            if (outfitsClothe != null)
+            {
+                _context.OutfitsClothes.Remove(outfitsClothe);
+
+                _context.SaveChanges();
             }
         }
     }

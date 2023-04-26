@@ -10,15 +10,19 @@ namespace wm.dal.Repositories
 {
     public class TypeRepository
     {
-        public static List<Models.Type> GetAllTypes()
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                List<Models.Type> list = context.Types
-                    .ToList();
+        private readonly WardrobeManagerContext _context;
 
-                return list;
-            }
+        public TypeRepository(WardrobeManagerContext context)
+        {
+            _context = context;
+        }
+
+        public IEnumerable<Models.Type> GetAllTypes()
+        {
+            List<Models.Type> list = _context.Types
+                .ToList();
+
+            return list;
         }
     }
 }

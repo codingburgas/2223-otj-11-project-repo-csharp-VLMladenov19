@@ -18,65 +18,92 @@ namespace wm.bll
     {
         public static int GetUserIdByUsername(string username)
         {
-            User user = UserRepository.GetUserByUsername(username);
-
-            if (user == null)
+            using (var context = new WardrobeManagerContext())
             {
-                return (int)ErrorCodes.InvalidObject;
+                UserRepository userRepository = new(context);
+
+                User user = userRepository.GetUserByUsername(username);
+
+                if (user == null)
+                {
+                    return (int)ErrorCodes.InvalidObject;
+                }
+                return user.Id;
             }
-            return user.Id;
         }
 
         public static User? GetUserByUsername(string username)
         {
-            User? user = UserRepository.GetAllUsers()
+            using (var context = new WardrobeManagerContext())
+            {
+                UserRepository userRepository = new(context);
+
+                User? user = userRepository.GetAllUsers()
                 .FirstOrDefault(user => user.Username == username);
 
-            return user;
+                return user;
+            }
         }
 
-        public static void RegisterUser(string username, string password, string fName, string lName, string phone, string email) 
+        public static void RegisterUser(string username, string password, string fName, string lName, string phone, string email)
         {
-            User user = new User(username, password, fName, lName, phone, email);
-
-            user.Salt = GenerateSalt();
-            string saltedPassword = user.Password + user.Salt;
-            user.Password = HashPassword(saltedPassword);
-
-            if (user != null) 
+            using (var context = new WardrobeManagerContext())
             {
-                UserRepository.InsertUser(user);
+                UserRepository userRepository = new(context);
+
+                User user = new User(username, password, fName, lName, phone, email);
+
+                user.Salt = GenerateSalt();
+                string saltedPassword = user.Password + user.Salt;
+                user.Password = HashPassword(saltedPassword);
+
+                if (user != null)
+                {
+                    userRepository.InsertUser(user);
+                }
             }
         }
 
         public static void DeleteUser(int userId)
         {
-            ClotheService.RemoveUserClothes(userId);
-            OutfitService.RemoveUserOutfits(userId);
-            UserRepository.DeleteUser(userId);
+            using (var context = new WardrobeManagerContext())
+            {
+                UserRepository userRepository = new(context);
+
+                ClotheService.RemoveUserClothes(userId);
+                OutfitService.RemoveUserOutfits(userId);
+
+                User user = userRepository.GetUserById(userId);
+                userRepository.DeleteUser(user);
+            }
         }
 
         public static void UpdateUser(string oldUsername, string newUsername, string newPassword, string newFName, string newLName, string newPhone, string newEmail)
         {
-            User oldUser = UserRepository.GetUserByUsername(oldUsername);
-            User newUser = new User(newUsername, newPassword, newFName, newLName, newPhone, newEmail);
-
-            if (oldUser != null)
+            using (var context = new WardrobeManagerContext())
             {
-                newUser.Id = oldUser.Id;
-                newUser.Salt = GenerateSalt();
-                string saltedPassword = newUser.Password + newUser.Salt;
-                newUser.Password = HashPassword(saltedPassword);
-            }
+                UserRepository userRepository = new(context);
 
-            UserRepository.UpdateUser(oldUsername, newUser);
+                User oldUser = userRepository.GetUserByUsername(oldUsername);
+                User newUser = new User(newUsername, newPassword, newFName, newLName, newPhone, newEmail);
+
+                if (oldUser != null)
+                {
+                    newUser.Id = oldUser.Id;
+                    newUser.Salt = GenerateSalt();
+                    string saltedPassword = newUser.Password + newUser.Salt;
+                    newUser.Password = HashPassword(saltedPassword);
+                }
+
+                userRepository.UpdateUser(oldUsername, newUser);
+            }
         }
 
         public static bool VerifyUser(string Username, string Password)
         {
             bool verifyUser = false;
 
-            User? user = UserRepository.GetUserByUsername(Username);
+            User? user = userRepository.GetUserByUsername(Username);
 
             if (user != null)
             {

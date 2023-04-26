@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using wm.dal.Data;
 using wm.dal.Models;
 using wm.dal.Repositories;
 using wm.util;
@@ -14,9 +15,14 @@ namespace wm.bll
     {
         public static List<Outfit> GetAll()
         {
-            List<Outfit> outfits = OutfitRepository.GetAllOutfits();
+            using (var context = new WardrobeManagerContext())
+            {
+                OutfitRepository outfitRepository = new(context);
 
-            return outfits;
+                List<Outfit> outfits = outfitRepository.GetAllOutfits().ToList();
+
+                return outfits;
+            }
         }
 
         public static Outfit? GetOutfit(string outfitName, int userId)
@@ -50,15 +56,25 @@ namespace wm.bll
 
         public static void AddOutfit(string name, DateTime date, int userId)
         {
-            Outfit outfit = new Outfit(name, date, userId);
+            using (var context = new WardrobeManagerContext())
+            {
+                OutfitRepository outfitRepository = new(context);
 
-            OutfitRepository.AddOutfit(outfit);
+                Outfit outfit = new Outfit(name, date, userId);
+
+                outfitRepository.AddOutfit(outfit);
+            }
         }
 
         public static void RemoveOutfit(int outfitId)
         {
-            OutfitBridgeService.RemoveAllByOutfitId(outfitId);
-            OutfitRepository.RemoveOutfit(outfitId);
+            using (var context = new WardrobeManagerContext())
+            {
+                OutfitRepository outfitRepository = new(context);
+
+                OutfitBridgeService.RemoveAllByOutfitId(outfitId);
+                outfitRepository.RemoveOutfit(outfitId);
+            }
         }
 
         public static void RemoveUserOutfits(int userId)
@@ -78,27 +94,37 @@ namespace wm.bll
 
         public static void RemoveClotheFromOutfit(string outfitName, int clotheId, int userId)
         {
-            int outfitId = GetOutfitId(outfitName, userId);
-            OutfitsClothe? outfitClothe = OutfitBridgeRepository.GetOutfitClothes(outfitId)
-                .FirstOrDefault(c => c.ClotheId == clotheId);
-
-            if (outfitClothe != null)
+            using (var context = new WardrobeManagerContext())
             {
-                OutfitBridgeRepository.RemoveRow(outfitClothe);
+                OutfitBridgeRepository outfitBridgeRepository = new(context);
+
+                int outfitId = GetOutfitId(outfitName, userId);
+                OutfitsClothe? outfitClothe = outfitBridgeRepository.GetOutfitClothes(outfitId)
+                    .FirstOrDefault(c => c.ClotheId == clotheId);
+
+                if (outfitClothe != null)
+                {
+                    outfitBridgeRepository.RemoveRow(outfitClothe);
+                }
             }
         }
 
         public static void EditOutfit(string oldName, string newName, DateTime newDate, int userId)
         {
-            Outfit? outfit = GetOutfit(oldName, userId);
-
-            if(outfit != null)
+            using (var context = new WardrobeManagerContext())
             {
-                outfit.Name = newName;
-                outfit.Date = newDate;
+                OutfitRepository outfitRepository = new(context);
 
-                OutfitRepository.EditOutfit(outfit);
-                OutfitBridgeService.RemoveAllByOutfitId(outfit.Id);
+                Outfit? outfit = GetOutfit(oldName, userId);
+
+                if (outfit != null)
+                {
+                    outfit.Name = newName;
+                    outfit.Date = newDate;
+
+                    outfitRepository.EditOutfit(outfit);
+                    OutfitBridgeService.RemoveAllByOutfitId(outfit.Id);
+                }
             }
         }
     }

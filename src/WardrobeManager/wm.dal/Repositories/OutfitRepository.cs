@@ -10,58 +10,54 @@ namespace wm.dal.Repositories
 {
     public class OutfitRepository
     {
-        public static List<Outfit> GetAllOutfits()
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                var list = context.Outfits
-                    .ToList();
 
-                return list;
+        private readonly WardrobeManagerContext _context;
+
+        public OutfitRepository(WardrobeManagerContext context)
+        {
+            _context = context;
+        }
+
+        public IEnumerable<Outfit> GetAllOutfits()
+        {
+            var list = _context.Outfits
+                .ToList();
+
+            return list;
+        }
+
+        public void AddOutfit(Outfit outfit)
+        {
+            _context.Outfits.Add(outfit);
+
+            _context.SaveChanges();
+        }
+
+        public void RemoveOutfit(int outfitId)
+        {
+            var outfit = _context.Outfits
+                .FirstOrDefault(c => c.Id == outfitId);
+
+            if (outfit != null)
+            {
+                _context.Outfits.Remove(outfit);
+
+                _context.SaveChanges();
             }
         }
 
-        public static void AddOutfit(Outfit outfit)
+        public void EditOutfit(Outfit newOutfit)
         {
-            using (var context = new WardrobeManagerContext())
+            var oldOutfit = _context.Outfits
+                .FirstOrDefault(c => c.Id == newOutfit.Id);
+
+            if (oldOutfit != null)
             {
-                context.Outfits.Add(outfit);
-
-                context.SaveChanges();
+                oldOutfit.Name = newOutfit.Name;
+                oldOutfit.Date = newOutfit.Date;
             }
-        }
 
-        public static void RemoveOutfit(int outfitId)
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                var outfit = context.Outfits
-                    .FirstOrDefault(c => c.Id == outfitId);
-
-                if (outfit != null)
-                {
-                    context.Outfits.Remove(outfit);
-
-                    context.SaveChanges();
-                }
-            }
-        }
-
-        public static void EditOutfit(Outfit newOutfit)
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                var oldOutfit = context.Outfits
-                    .FirstOrDefault(c => c.Id == newOutfit.Id);
-
-                if (oldOutfit != null)
-                {
-                    oldOutfit.Name = newOutfit.Name;
-                    oldOutfit.Date = newOutfit.Date;
-                }
-
-                context.SaveChanges();
-            }
+            _context.SaveChanges();
         }
     }
 }

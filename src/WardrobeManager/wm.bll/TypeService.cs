@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using wm.dal.Data;
 using wm.dal.Repositories;
 using wm.util;
 
@@ -13,10 +14,15 @@ namespace wm.bll
     {
         public static List<dal.Models.Type> GetAll()
         {
-            List<wm.dal.Models.Type> types = TypeRepository.GetAllTypes()
+            using (var context = new WardrobeManagerContext())
+            {
+                TypeRepository typeRepository = new(context);
+
+                List<wm.dal.Models.Type> types = typeRepository.GetAllTypes()
                 .ToList();
 
-            return types;
+                return types;
+            }
         }
 
         public static dal.Models.Type? GetType(string name)
