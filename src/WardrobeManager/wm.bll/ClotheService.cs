@@ -103,12 +103,17 @@ namespace wm.bll
 
         public static void RemoveColorFromClothe(string clotheName, int colorId, int userId)
         {
-            int clotheId = GetClotheId(clotheName, userId);
-            ClothesColor? clotheColor = ColorBridgeRepository.GetAllByClotheId(clotheId).FirstOrDefault(c => c.ColorId == colorId);
-
-            if (clotheColor != null)
+            using (var context = new WardrobeManagerContext())
             {
-                ColorBridgeRepository.RemoveRow(clotheColor);
+                ColorBridgeRepository colorBridgeRepository = new(context);
+
+                int clotheId = GetClotheId(clotheName, userId);
+                ClothesColor? clotheColor = colorBridgeRepository.GetAllByClotheId(clotheId).FirstOrDefault(c => c.ColorId == colorId);
+
+                if (clotheColor != null)
+                {
+                    colorBridgeRepository.RemoveRow(clotheColor);
+                }
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using wm.dal.Data;
 using wm.dal.Models;
 using wm.dal.Repositories;
 using wm.util;
@@ -13,28 +14,42 @@ namespace wm.bll
     {
         public static List<Color> GetAll()
         {
-            List<Color> colors = ColorRepository.GetAll();
+            using (var context = new WardrobeManagerContext())
+            {
+                ColorRepository colorRepository = new(context);
 
-            return colors;
+                List<Color> colors = colorRepository.GetAll().ToList();
+
+                return colors;
+            }
         }
 
         public static int GetColorId(string colorName)
         {
-            Color? color = ColorRepository.GetAll()
-                .FirstOrDefault(c => c.Name.ToUpper() == colorName.ToUpper());
-
-            if(color == null)
+            using (var context = new WardrobeManagerContext())
             {
-                return (int)ErrorCodes.InvalidObject;
+                ColorRepository colorRepository = new(context);
+
+                Color? color = colorRepository.GetAll().FirstOrDefault(c => c.Name.ToUpper() == colorName.ToUpper());
+
+                if (color == null)
+                {
+                    return (int)ErrorCodes.InvalidObject;
+                }
+                return color.Id;
             }
-            return color.Id;
         }
 
         public static Color? GetColorById(int colorId)
         {
-            Color? color = ColorRepository.GetAll().FirstOrDefault(c => c.Id == colorId);
+            using (var context = new WardrobeManagerContext())
+            {
+                ColorRepository colorRepository = new(context);
 
-            return color;
+                Color? color = colorRepository.GetAll().FirstOrDefault(c => c.Id == colorId);
+
+                return color;
+            }
         }
     }
 }

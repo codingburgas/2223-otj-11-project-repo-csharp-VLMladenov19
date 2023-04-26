@@ -11,51 +11,46 @@ namespace wm.dal.Repositories
 {
     public class ColorBridgeRepository
     {
-        public static List<ClothesColor> GetAll()
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                var list = context.ClothesColors
-                    .ToList();
+        private readonly WardrobeManagerContext _context;
 
-                return list;
-            }
-        }
-        public static List<ClothesColor> GetAllByClotheId(int id)
+        public ColorBridgeRepository(WardrobeManagerContext context)
         {
-            using (var context = new WardrobeManagerContext())
-            {
-                var list = context.ClothesColors
-                    .Where(c => c.ClotheId == id)
-                    .ToList();
-
-                return list;
-            }
+            _context = context;
         }
 
-        public static void AddRows(ClothesColor clothesColor)
+        public IEnumerable<ClothesColor> GetAll()
         {
-            using (var context = new WardrobeManagerContext())
-            {
-                if (clothesColor != null)
-                {
-                    context.ClothesColors.Add(clothesColor);
+            var list = _context.ClothesColors
+                .ToList();
 
-                    context.SaveChanges();
-                }
+            return list;
+        }
+        public IEnumerable<ClothesColor> GetAllByClotheId(int id)
+        {
+            var list = _context.ClothesColors
+                .Where(c => c.ClotheId == id)
+                .ToList();
+
+            return list;
+        }
+
+        public void AddRows(ClothesColor clothesColor)
+        {
+            if (clothesColor != null)
+            {
+                _context.ClothesColors.Add(clothesColor);
+
+                _context.SaveChanges();
             }
         }
 
-        public static void RemoveRow(ClothesColor clothesColor)
+        public void RemoveRow(ClothesColor clothesColor)
         {
-            using (var context = new WardrobeManagerContext())
+            if(clothesColor != null)
             {
-                if(clothesColor != null)
-                {
-                    context.ClothesColors.Remove(clothesColor);
+                _context.ClothesColors.Remove(clothesColor);
 
-                    context.SaveChanges();
-                }
+                _context.SaveChanges();
             }
         }
     }

@@ -10,14 +10,19 @@ namespace wm.dal.Repositories
 {
     public class ColorRepository
     {
-        public static List<Color> GetAll()
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                var list = context.Colors.ToList();
 
-                return list;
-            }
+        private readonly WardrobeManagerContext _context;
+
+        public ColorRepository(WardrobeManagerContext context)
+        {
+            _context = context;
+        }
+
+        public IEnumerable<Color> GetAll()
+        {
+            var list = _context.Colors.ToList();
+
+            return list;
         }
     }
 }
