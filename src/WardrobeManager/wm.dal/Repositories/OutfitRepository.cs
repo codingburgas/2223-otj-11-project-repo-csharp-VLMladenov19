@@ -18,7 +18,7 @@ namespace wm.dal.Repositories
             _context = context;
         }
 
-        public IEnumerable<Outfit> GetAllOutfits()
+        public IEnumerable<Outfit> GetAll()
         {
             var list = _context.Outfits
                 .ToList();
@@ -26,14 +26,14 @@ namespace wm.dal.Repositories
             return list;
         }
 
-        public void AddOutfit(Outfit outfit)
+        public void AddRow(Outfit outfit)
         {
             _context.Outfits.Add(outfit);
 
             _context.SaveChanges();
         }
 
-        public void RemoveOutfit(int outfitId)
+        public void RemoveRow(int outfitId)
         {
             var outfit = _context.Outfits
                 .FirstOrDefault(c => c.Id == outfitId);
@@ -46,7 +46,7 @@ namespace wm.dal.Repositories
             }
         }
 
-        public void EditOutfit(Outfit newOutfit)
+        public void EditRow(Outfit newOutfit)
         {
             var oldOutfit = _context.Outfits
                 .FirstOrDefault(c => c.Id == newOutfit.Id);

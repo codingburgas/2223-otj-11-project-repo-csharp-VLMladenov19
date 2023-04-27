@@ -25,16 +25,17 @@ namespace wm.dal.Repositories
 
             return list;
         }
-        public IEnumerable<ClothesColor> GetAllByClotheId(int id)
+
+        public IEnumerable<ClothesColor> GetAllByClotheId(int clotheId)
         {
             var list = _context.ClothesColors
-                .Where(c => c.ClotheId == id)
+                .Where(c => c.ClotheId == clotheId)
                 .ToList();
 
             return list;
         }
 
-        public void AddRows(ClothesColor clothesColor)
+        public void AddRow(ClothesColor clothesColor)
         {
             if (clothesColor != null)
             {

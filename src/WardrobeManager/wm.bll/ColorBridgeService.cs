@@ -36,7 +36,7 @@ namespace wm.bll
 
                 if (!RowExists(clothesColor))
                 {
-                    colorBridgeRepository.AddRows(clothesColor);
+                    colorBridgeRepository.AddRow(clothesColor);
                 }
             }
         }

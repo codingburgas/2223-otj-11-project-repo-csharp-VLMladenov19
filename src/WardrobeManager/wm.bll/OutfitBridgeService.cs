@@ -30,7 +30,7 @@ namespace wm.bll
             {
                 OutfitBridgeRepository outfitBridgeRepository = new(context);
 
-                List<OutfitsClothe> list = outfitBridgeRepository.GetOutfitClothes(outfitId).ToList();
+                List<OutfitsClothe> list = outfitBridgeRepository.GetOutfitsClothes(outfitId).ToList();
 
                 return list;
             }
@@ -78,7 +78,7 @@ namespace wm.bll
             {
                 OutfitBridgeRepository outfitBridgeRepository = new(context);
 
-                List<OutfitsClothe> bridgeList = outfitBridgeRepository.GetOutfitClothes(outfitId).ToList();
+                List<OutfitsClothe> bridgeList = outfitBridgeRepository.GetOutfitsClothes(outfitId).ToList();
 
                 foreach (var c in bridgeList)
                 {

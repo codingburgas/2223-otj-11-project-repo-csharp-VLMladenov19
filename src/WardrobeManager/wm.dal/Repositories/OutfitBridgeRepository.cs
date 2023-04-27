@@ -35,7 +35,7 @@ namespace wm.dal.Repositories
             return list;
         }
 
-        public IEnumerable<OutfitsClothe> GetOutfitClothes(int outfitId)
+        public IEnumerable<OutfitsClothe> GetOutfitsClothes(int outfitId)
         {
             var list = _context.OutfitsClothes
                 .Where(c => c.OutfitId == outfitId)

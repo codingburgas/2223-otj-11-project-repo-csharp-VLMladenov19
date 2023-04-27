@@ -19,7 +19,7 @@ namespace wm.bll
             {
                 var clotheRepository = new ClotheRepository(context);
 
-                List<Clothe> clothes = clotheRepository.GetAllClothes().ToList();
+                List<Clothe> clothes = clotheRepository.GetAll().ToList();
 
                 return clothes;
             }
@@ -70,7 +70,7 @@ namespace wm.bll
 
                 Clothe clothe = new Clothe(name, userId, typeId);
 
-                clotheRepository.AddClothe(clothe);
+                clotheRepository.AddRow(clothe);
             }
         }
 
@@ -82,7 +82,7 @@ namespace wm.bll
 
                 ColorBridgeService.RemoveAllByClotheId(clotheId);
                 OutfitBridgeService.RemoveAllByClotheId(clotheId);
-                clotheRepository.RemoveClothe(clotheId);
+                clotheRepository.RemoveRow(clotheId);
             }
         }
 
@@ -129,7 +129,7 @@ namespace wm.bll
                     clothe.Name = newClotheName;
                     clothe.TypeId = typeId;
 
-                    clotheRepository.EditClothe(clothe);
+                    clotheRepository.EditRow(clothe);
                     ColorBridgeService.RemoveAllByClotheId(clothe.Id);
                 }
             }

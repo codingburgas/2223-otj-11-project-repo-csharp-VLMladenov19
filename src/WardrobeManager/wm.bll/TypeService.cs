@@ -18,7 +18,7 @@ namespace wm.bll
             {
                 TypeRepository typeRepository = new(context);
 
-                List<wm.dal.Models.Type> types = typeRepository.GetAllTypes()
+                List<wm.dal.Models.Type> types = typeRepository.GetAll()
                 .ToList();
 
                 return types;

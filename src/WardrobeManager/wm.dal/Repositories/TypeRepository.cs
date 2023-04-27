@@ -17,7 +17,7 @@ namespace wm.dal.Repositories
             _context = context;
         }
 
-        public IEnumerable<Models.Type> GetAllTypes()
+        public IEnumerable<Models.Type> GetAll()
         {
             List<Models.Type> list = _context.Types
                 .ToList();

@@ -19,7 +19,7 @@ namespace wm.bll
             {
                 OutfitRepository outfitRepository = new(context);
 
-                List<Outfit> outfits = outfitRepository.GetAllOutfits().ToList();
+                List<Outfit> outfits = outfitRepository.GetAll().ToList();
 
                 return outfits;
             }
@@ -62,7 +62,7 @@ namespace wm.bll
 
                 Outfit outfit = new Outfit(name, date, userId);
 
-                outfitRepository.AddOutfit(outfit);
+                outfitRepository.AddRow(outfit);
             }
         }
 
@@ -73,7 +73,7 @@ namespace wm.bll
                 OutfitRepository outfitRepository = new(context);
 
                 OutfitBridgeService.RemoveAllByOutfitId(outfitId);
-                outfitRepository.RemoveOutfit(outfitId);
+                outfitRepository.RemoveRow(outfitId);
             }
         }
 
@@ -99,7 +99,7 @@ namespace wm.bll
                 OutfitBridgeRepository outfitBridgeRepository = new(context);
 
                 int outfitId = GetOutfitId(outfitName, userId);
-                OutfitsClothe? outfitClothe = outfitBridgeRepository.GetOutfitClothes(outfitId)
+                OutfitsClothe? outfitClothe = outfitBridgeRepository.GetOutfitsClothes(outfitId)
                     .FirstOrDefault(c => c.ClotheId == clotheId);
 
                 if (outfitClothe != null)
@@ -122,7 +122,7 @@ namespace wm.bll
                     outfit.Name = newName;
                     outfit.Date = newDate;
 
-                    outfitRepository.EditOutfit(outfit);
+                    outfitRepository.EditRow(outfit);
                     OutfitBridgeService.RemoveAllByOutfitId(outfit.Id);
                 }
             }

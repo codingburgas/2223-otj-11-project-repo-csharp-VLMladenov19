@@ -38,7 +38,7 @@ namespace wm.bll
             {
                 UserRepository userRepository = new(context);
 
-                User? user = userRepository.GetAllUsers()
+                User? user = userRepository.GetAll()
                 .FirstOrDefault(user => user.Username == username);
 
                 return user;
@@ -59,7 +59,7 @@ namespace wm.bll
 
                 if (user != null)
                 {
-                    userRepository.InsertUser(user);
+                    userRepository.InsertRow(user);
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace wm.bll
                 OutfitService.RemoveUserOutfits(userId);
 
                 User user = userRepository.GetUserById(userId);
-                userRepository.DeleteUser(user);
+                userRepository.DeleteRow(user);
             }
         }
 
@@ -95,7 +95,7 @@ namespace wm.bll
                     newUser.Password = HashPassword(saltedPassword);
                 }
 
-                userRepository.UpdateUser(oldUsername, newUser);
+                userRepository.UpdateRow(oldUsername, newUser);
             }
         }
 

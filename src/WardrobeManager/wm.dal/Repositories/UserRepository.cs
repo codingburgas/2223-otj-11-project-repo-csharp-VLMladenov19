@@ -17,7 +17,7 @@ namespace wm.dal.Repositories
             _context = context;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<User> GetAll()
         {
             var users = _context
                 .Users
@@ -43,14 +43,14 @@ namespace wm.dal.Repositories
             return user;
         }
 
-        public void InsertUser(User user)
+        public void InsertRow(User user)
         {
             _context.Users.Add(user);
 
             _context.SaveChanges();
         }
 
-        public void DeleteUser(User user)
+        public void DeleteRow(User user)
         {
             if (user != null)
             {
@@ -60,7 +60,7 @@ namespace wm.dal.Repositories
             }
         }
 
-        public void UpdateUser(string username, User newUserInfo)
+        public void UpdateRow(string username, User newUserInfo)
         {
             var user = _context
                 .Users
