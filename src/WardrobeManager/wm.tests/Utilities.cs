@@ -15,7 +15,8 @@ namespace wm.tests
         public static WardrobeManagerContext Generate()
         {
             var optionsBuilder = new DbContextOptionsBuilder<WardrobeManagerContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .EnableSensitiveDataLogging();
 
             return new WardrobeManagerContext(optionsBuilder.Options);
         }
