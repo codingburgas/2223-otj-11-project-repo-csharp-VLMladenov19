@@ -3,7 +3,7 @@ using wm.dal.Data;
 using wm.dal.Models;
 using wm.dal.Repositories;
 
-namespace wm.tests
+namespace wm.tests.Repositories
 {
     public class UserRepositoryTests
     {
@@ -14,7 +14,7 @@ namespace wm.tests
         {
             _context = Utilities.Generate();
 
-            _context.Users.Add(new dal.Models.User
+            _context.Users.Add(new User
             {
                 Username = "test1",
                 Password = "3805C12FC67060217558470498B9266A077B049ECC5805EBF83B933EFAD6B049",
@@ -24,7 +24,7 @@ namespace wm.tests
                 Phone = "1234567890",
                 Email = "test1@pass.me"
             });
-            _context.Users.Add(new dal.Models.User
+            _context.Users.Add(new User
             {
                 Username = "test2",
                 Password = "529E0269FA4AFCCB7388CDAA1534B5A30A3653D47D05E6334AF442823FDDEE93",
@@ -34,6 +34,7 @@ namespace wm.tests
                 Phone = "1234567890",
                 Email = "test2@pass.me"
             });
+
             _context.SaveChanges();
         }
 
@@ -43,7 +44,7 @@ namespace wm.tests
             _context.ChangeTracker.Clear();
 
             List<User> expected = new(){
-                new dal.Models.User
+                new User
                 {
                     Id = 1,
                     Username = "test1",
@@ -54,7 +55,7 @@ namespace wm.tests
                     Phone = "1234567890",
                     Email = "test1@pass.me"
                 },
-                new dal.Models.User
+                new User
                 {
                     Id = 2,
                     Username = "test2",
@@ -64,7 +65,7 @@ namespace wm.tests
                     LastName = "test",
                     Phone = "1234567890",
                     Email = "test2@pass.me"
-                } 
+                }
             };
 
             UserRepository userRepository = new(_context);
@@ -78,7 +79,7 @@ namespace wm.tests
         {
             _context.ChangeTracker.Clear();
 
-            User expected = new dal.Models.User
+            User expected = new User
             {
                 Id = 2,
                 Username = "test2",
@@ -101,7 +102,7 @@ namespace wm.tests
         {
             _context.ChangeTracker.Clear();
 
-            User expected = new dal.Models.User
+            User expected = new User
             {
                 Id = 2,
                 Username = "test2",
@@ -124,7 +125,7 @@ namespace wm.tests
         {
             _context.ChangeTracker.Clear();
 
-            User newUser = new dal.Models.User
+            User newUser = new User
             {
                 Username = "test3",
                 Password = "01F4D2ACFF5BBEC1FD02066ED306989D7BF086D1D2701EF4AFB3A615264A3611",
@@ -139,7 +140,7 @@ namespace wm.tests
             userRepository.InsertRow(newUser);
 
             List<User> expected = new(){
-                new dal.Models.User
+                new User
                 {
                     Id = 1,
                     Username = "test1",
@@ -150,7 +151,7 @@ namespace wm.tests
                     Phone = "1234567890",
                     Email = "test1@pass.me"
                 },
-                new dal.Models.User
+                new User
                 {
                     Id = 2,
                     Username = "test2",
@@ -161,7 +162,7 @@ namespace wm.tests
                     Phone = "1234567890",
                     Email = "test2@pass.me"
                 },
-                new dal.Models.User
+                new User
                 {
                     Id = 3,
                     Username = "test3",
@@ -184,7 +185,7 @@ namespace wm.tests
         {
             _context.ChangeTracker.Clear();
 
-            User user = new dal.Models.User
+            User user = new User
             {
                 Id = 1,
                 Username = "test1",
@@ -201,7 +202,7 @@ namespace wm.tests
 
             List<User> expected = new()
             {
-                new dal.Models.User
+                new User
                 {
                     Id = 2,
                     Username = "test2",
@@ -224,7 +225,7 @@ namespace wm.tests
         {
             _context.ChangeTracker.Clear();
 
-            User userInfo = new dal.Models.User
+            User userInfo = new User
             {
                 Id = 3,
                 Username = "test3",
@@ -240,7 +241,7 @@ namespace wm.tests
             userRepository.UpdateRow("test1", userInfo);
 
             List<User> expected = new(){
-                new dal.Models.User
+                new User
                 {
                     Id = 1,
                     Username = "test3",
@@ -251,7 +252,7 @@ namespace wm.tests
                     Phone = "1234567890",
                     Email = "test3@pass.me"
                 },
-                new dal.Models.User
+                new User
                 {
                     Id = 2,
                     Username = "test2",
