@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
-using wm.console.OutfitMenu;
 using wm.dal.Models;
 using wm.util;
 
-namespace wm.console.ClotheMenu
+namespace wm.console
 {
     public class ClothesListMenu
     {

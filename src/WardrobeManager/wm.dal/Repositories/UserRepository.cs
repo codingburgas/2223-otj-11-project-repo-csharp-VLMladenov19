@@ -60,24 +60,13 @@ namespace wm.dal.Repositories
             }
         }
 
-        public void UpdateRow(string username, User newUserInfo)
+        public void UpdateRow(User user)
         {
-            var user = _context
-                .Users
-                .FirstOrDefault(x => x.Username == username);
-
             if (user != null)
             {
-                user.Username = newUserInfo.Username;
-                user.Password = newUserInfo.Password;
-                user.Salt = newUserInfo.Salt;
-                user.FirstName = newUserInfo.FirstName;
-                user.LastName = newUserInfo.LastName;
-                user.Phone = newUserInfo.Phone;
-                user.Email = newUserInfo.Email;
+                _context.Update(user);
+                _context.SaveChanges();
             }
-
-            _context.SaveChanges();
         }
     }
 }

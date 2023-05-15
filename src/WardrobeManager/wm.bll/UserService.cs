@@ -78,24 +78,27 @@ namespace wm.bll
             }
         }
 
-        public static void UpdateUser(string oldUsername, string newUsername, string newPassword, string newFName, string newLName, string newPhone, string newEmail)
+        public static void UpdateUser(User user, string username, string password, string firstName, string lastName, string phone, string email)
         {
             using (var context = new WardrobeManagerContext())
             {
                 UserRepository userRepository = new(context);
 
-                User oldUser = userRepository.GetUserByUsername(oldUsername);
-                User newUser = new User(newUsername, newPassword, newFName, newLName, newPhone, newEmail);
-
-                if (oldUser != null)
+                if (user != null)
                 {
-                    newUser.Id = oldUser.Id;
-                    newUser.Salt = GenerateSalt();
-                    string saltedPassword = newUser.Password + newUser.Salt;
-                    newUser.Password = HashPassword(saltedPassword);
-                }
+                    user.Username = username;
 
-                userRepository.UpdateRow(oldUsername, newUser);
+                    user.Salt = GenerateSalt();
+                    string saltedPassword = password + user.Salt;
+                    user.Password = HashPassword(saltedPassword);
+
+                    user.FirstName = firstName;
+                    user.LastName = lastName;
+                    user.Phone = phone;
+                    user.Email = email;
+
+                    userRepository.UpdateRow(user);
+                }
             }
         }
 

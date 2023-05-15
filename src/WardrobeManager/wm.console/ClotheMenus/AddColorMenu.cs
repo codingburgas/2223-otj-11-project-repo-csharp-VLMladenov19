@@ -1,13 +1,8 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using wm.bll;
 using wm.util;
 
-namespace wm.console.ClotheMenu
+namespace wm.console
 {
     public class AddColorMenu
     {

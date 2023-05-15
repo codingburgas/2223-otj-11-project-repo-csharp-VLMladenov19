@@ -5,17 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
-using wm.dal.Repositories;
 using wm.util;
 
-namespace wm.console.ClotheMenu
+namespace wm.console
 {
-    public class RemoveColorMenu
+    public class RemoveClotheMenu
     {
         public static void Print()
         {
             Console.Clear();
-            Console.WriteLine("============  Remove Color  ============");
+            Console.WriteLine("============ Remove Cloting ============");
             Console.WriteLine($"{"Type [B] to go back",30}\n");
 
             int userId = UserLog.LoggedUser.Id;
@@ -28,12 +27,12 @@ namespace wm.console.ClotheMenu
                 ClothesListMenu.Print();
             }
 
-            string clotheName = InsertName(userId);
-            int colorId = InsertColor(userId);
+            string name = InsertName(userId);
 
-            ClotheService.RemoveColorFromClothe(clotheName, colorId, userId);
+            int clotheId = ClotheService.GetClotheId(name, userId);
+            ClotheService.RemoveClothe(clotheId);
 
-            Console.WriteLine($"\n{"Color Removed",27}");
+            Console.WriteLine($"\n{"Clothe Removed",28}");
             Console.WriteLine($"{"Press a key to back to Clothes List",38}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey();
@@ -67,35 +66,6 @@ namespace wm.console.ClotheMenu
             }
 
             return clotheName;
-        }
-
-        private static int InsertColor(int userId)
-        {
-            Console.Write($"{"Color: ",22}");
-            var colorName = Console.ReadLine();
-
-            if (colorName.ToUpper() == "B")
-            {
-                ClothesListMenu.Print();
-            }
-            if (colorName.IsNullOrEmpty())
-            {
-                Console.WriteLine($"\n{"Color is required",28}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                Print();
-            }
-
-            int colorId = ColorService.GetColorId(colorName);
-            if (colorId == (int)ErrorCodes.InvalidObject)
-            {
-                Console.WriteLine($"\n{"Color not found",28}");
-                Console.WriteLine($"\n========================================");
-                Console.ReadKey();
-                Print();
-            }
-
-            return colorId;
         }
     }
 }

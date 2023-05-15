@@ -6,10 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wm.bll;
-using wm.console.ClotheMenu;
 using wm.util;
 
-namespace wm.console.OutfitMenu
+namespace wm.console
 {
     public class EditOutfitMenu
     {

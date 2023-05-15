@@ -8,7 +8,7 @@ using wm.bll;
 using wm.dal.Repositories;
 using wm.util;
 
-namespace wm.console.OutfitMenu
+namespace wm.console
 {
     public class PrintClothesByOutfitMenu
     {
