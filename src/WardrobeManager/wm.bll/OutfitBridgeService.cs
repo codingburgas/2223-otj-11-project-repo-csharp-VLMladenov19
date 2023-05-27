@@ -30,7 +30,7 @@ namespace wm.bll
             {
                 OutfitBridgeRepository outfitBridgeRepository = new(context);
 
-                List<OutfitsClothe> list = outfitBridgeRepository.GetOutfitsClothes(outfitId).ToList();
+                List<OutfitsClothe> list = outfitBridgeRepository.GetAllByOutfitId(outfitId).ToList();
 
                 return list;
             }
@@ -45,11 +45,11 @@ namespace wm.bll
                 var outfit = OutfitService.GetOutfit(outfitName, userId);
                 var clothe = ClotheService.GetClothe(clotheName, userId);
 
-                if (outfit != null && clothe != null)
+                if(outfit != null && clothe != null)
                 {
                     OutfitsClothe outfitClothe = new OutfitsClothe(outfit.Id, clothe.Id);
 
-                    if (!RowExists(outfitClothe))
+                    if(!RowExists(outfitClothe))
                     {
                         outfitBridgeRepository.AddRow(outfitClothe);
                     }
@@ -78,7 +78,7 @@ namespace wm.bll
             {
                 OutfitBridgeRepository outfitBridgeRepository = new(context);
 
-                List<OutfitsClothe> bridgeList = outfitBridgeRepository.GetOutfitsClothes(outfitId).ToList();
+                List<OutfitsClothe> bridgeList = outfitBridgeRepository.GetAllByOutfitId(outfitId).ToList();
 
                 foreach (var c in bridgeList)
                 {

@@ -20,9 +20,7 @@ namespace wm.dal.Repositories
 
         public IEnumerable<Color> GetAll()
         {
-            var list = _context.Colors.ToList();
-
-            return list;
+            return _context.Colors;
         }
     }
 }

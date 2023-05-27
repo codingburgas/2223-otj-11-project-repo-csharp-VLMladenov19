@@ -38,7 +38,7 @@ namespace wm.bll
             Outfit? clothe = GetOutfitsByUserId(userId)
                 .FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
 
-            if (clothe == null)
+            if(clothe == null)
             {
                 return (int)ErrorCodes.InvalidObject;
             }
@@ -73,7 +73,9 @@ namespace wm.bll
                 OutfitRepository outfitRepository = new(context);
 
                 OutfitBridgeService.RemoveAllByOutfitId(outfitId);
-                outfitRepository.RemoveRow(outfitId);
+
+                Outfit outfit = outfitRepository.GetAll().FirstOrDefault(c => c.Id == outfitId);
+                outfitRepository.RemoveRow(outfit);
             }
         }
 
@@ -83,7 +85,7 @@ namespace wm.bll
                     .Where(c => c.UserId == userId)
                     .ToList();
 
-            if (!outfits.IsNullOrEmpty())
+            if(!outfits.IsNullOrEmpty())
             {
                 foreach (var c in outfits)
                 {
@@ -99,10 +101,10 @@ namespace wm.bll
                 OutfitBridgeRepository outfitBridgeRepository = new(context);
 
                 int outfitId = GetOutfitId(outfitName, userId);
-                OutfitsClothe? outfitClothe = outfitBridgeRepository.GetOutfitsClothes(outfitId)
+                OutfitsClothe? outfitClothe = outfitBridgeRepository.GetAllByOutfitId(outfitId)
                     .FirstOrDefault(c => c.ClotheId == clotheId);
 
-                if (outfitClothe != null)
+                if(outfitClothe != null)
                 {
                     outfitBridgeRepository.RemoveRow(outfitClothe);
                 }
@@ -117,13 +119,12 @@ namespace wm.bll
 
                 Outfit? outfit = GetOutfit(oldName, userId);
 
-                if (outfit != null)
+                if(outfit != null)
                 {
                     outfit.Name = newName;
                     outfit.Date = newDate;
 
-                    outfitRepository.EditRow(outfit);
-                    OutfitBridgeService.RemoveAllByOutfitId(outfit.Id);
+                    outfitRepository.UpdateRow(outfit);
                 }
             }
         }

@@ -4,7 +4,7 @@ using wm.util;
 
 namespace wm.console
 {
-    public class AddClotheMenu
+    internal class AddClotheMenu
     {
         public static void Print()
         {
@@ -24,7 +24,7 @@ namespace wm.console
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
-            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
             switch(input)
             {
                 case 'A': AddClotheMenu.Print(); break;
@@ -37,24 +37,24 @@ namespace wm.console
             Console.Write($"{"Name: ",22}");
             var name = Console.ReadLine();
 
-            if (name.ToUpper() == "B")
+            if(name.ToUpper() == "B")
             {
                 ClothesListMenu.Print();
             }
-            if (name.IsNullOrEmpty())
+            if(name.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int clotheId = ClotheService.GetClotheId(name, userId);
-            if (clotheId != (int)ErrorCodes.InvalidObject)
+            if(clotheId != (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
@@ -66,25 +66,25 @@ namespace wm.console
             Console.Write($"{"Type: ",22}");
             string? typeName = Console.ReadLine();
 
-            if (typeName.ToUpper() == "B")
+            if(typeName.ToUpper() == "B")
             {
                 MainMenu.Print();
             }
 
-            if (typeName.IsNullOrEmpty())
+            if(typeName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Type is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int typeId = TypeService.GetTypeId(typeName);
-            if (typeId == (int)ErrorCodes.InvalidObject)
+            if(typeId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Type does not exist",29}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 

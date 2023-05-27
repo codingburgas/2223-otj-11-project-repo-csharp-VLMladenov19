@@ -34,7 +34,7 @@ namespace wm.bll
 
                 ClothesColor clothesColor = new ClothesColor(clotheId, colorId);
 
-                if (!RowExists(clothesColor))
+                if(!RowExists(clothesColor))
                 {
                     colorBridgeRepository.AddRow(clothesColor);
                 }

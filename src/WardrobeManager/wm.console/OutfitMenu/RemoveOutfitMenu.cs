@@ -1,15 +1,10 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using wm.bll;
 using wm.util;
 
 namespace wm.console
 {
-    public class RemoveOutfitMenu
+    internal class RemoveOutfitMenu
     {
         public static void Print()
         {
@@ -19,11 +14,11 @@ namespace wm.console
 
             int userId = UserLog.LoggedUser.Id;
 
-            if (OutfitService.GetOutfitsByUserId(userId).IsNullOrEmpty())
+            if(OutfitService.GetOutfitsByUserId(userId).IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"User has no outfits",29}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 OutfitsListMenu.Print();
             }
 
@@ -35,7 +30,7 @@ namespace wm.console
             Console.WriteLine($"\n{"Outfit Removed",27}");
             Console.WriteLine($"{"Press a key to back to Outfits List",38}");
             Console.WriteLine($"\n========================================");
-            Console.ReadKey();
+            Console.ReadKey(true);
             OutfitsListMenu.Print();
         }
 
@@ -44,24 +39,24 @@ namespace wm.console
             Console.Write($"{"Name: ",22}");
             var outfitName = Console.ReadLine();
 
-            if (outfitName.ToUpper() == "B")
+            if(outfitName.ToUpper() == "B")
             {
                 OutfitsListMenu.Print();
             }
-            if (outfitName.IsNullOrEmpty())
+            if(outfitName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int outfitId = OutfitService.GetOutfitId(outfitName, userId);
-            if (outfitId == (int)ErrorCodes.InvalidObject)
+            if(outfitId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Name is wrong or outfit does not exist",39}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 

@@ -19,10 +19,7 @@ namespace wm.dal.Repositories
 
         public IEnumerable<Models.Type> GetAll()
         {
-            List<Models.Type> list = _context.Types
-                .ToList();
-
-            return list;
+            return _context.Types;
         }
     }
 }

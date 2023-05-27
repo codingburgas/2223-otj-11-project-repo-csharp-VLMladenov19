@@ -32,7 +32,7 @@ namespace wm.bll
 
                 Color? color = colorRepository.GetAll().FirstOrDefault(c => c.Name.ToUpper() == colorName.ToUpper());
 
-                if (color == null)
+                if(color == null)
                 {
                     return (int)ErrorCodes.InvalidObject;
                 }

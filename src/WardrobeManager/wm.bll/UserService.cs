@@ -1,7 +1,5 @@
 ﻿using Microsoft.Identity.Client;
 using System;
-using wm.dal.Models;
-using wm.dal.Data;
 using System.Security;
 using System.Net.NetworkInformation;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +7,8 @@ using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using wm.dal.Models;
+using wm.dal.Data;
 using wm.dal.Repositories;
 using wm.util;
 
@@ -24,7 +24,7 @@ namespace wm.bll
 
                 User user = userRepository.GetUserByUsername(username);
 
-                if (user == null)
+                if(user == null)
                 {
                     return (int)ErrorCodes.InvalidObject;
                 }
@@ -57,9 +57,37 @@ namespace wm.bll
                 string saltedPassword = user.Password + user.Salt;
                 user.Password = HashPassword(saltedPassword);
 
-                if (user != null)
+                if(user != null)
                 {
                     userRepository.InsertRow(user);
+                }
+            }
+        }
+
+        public static void UpdateUser(string oldUsername, string newUsername, string newPassword, string newFName, string newLName, string newPhone, string newEmail)
+        {
+            using (var context = new WardrobeManagerContext())
+            {
+                UserRepository userRepository = new(context);
+
+                User oldUser = userRepository.GetUserByUsername(oldUsername);
+                User newUser = new User(newUsername, newPassword, newFName, newLName, newPhone, newEmail);
+
+                if(oldUser != null)
+                {
+                    newUser.Salt = GenerateSalt();
+                    string saltedPassword = newUser.Password + newUser.Salt;
+                    newUser.Password = HashPassword(saltedPassword);
+
+                    oldUser.Username = newUser.Username;
+                    oldUser.Password = newUser.Password;
+                    oldUser.Salt = newUser.Salt;
+                    oldUser.FirstName = newUser.FirstName;
+                    oldUser.LastName = newUser.LastName;
+                    oldUser.Phone = newUser.Phone;
+                    oldUser.Email = newUser.Email;
+
+                    userRepository.UpdateRow(oldUser);
                 }
             }
         }
@@ -78,52 +106,26 @@ namespace wm.bll
             }
         }
 
-        public static void UpdateUser(User user, string username, string password, string firstName, string lastName, string phone, string email)
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                UserRepository userRepository = new(context);
-
-                if (user != null)
-                {
-                    user.Username = username;
-
-                    user.Salt = GenerateSalt();
-                    string saltedPassword = password + user.Salt;
-                    user.Password = HashPassword(saltedPassword);
-
-                    user.FirstName = firstName;
-                    user.LastName = lastName;
-                    user.Phone = phone;
-                    user.Email = email;
-
-                    userRepository.UpdateRow(user);
-                }
-            }
-        }
-
         public static bool VerifyUser(string Username, string Password)
         {
             using (var context = new WardrobeManagerContext())
             {
                 UserRepository userRepository = new(context);
 
-                bool verifyUser = false;
-
                 User? user = userRepository.GetUserByUsername(Username);
 
-                if (user != null)
+                if(user != null)
                 {
                     string saltedPassword = Password + user.Salt;
                     string hashedPass = HashPassword(saltedPassword);
 
-                    if (user.Password == hashedPass)
+                    if(user.Password == hashedPass)
                     {
-                        verifyUser = true;
+                        return true;
                     }
                 }
 
-                return verifyUser;
+                return false;
             }
         }
 
@@ -169,28 +171,28 @@ namespace wm.bll
 
         public static int CheckPassword(string password)
         {
-            if (string.IsNullOrEmpty(password))
+            if(string.IsNullOrEmpty(password))
             {
                 return (int)ErrorCodes.NullArgument;
             }
 
-            if (password.Length < 4 || password.Length > 12)
+            if(password.Length < 4 || password.Length > 12)
             {
                 return (int)ErrorCodes.InvalidArgumentLength;
             }
 
-            if (password.Where(c => Char.IsWhiteSpace(c)).Any())
+            if(password.Where(c => Char.IsWhiteSpace(c)).Any())
             {
                 return (int)ErrorCodes.ArgumentHasSpaces;
             }
 
-            if (!password.Any(c => Char.IsDigit(c)))
+            if(!password.Any(c => Char.IsDigit(c)))
             {
                 return (int)ErrorCodes.ArgumentHasNoNumbers;
             }
 
             string specialCharacters = @"\|!#$%&/()=?»«@£§€{}.-;'<>_,";
-            if (password.Any(c => specialCharacters.Any(x => x == c)))
+            if(password.Any(c => specialCharacters.Any(x => x == c)))
             {
                 return (int)ErrorCodes.ArgumentHasSymbols;
             }
@@ -199,11 +201,11 @@ namespace wm.bll
         }
         public static int CheckName(string name)
         {
-            if (name.IsNullOrEmpty())
+            if(name.IsNullOrEmpty())
             {
                 return (int)ErrorCodes.NullArgument;
             }
-            if (name.Any(c => Char.IsDigit(c)))
+            if(name.Any(c => Char.IsDigit(c)))
             {
                 return (int)ErrorCodes.ArgumentHasNumbers;
             }
@@ -212,15 +214,15 @@ namespace wm.bll
 
         public static int CheckPhone(string phone)
         {
-            if (phone.IsNullOrEmpty())
+            if(phone.IsNullOrEmpty())
             {
                 return (int)ErrorCodes.NullArgument;
             }
-            if (phone.Length < 10 || phone.Length > 15)
+            if(phone.Length < 10 || phone.Length > 15)
             {
                 return (int)ErrorCodes.InvalidArgumentLength;
             }
-            if (phone.Any(c => Char.IsLetter(c)))
+            if(phone.Any(c => Char.IsLetter(c)))
             {
                 return (int)ErrorCodes.ArgumentHasLetters;
             }
@@ -229,15 +231,15 @@ namespace wm.bll
 
         public static int CheckEmail(string email)
         {
-            if (email.IsNullOrEmpty())
+            if(email.IsNullOrEmpty())
             {
                 return (int)ErrorCodes.NullArgument;
             }
-            if (!email.Any(c => c == '@') || email.Count(c => c == '@') > 1)
+            if(!email.Any(c => c == '@') || email.Count(c => c == '@') > 1)
             {
                 return (int)ErrorCodes.EmailHasNoAtSign;
             }
-            if (email.Substring(email.IndexOf('@')).Length < 4)
+            if(email.Substring(email.IndexOf('@')).Length < 4)
             {
                 return (int)ErrorCodes.EmailHasNoDomain;
             }

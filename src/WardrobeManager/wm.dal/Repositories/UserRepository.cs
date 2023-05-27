@@ -19,52 +19,46 @@ namespace wm.dal.Repositories
 
         public IEnumerable<User> GetAll()
         {
-            var users = _context
-                .Users
-                .ToList();
-
-            return users;
+            return _context.Users;
         }
 
         public User GetUserById(int id)
         {
-            var user = _context
-                .Users
-                .Where(u => u.Id == id)
-                .FirstOrDefault();
+            var user = _context.Users
+                .FirstOrDefault(u => u.Id == id);
             return user;
         }
 
         public User GetUserByUsername(string username)
         {
-            var user = _context
-                .Users
+            User? user = _context.Users
                 .FirstOrDefault(u => u.Username == username);
             return user;
         }
 
         public void InsertRow(User user)
         {
-            _context.Users.Add(user);
-
-            _context.SaveChanges();
-        }
-
-        public void DeleteRow(User user)
-        {
-            if (user != null)
+            if(user != null)
             {
-                _context.Users.Remove(user);
-
+                _context.Users.Add(user);
                 _context.SaveChanges();
             }
         }
 
         public void UpdateRow(User user)
         {
-            if (user != null)
+            if(user != null)
             {
-                _context.Update(user);
+                _context.Users.Update(user);
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeleteRow(User user)
+        {
+            if(user != null)
+            {
+                _context.Users.Remove(user);
                 _context.SaveChanges();
             }
         }

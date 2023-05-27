@@ -4,7 +4,7 @@ using wm.util;
 
 namespace wm.console
 {
-    public class AddColorMenu
+    internal class AddColorMenu
     {
         public static void Print()
         {
@@ -24,7 +24,7 @@ namespace wm.console
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
-            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
             switch (input)
             {
                 case 'C': AddColorMenu.Print(); break;
@@ -37,24 +37,24 @@ namespace wm.console
             Console.Write($"{"Clothe name: ",25}");
             var clotheName = Console.ReadLine();
 
-            if (clotheName.ToUpper() == "B")
+            if(clotheName.ToUpper() == "B")
             {
                 ClothesListMenu.Print();
             }
-            if (clotheName.IsNullOrEmpty())
+            if(clotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
-            if (clotheId == (int)ErrorCodes.InvalidObject)
+            if(clotheId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n============================= ===========");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
@@ -66,24 +66,24 @@ namespace wm.console
             Console.Write($"{"Color name: ",24}");
             var colorName = Console.ReadLine();
 
-            if (colorName.ToUpper() == "B")
+            if(colorName.ToUpper() == "B")
             {
                 MainMenu.Print();
             }
-            if (colorName.IsNullOrEmpty())
+            if(colorName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Color is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int colorId = ColorService.GetColorId(colorName);
-            if (colorId == (int)ErrorCodes.InvalidObject)
+            if(colorId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Color not found",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 

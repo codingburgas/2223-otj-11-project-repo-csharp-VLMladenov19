@@ -1,17 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using wm.bll;
 using wm.dal.Models;
 using wm.util;
 
 namespace wm.console
 {
-    public class ClothesListMenu
+    internal class ClothesListMenu
     {
         public static void Print()
         {
@@ -24,23 +19,21 @@ namespace wm.console
             PrintClothesList(userId);
 
             Console.WriteLine($"\n{"Press [A] key to Add new Clothes",36}");
+            Console.WriteLine($"{"Press [R] key to Remove Clothe",36}");
+            Console.WriteLine($"{"Press [E] key to Edit Clothe",35} \n");
             Console.WriteLine($"{"Press [C] key to Add Colors",34}");
-            Console.WriteLine($"{"Press [D] key to Remove Clothe",36}");
-            Console.WriteLine($"{"Press [E] key to Edit Clothe",35}");
-            Console.WriteLine($"{"Press [R] key to Remove Colors from a Clothe",43}");
-            Console.WriteLine($"{"Press [L] key to see Users Outfits",38}");
-            Console.WriteLine($"{"or any other key to go back",34}");
+            Console.WriteLine($"{"Press [D] key to Remove Colors from a Clothe",43}\n");
+            Console.WriteLine($"{"Press any other key to go back",36}");
             Console.WriteLine($"\n========================================");
 
-            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
             switch (input)
             {
                 case 'A': AddClotheMenu.Print(); break;
-                case 'C': AddColorMenu.Print(); break;
-                case 'D': RemoveClotheMenu.Print(); break;
+                case 'R': RemoveClotheMenu.Print(); break;
                 case 'E': EditClotheMenu.Print(); ; break;
-                case 'R': RemoveColorMenu.Print(); break;
-                case 'L': OutfitsListMenu.Print(); break;
+                case 'C': AddColorMenu.Print(); break;
+                case 'D': RemoveColorMenu.Print(); break;
                 default: MainMenu.Print(); break;
             }
         }
@@ -108,7 +101,7 @@ namespace wm.console
 
             foreach (var i in clothesTypesColors)
             {
-                if (dic.ContainsKey($"{i.Name} {i.Type}"))
+                if(dic.ContainsKey($"{i.Name} {i.Type}"))
                 {
                     dic[$"{i.Name} {i.Type}"].Add(i.Color);
                 }
@@ -134,7 +127,7 @@ namespace wm.console
 
             foreach (var i in clothesTypes)
             {
-                if (dic.ContainsKey($"{i.Name} {i.Type}"))
+                if(dic.ContainsKey($"{i.Name} {i.Type}"))
                 {
                     dic[$"{i.Name} {i.Type}"].Add(String.Empty);
                 }

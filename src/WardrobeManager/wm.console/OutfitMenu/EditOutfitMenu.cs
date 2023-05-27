@@ -1,16 +1,11 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using wm.bll;
 using wm.util;
 
 namespace wm.console
 {
-    public class EditOutfitMenu
+    internal class EditOutfitMenu
     {
         public static void Print()
         {
@@ -33,7 +28,7 @@ namespace wm.console
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
-            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
             switch (input)
             {
                 case 'E': EditOutfitMenu.Print(); break;
@@ -46,24 +41,24 @@ namespace wm.console
             Console.Write($"{"Old Name: ",24}");
             var oldOutfitName = Console.ReadLine();
 
-            if (oldOutfitName.ToUpper() == "B")
+            if(oldOutfitName.ToUpper() == "B")
             {
                 OutfitsListMenu.Print();
             }
-            if (oldOutfitName.IsNullOrEmpty())
+            if(oldOutfitName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int outfitId = OutfitService.GetOutfitId(oldOutfitName, userId);
-            if (outfitId == (int)ErrorCodes.InvalidObject)
+            if(outfitId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Outfit not found",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
@@ -75,24 +70,24 @@ namespace wm.console
             Console.Write($"{"New Name: ",24}");
             var newOutfitName = Console.ReadLine();
 
-            if (newOutfitName.ToUpper() == "B")
+            if(newOutfitName.ToUpper() == "B")
             {
                 OutfitsListMenu.Print();
             }
-            if (newOutfitName.IsNullOrEmpty())
+            if(newOutfitName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int outfitId = OutfitService.GetOutfitId(newOutfitName, userId);
-            if (outfitId != (int)ErrorCodes.InvalidObject)
+            if(outfitId != (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
@@ -104,31 +99,31 @@ namespace wm.console
             Console.Write($"{"Date: ",22}");
             var outfitDate = Console.ReadLine();
 
-            if (outfitDate.ToUpper() == "B")
+            if(outfitDate.ToUpper() == "B")
             {
                 OutfitsListMenu.Print();
             }
-            if (outfitDate.IsNullOrEmpty())
+            if(outfitDate.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Date is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             DateTime parsedDate;
-            if (!DateTime.TryParseExact(outfitDate, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+            if(!DateTime.TryParseExact(outfitDate, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
             {
                 Console.WriteLine($"\n{"Date is invalid",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
-            if (parsedDate < DateTime.Now)
+            if(parsedDate < DateTime.Now)
             {
                 Console.WriteLine($"\n{"Date has already passed",32}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 

@@ -4,7 +4,7 @@ using wm.util;
 
 namespace wm.console
 {
-    public class EditClotheMenu
+    internal class EditClotheMenu
     {
         public static void Print()
         {
@@ -25,7 +25,7 @@ namespace wm.console
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
-            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
             switch (input)
             {
                 case 'E': EditClotheMenu.Print(); break;
@@ -38,24 +38,24 @@ namespace wm.console
             Console.Write($"{"Old Name: ",24}");
             var oldClotheName = Console.ReadLine();
 
-            if (oldClotheName.ToUpper() == "B")
+            if(oldClotheName.ToUpper() == "B")
             {
                 ClothesListMenu.Print();
             }
-            if (oldClotheName.IsNullOrEmpty())
+            if(oldClotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int clotheId = ClotheService.GetClotheId(oldClotheName, userId);
-            if (clotheId == (int)ErrorCodes.InvalidObject)
+            if(clotheId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Clothe not found",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
@@ -67,24 +67,24 @@ namespace wm.console
             Console.Write($"{"New Name: ",24}");
             var newClotheName = Console.ReadLine();
 
-            if (newClotheName.ToUpper() == "B")
+            if(newClotheName.ToUpper() == "B")
             {
                 ClothesListMenu.Print();
             }
-            if (newClotheName.IsNullOrEmpty())
+            if(newClotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int clotheId = ClotheService.GetClotheId(newClotheName, userId);
-            if (clotheId != (int)ErrorCodes.InvalidObject)
+            if(clotheId != (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Name already in use",30}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
@@ -96,25 +96,25 @@ namespace wm.console
             Console.Write($"{"Type: ",22}");
             string? clotheTypeName = Console.ReadLine();
 
-            if (clotheTypeName.ToUpper() == "B")
+            if(clotheTypeName.ToUpper() == "B")
             {
                 MainMenu.Print();
             }
 
-            if (clotheTypeName.IsNullOrEmpty())
+            if(clotheTypeName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Type is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int clotheTypeId = TypeService.GetTypeId(clotheTypeName);
-            if (clotheTypeId == (int)ErrorCodes.InvalidObject)
+            if(clotheTypeId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Type does not exist",29}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 

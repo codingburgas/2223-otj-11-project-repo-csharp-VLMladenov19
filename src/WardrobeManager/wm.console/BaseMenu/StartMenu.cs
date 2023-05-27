@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using wm.util;
+﻿using wm.util;
 
 namespace wm.console
 {
@@ -17,7 +12,7 @@ namespace wm.console
             Console.WriteLine("[R] Register   [L] Login   [E] Exit");
             while (true)
             {
-                var input = Char.ToUpper(Console.ReadKey().KeyChar);
+                var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
 
                 switch (input)
                 {

@@ -225,20 +225,6 @@ namespace wm.tests.Repositories
         {
             _context.ChangeTracker.Clear();
 
-            UserRepository userRepository = new(_context);
-
-            User user = userRepository.GetUserByUsername("test1");
-
-            user.Username = "test3";
-            user.Password = "01F4D2ACFF5BBEC1FD02066ED306989D7BF086D1D2701EF4AFB3A615264A3611";
-            user.Salt = "E45CB102EFA7A799F06325615255DACB";
-            user.FirstName = "test";
-            user.LastName = "test";
-            user.Phone = "1234567890";
-            user.Email = "test3@pass.me";
-
-            userRepository.UpdateRow(user);
-
             List<User> expected = new(){
                 new User
                 {
@@ -264,6 +250,19 @@ namespace wm.tests.Repositories
                 }
             };
 
+            User user = new User
+            {
+                Id = 1,
+                Username = "test3",
+                Password = "01F4D2ACFF5BBEC1FD02066ED306989D7BF086D1D2701EF4AFB3A615264A3611",
+                Salt = "E45CB102EFA7A799F06325615255DACB",
+                FirstName = "test",
+                LastName = "test",
+                Phone = "1234567890",
+                Email = "test3@pass.me"
+            };
+            UserRepository userRepository = new(_context);
+            userRepository.UpdateRow(user);
             List<User> actual = userRepository.GetAll().ToList();
 
             Utilities.AreEqualByJson(actual, expected);

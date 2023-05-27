@@ -55,7 +55,7 @@ namespace wm.bll
             Clothe? clothe = GetClothesByUserId(userId)
                 .FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
 
-            if (clothe == null)
+            if(clothe == null)
             {
                 return (int)ErrorCodes.InvalidObject;
             }
@@ -82,7 +82,9 @@ namespace wm.bll
 
                 ColorBridgeService.RemoveAllByClotheId(clotheId);
                 OutfitBridgeService.RemoveAllByClotheId(clotheId);
-                clotheRepository.RemoveRow(clotheId);
+
+                Clothe clothe = clotheRepository.GetAll().FirstOrDefault(c => c.Id == clotheId);
+                clotheRepository.RemoveRow(clothe);
             }
         }
 
@@ -92,7 +94,7 @@ namespace wm.bll
                     .Where(c => c.UserId == userId)
                     .ToList();
 
-            if (!clothe.IsNullOrEmpty())
+            if(!clothe.IsNullOrEmpty())
             {
                 foreach (var c in clothe)
                 {
@@ -110,7 +112,7 @@ namespace wm.bll
                 int clotheId = GetClotheId(clotheName, userId);
                 ClothesColor? clotheColor = colorBridgeRepository.GetAllByClotheId(clotheId).FirstOrDefault(c => c.ColorId == colorId);
 
-                if (clotheColor != null)
+                if(clotheColor != null)
                 {
                     colorBridgeRepository.RemoveRow(clotheColor);
                 }
@@ -124,12 +126,12 @@ namespace wm.bll
                 var clotheRepository = new ClotheRepository(context);
                 Clothe? clothe = GetClotheById(GetClotheId(oldClotheName, userId));
 
-                if (clothe != null)
+                if(clothe != null)
                 {
                     clothe.Name = newClotheName;
                     clothe.TypeId = typeId;
 
-                    clotheRepository.EditRow(clothe);
+                    clotheRepository.UpdateRow(clothe);
                     ColorBridgeService.RemoveAllByClotheId(clothe.Id);
                 }
             }

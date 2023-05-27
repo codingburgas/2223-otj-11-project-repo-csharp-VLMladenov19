@@ -1,15 +1,10 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using wm.bll;
 using wm.util;
 
 namespace wm.console
 {
-    public class AddClothesToOutfitMenu
+    internal class AddClothesToOutfitMenu
     {
         public static void Print()
         {
@@ -29,7 +24,7 @@ namespace wm.console
             Console.WriteLine($"{"or any other key to go back",34}");
             Console.WriteLine($"\n========================================");
 
-            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
             switch(input)
             {
                 case 'C': AddClothesToOutfitMenu.Print(); break;
@@ -42,24 +37,24 @@ namespace wm.console
             Console.Write($"{"Outfit: ",23}");
             var outfitName = Console.ReadLine();
 
-            if (outfitName.ToUpper() == "B")
+            if(outfitName.ToUpper() == "B")
             {
                 OutfitsListMenu.Print();
             }
-            if (outfitName.IsNullOrEmpty())
+            if(outfitName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int outfitId = OutfitService.GetOutfitId(outfitName, userId);
-            if (outfitId == (int)ErrorCodes.InvalidObject)
+            if(outfitId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Outfit not found",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
@@ -71,24 +66,24 @@ namespace wm.console
             Console.Write($"{"Clothe: ",24}");
             var clotheName = Console.ReadLine();
 
-            if (clotheName.ToUpper() == "B")
+            if(clotheName.ToUpper() == "B")
             {
                 OutfitsListMenu.Print();
             }
-            if (clotheName.IsNullOrEmpty())
+            if(clotheName.IsNullOrEmpty())
             {
                 Console.WriteLine($"\n{"Name is required",28}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
-            if (clotheId == (int)ErrorCodes.InvalidObject)
+            if(clotheId == (int)ErrorCodes.InvalidObject)
             {
                 Console.WriteLine($"\n{"Clothe not found",29}");
                 Console.WriteLine($"\n========================================");
-                Console.ReadKey();
+                Console.ReadKey(true);
                 Print();
             }
 

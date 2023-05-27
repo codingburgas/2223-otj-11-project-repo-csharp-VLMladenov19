@@ -20,42 +20,34 @@ namespace wm.dal.Repositories
 
         public IEnumerable<Clothe> GetAll()
         {
-            var list = _context.Clothes.AsEnumerable();
-
-            return list;
+            return _context.Clothes;
         }
 
         public void AddRow(Clothe clothe)
         {
-            _context.Clothes.Add(clothe);
-            _context.SaveChanges();
-        }
-
-        public void RemoveRow(int clotheId)
-        {
-            var clothe = _context.Clothes
-                .FirstOrDefault(c => c.Id == clotheId);
-
             if(clothe != null)
             {
-                _context.Clothes.Remove(clothe);
-
+                _context.Clothes.Add(clothe);
                 _context.SaveChanges();
             }
         }
 
-        public void EditRow(Clothe newClothe)
+        public void UpdateRow(Clothe clothe)
         {
-            var oldClothe = _context.Clothes
-                .FirstOrDefault(c => c.Id == newClothe.Id);
-
-            if(oldClothe != null)
+            if(clothe != null)
             {
-                oldClothe.Name = newClothe.Name;
-                oldClothe.TypeId = newClothe.TypeId;
+                _context.Clothes.Update(clothe);
+                _context.SaveChanges();
             }
+        }
 
-            _context.SaveChanges();
+        public void RemoveRow(Clothe clothe)
+        {
+            if(clothe != null)
+            {
+                _context.Clothes.Remove(clothe);
+                _context.SaveChanges();
+            }
         }
     }
 }

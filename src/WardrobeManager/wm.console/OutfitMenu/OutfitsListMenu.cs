@@ -1,15 +1,9 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using wm.bll;
+﻿using wm.bll;
 using wm.util;
 
 namespace wm.console
 {
-    public class OutfitsListMenu
+    internal class OutfitsListMenu
     {
         public static void Print()
         {
@@ -24,14 +18,13 @@ namespace wm.console
             Console.WriteLine($"\n{"Press [P] key to See Clothes of Outfit",38}");
             Console.WriteLine($"{"Press [A] key to Create new Outfit",37}");
             Console.WriteLine($"{"Press [E] key to Edit an Outfit",36}");
-            Console.WriteLine($"{"Press [D] key to Delete an Outfit",37}");
+            Console.WriteLine($"{"Press [D] key to Delete an Outfit",37}\n");
             Console.WriteLine($"{"Press [C] key to Add Clothes",35}");
-            Console.WriteLine($"{"Press [R] key to Remove Clothes",36}");
-            Console.WriteLine($"{"Press [L] key to see Users Clothes",38}");
-            Console.WriteLine($"{"or any other key to go back",34}");
+            Console.WriteLine($"{"Press [R] key to Remove Clothes",36}\n");
+            Console.WriteLine($"{"Press any other key to go back",36}");
             Console.WriteLine($"\n========================================");
 
-            var input = Char.ToUpper(Console.ReadKey().KeyChar);
+            var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
 
             switch(input)
             {
@@ -41,7 +34,6 @@ namespace wm.console
                 case 'D': RemoveOutfitMenu.Print(); break;
                 case 'C': AddClothesToOutfitMenu.Print(); break;
                 case 'R': RemoveClothesFromOutfitMenu.Print(); break;
-                case 'L': ClothesListMenu.Print(); break;
                 default: MainMenu.Print(); break;
             }
         }
