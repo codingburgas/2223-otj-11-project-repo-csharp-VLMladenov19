@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using wm.dal.Data;
+﻿using wm.dal.Repositories;
 using wm.dal.Models;
-using wm.dal.Repositories;
+using wm.dal.Data;
 using wm.util;
 
 namespace wm.bll
 {
     public class ColorService
     {
+        // Retrieve all colors
         public static List<Color> GetAll()
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
                 ColorRepository colorRepository = new(context);
 
@@ -24,9 +20,10 @@ namespace wm.bll
             }
         }
 
+        // Retrieve a color's id
         public static int GetColorId(string colorName)
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
                 ColorRepository colorRepository = new(context);
 
@@ -37,18 +34,6 @@ namespace wm.bll
                     return (int)ErrorCodes.InvalidObject;
                 }
                 return color.Id;
-            }
-        }
-
-        public static Color? GetColorById(int colorId)
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                ColorRepository colorRepository = new(context);
-
-                Color? color = colorRepository.GetAll().FirstOrDefault(c => c.Id == colorId);
-
-                return color;
             }
         }
     }

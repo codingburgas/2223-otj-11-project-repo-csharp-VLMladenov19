@@ -1,53 +1,54 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using wm.dal.Data;
+﻿using wm.dal.Repositories;
 using wm.dal.Models;
-using wm.dal.Repositories;
+using wm.dal.Data;
 
 namespace wm.bll
 {
     public class OutfitBridgeService
     {
-        public static List<OutfitsClothe> GetAll()
+        // Retrieve all outfit's clothes
+        public static List<OutfitClothe> GetAll()
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
-                OutfitBridgeRepository outfitBridgeRepository = new(context);
+                OutfitClotheRepository outfitBridgeRepository = new(context);
 
-                List<OutfitsClothe> outfitsClothes = outfitBridgeRepository.GetAll().ToList();
+                List<OutfitClothe> outfitsClothes = outfitBridgeRepository.GetAll().ToList();
 
                 return outfitsClothes;
             }
         }
 
-        public static IEnumerable<OutfitsClothe> GetOutfitClothes(int outfitId)
+        // Retrieve all clothes of an outfit
+        public static List<OutfitClothe> GetOutfitClothes(int outfitId)
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
-                OutfitBridgeRepository outfitBridgeRepository = new(context);
+                OutfitClotheRepository outfitBridgeRepository = new(context);
 
-                List<OutfitsClothe> list = outfitBridgeRepository.GetAllByOutfitId(outfitId).ToList();
+                List<OutfitClothe> list = outfitBridgeRepository.GetAllByOutfitId(outfitId).ToList();
 
                 return list;
             }
         }
 
+        // Add a clothing to an outfit
         public static void AddRow(string outfitName, string clotheName, int userId)
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
-                OutfitBridgeRepository outfitBridgeRepository = new(context);
+                OutfitClotheRepository outfitBridgeRepository = new(context);
 
                 var outfit = OutfitService.GetOutfit(outfitName, userId);
                 var clothe = ClotheService.GetClothe(clotheName, userId);
 
                 if(outfit != null && clothe != null)
                 {
-                    OutfitsClothe outfitClothe = new OutfitsClothe(outfit.Id, clothe.Id);
+                    OutfitClothe outfitClothe = new OutfitClothe()
+                    {
+                        OutfitId = outfit.Id,
+                        ClotheId = clothe.Id,
+                    };
 
                     if(!RowExists(outfitClothe))
                     {
@@ -57,39 +58,60 @@ namespace wm.bll
             }
         }
 
+        // Remove all by clothing
         public static void RemoveAllByClotheId(int clotheId)
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
-                OutfitBridgeRepository outfitBridgeRepository = new(context);
+                OutfitClotheRepository outfitBridgeRepository = new(context);
 
-                List<OutfitsClothe> bridgeList = outfitBridgeRepository.GetAllByClotheId(clotheId).ToList();
+                List<OutfitClothe> bridgeList = outfitBridgeRepository.GetAllByClotheId(clotheId).ToList();
 
-                foreach (var c in bridgeList)
+                foreach(var c in bridgeList)
                 {
-                    outfitBridgeRepository.RemoveRow(c);
+                    outfitBridgeRepository.DeleteRow(c);
                 }
             }
         }
 
+        // Remove all by outfit
         public static void RemoveAllByOutfitId(int outfitId)
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
-                OutfitBridgeRepository outfitBridgeRepository = new(context);
+                OutfitClotheRepository outfitBridgeRepository = new(context);
 
-                List<OutfitsClothe> bridgeList = outfitBridgeRepository.GetAllByOutfitId(outfitId).ToList();
+                List<OutfitClothe> bridgeList = outfitBridgeRepository.GetAllByOutfitId(outfitId).ToList();
 
-                foreach (var c in bridgeList)
+                foreach(var c in bridgeList)
                 {
-                    outfitBridgeRepository.RemoveRow(c);
+                    outfitBridgeRepository.DeleteRow(c);
                 }
             }
         }
 
-        public static bool RowExists(OutfitsClothe outfitsClothe)
+        // Remove a clothing from an outfit
+        public static void RemoveClotheFromOutfit(string outfitName, int clotheId, int userId)
         {
-            List<OutfitsClothe> list = GetAll();
+            using (var context = new WardrobeManagerContext())
+            {
+                OutfitClotheRepository outfitBridgeRepository = new(context);
+
+                int outfitId = OutfitService.GetOutfitId(outfitName, userId);
+                OutfitClothe? outfitClothe = outfitBridgeRepository.GetAllByOutfitId(outfitId)
+                    .FirstOrDefault(c => c.ClotheId == clotheId);
+
+                if (outfitClothe != null)
+                {
+                    outfitBridgeRepository.DeleteRow(outfitClothe);
+                }
+            }
+        }
+
+        // Check if clothing is already added to an outfit
+        public static bool RowExists(OutfitClothe outfitsClothe)
+        {
+            List<OutfitClothe> list = GetAll();
             bool flag = list
                 .Any(o => o.OutfitId == outfitsClothe.OutfitId && o.ClotheId == outfitsClothe.ClotheId);
 

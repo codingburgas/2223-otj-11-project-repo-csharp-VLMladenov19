@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using wm.dal.Data;
+﻿using wm.dal.Repositories;
 using wm.dal.Models;
-using wm.dal.Repositories;
+using wm.dal.Data;
 
 namespace wm.tests.Repositories
 {
@@ -16,11 +15,11 @@ namespace wm.tests.Repositories
 
             _context.Types.Add(new dal.Models.Type
             {
-                Name = "T-Shirt"
+                Name = "Type1"
             });
             _context.Types.Add(new dal.Models.Type
             {
-                Name = "Jacket"
+                Name = "Type2"
             });
 
             _context.SaveChanges();
@@ -35,12 +34,12 @@ namespace wm.tests.Repositories
                 new dal.Models.Type
                 {
                     Id = 1,
-                    Name = "T-Shirt"
+                    Name = "Type1"
                 },
                 new dal.Models.Type
                 {
                     Id = 2,
-                    Name = "Jacket"
+                    Name = "Type2"
                 }
             };
 

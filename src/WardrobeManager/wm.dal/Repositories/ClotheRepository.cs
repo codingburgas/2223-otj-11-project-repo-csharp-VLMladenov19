@@ -1,11 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using wm.dal.Models;
 using wm.dal.Data;
-using wm.dal.Models;
 
 namespace wm.dal.Repositories
 {
@@ -41,7 +35,7 @@ namespace wm.dal.Repositories
             }
         }
 
-        public void RemoveRow(Clothe clothe)
+        public void DeleteRow(Clothe clothe)
         {
             if(clothe != null)
             {

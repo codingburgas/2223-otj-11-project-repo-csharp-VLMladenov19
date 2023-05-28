@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace wm.dal.Models;
 
-[Index("Name", Name = "UQ__Colors__737584F620F7D463", IsUnique = true)]
+[Index("Name", Name = "UQ__Colors__737584F6727F5ADA", IsUnique = true)]
 public partial class Color
 {
     [Key]
@@ -17,5 +17,5 @@ public partial class Color
     public string Name { get; set; } = null!;
 
     [InverseProperty("Color")]
-    public virtual ICollection<ClothesColor> ClothesColors { get; } = new List<ClothesColor>();
+    public virtual ICollection<ClotheColor> ClotheColors { get; set; } = new List<ClotheColor>();
 }

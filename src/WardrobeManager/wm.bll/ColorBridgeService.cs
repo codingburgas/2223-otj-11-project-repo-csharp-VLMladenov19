@@ -1,38 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using wm.dal.Data;
+﻿using wm.dal.Repositories;
 using wm.dal.Models;
-using wm.dal.Repositories;
+using wm.dal.Data;
 
 namespace wm.bll
 {
     public class ColorBridgeService
     {
-        public static List<ClothesColor> GetAll()
+        // Retrieve all clothing's colors
+        public static List<ClotheColor> GetAll()
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
-                ColorBridgeRepository colorBridgeRepository = new(context);
+                ClotheColorRepository colorBridgeRepository = new(context);
 
-                List<ClothesColor> clothesColors = colorBridgeRepository.GetAll().ToList();
+                List<ClotheColor> clothesColors = colorBridgeRepository.GetAll().ToList();
 
                 return clothesColors;
             }
         }
 
+        // Add a color to clothing
         public static void AddRow(int userId, string clotheName, string colorName)
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
-                ColorBridgeRepository colorBridgeRepository = new(context);
+                ClotheColorRepository colorBridgeRepository = new(context);
 
                 int clotheId = ClotheService.GetClotheId(clotheName, userId);
                 int colorId = ColorService.GetColorId(colorName);
 
-                ClothesColor clothesColor = new ClothesColor(clotheId, colorId);
+                ClotheColor clothesColor = new ClotheColor()
+                {
+                    ClotheId = clotheId,
+                    ColorId = colorId
+                };
 
                 if(!RowExists(clothesColor))
                 {
@@ -41,28 +42,30 @@ namespace wm.bll
             }
         }
 
+        // Remove all colors of a clothing
         public static void RemoveAllByClotheId(int clotheId)
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
-                ColorBridgeRepository colorBridgeRepository = new(context);
+                ClotheColorRepository colorBridgeRepository = new(context);
 
-                List<ClothesColor> bridgeList = colorBridgeRepository.GetAllByClotheId(clotheId).ToList();
+                List<ClotheColor> bridgeList = colorBridgeRepository.GetAllByClotheId(clotheId).ToList();
 
-                foreach (var c in bridgeList)
+                foreach(var c in bridgeList)
                 {
-                    colorBridgeRepository.RemoveRow(c);
+                    colorBridgeRepository.DeleteRow(c);
                 }
             }
         }
 
-        public static bool RowExists(ClothesColor clothesColor)
+        // Check if color is already added to a clothing
+        public static bool RowExists(ClotheColor clothesColor)
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
-                ColorBridgeRepository colorBridgeRepository = new(context);
+                ClotheColorRepository colorBridgeRepository = new(context);
 
-                List<ClothesColor> list = colorBridgeRepository.GetAll().ToList();
+                List<ClotheColor> list = colorBridgeRepository.GetAll().ToList();
                 bool flag = list
                     .Any(c => c.ClotheId == clothesColor.ClotheId && c.ColorId == clothesColor.ColorId);
 

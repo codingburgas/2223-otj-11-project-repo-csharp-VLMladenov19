@@ -6,23 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace wm.dal.Models;
 
-[Index("Username", Name = "UQ__Users__536C85E4BE1942C2", IsUnique = true)]
+[Index("Username", Name = "UQ__Users__536C85E4938DECE8", IsUnique = true)]
 public partial class User
 {
-    public User()
-    {
-    }
-
-    public User(string username, string password, string firstName, string lastName, string phone, string email)
-    {
-        Username = username;
-        Password = password;
-        FirstName = firstName;
-        LastName = lastName;
-        Phone = phone;
-        Email = email;
-    }
-
     [Key]
     public int Id { get; set; }
 
@@ -53,8 +39,8 @@ public partial class User
     public string Email { get; set; } = null!;
 
     [InverseProperty("User")]
-    public virtual ICollection<Clothe> Clothes { get; } = new List<Clothe>();
+    public virtual ICollection<Clothe> Clothes { get; set; } = new List<Clothe>();
 
     [InverseProperty("User")]
-    public virtual ICollection<Outfit> Outfits { get; } = new List<Outfit>();
+    public virtual ICollection<Outfit> Outfits { get; set; } = new List<Outfit>();
 }

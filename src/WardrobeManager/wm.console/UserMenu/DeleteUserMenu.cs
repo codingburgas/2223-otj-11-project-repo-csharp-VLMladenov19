@@ -10,10 +10,10 @@ namespace wm.console
         {
             Console.Clear();
             Console.WriteLine("===============  Delete  ===============");
-            Console.WriteLine($"{"Type [B] to go back to Main Menu",36}\n");
-            Console.WriteLine($"{"Delete this account?",30}\n");
-            Console.WriteLine($"{"[Y] Yes",24}");
-            Console.WriteLine($"{"[N] No",23}");
+            Console.WriteLine($"{"Type [B] to go back to Main Menu", 36}\n");
+            Console.WriteLine($"{"Delete this account?", 30}\n");
+            Console.WriteLine($"{"[Y] Yes", 24}");
+            Console.WriteLine($"{"[N] No", 23}");
 
             var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
             switch (input)
@@ -22,8 +22,8 @@ namespace wm.console
                 case 'N': SettingsMenu.Print(); break;
             }
 
-            Console.WriteLine($"\n{"User Deleted",26}");
-            Console.WriteLine($"\n{"Press a key to back to Main Menu",36}");
+            Console.WriteLine($"\n{"User Deleted", 26}");
+            Console.WriteLine($"\n{"Press a key to back to Main Menu", 36}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey(true);
             StartMenu.Print();

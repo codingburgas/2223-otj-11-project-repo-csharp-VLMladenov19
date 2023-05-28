@@ -11,7 +11,7 @@ namespace wm.console
         {
             Console.Clear();
             Console.WriteLine("============     Outfit     ============");
-            Console.WriteLine($"{"Type [B] to go back",30}\n");
+            Console.WriteLine($"{"Type [B] to go back", 30}\n");
 
             int userId = UserLog.LoggedUser.Id;
 
@@ -21,8 +21,8 @@ namespace wm.console
             Console.WriteLine($"{(outfit.Date).ToString("dd.MM.yyyy"), 26}");
             PrintClothes(outfitName, userId);
 
-            Console.WriteLine($"\n{"Press [P] key to See Clothes of other Outfit",44}");
-            Console.WriteLine($"{"or any other key to go back",34}");
+            Console.WriteLine($"\n{"Press [P] key to See Clothes of other Outfit", 44}");
+            Console.WriteLine($"{"or any other key to go back", 34}");
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
@@ -35,7 +35,7 @@ namespace wm.console
 
         private static string InsertOutfitName(int userId)
         {
-            Console.Write($"{"Outfit: ",23}");
+            Console.Write($"{"Outfit: ", 23}");
             var outfitName = Console.ReadLine();
 
             if(outfitName.ToUpper() == "B")
@@ -44,7 +44,7 @@ namespace wm.console
             }
             if(outfitName.IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"Name is required",28}");
+                Console.WriteLine($"\n{"Name is required", 28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
@@ -53,7 +53,7 @@ namespace wm.console
             int outfitId = OutfitService.GetOutfitId(outfitName, userId);
             if(outfitId == (int)ErrorCodes.InvalidObject)
             {
-                Console.WriteLine($"\n{"Outfit not found",28}");
+                Console.WriteLine($"\n{"Outfit not found", 28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
@@ -109,7 +109,7 @@ namespace wm.console
 
             var dic = new Dictionary<string, List<string>>();
 
-            foreach (var i in clothesTypesColors)
+            foreach(var i in clothesTypesColors)
             {
                 if(outfitBridgeList.Any(c => c.ClotheId == i.Id))
                 {
@@ -136,7 +136,7 @@ namespace wm.console
                         Type = t.Name
                     });
 
-            foreach (var i in clothesTypes)
+            foreach(var i in clothesTypes)
             {
                 if(outfitBridgeList.Any(c => c.ClotheId == i.Id))
                 {
@@ -151,7 +151,7 @@ namespace wm.console
                 }
             }
 
-            foreach (var item in dic)
+            foreach(var item in dic)
             {
                 var valueList = item.Value
                     .Where(c => !c.IsNullOrEmpty());

@@ -10,13 +10,13 @@ namespace wm.console
         {
             Console.Clear();
             Console.WriteLine("============  Remove Color  ============");
-            Console.WriteLine($"{"Type [B] to go back",30}\n");
+            Console.WriteLine($"{"Type [B] to go back", 30}\n");
 
             int userId = UserLog.LoggedUser.Id;
 
             if(ClotheService.GetClothesByUserId(userId).IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"User has no clothes",29}");
+                Console.WriteLine($"\n{"User has no clothes", 29}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 ClothesListMenu.Print();
@@ -27,8 +27,8 @@ namespace wm.console
 
             ClotheService.RemoveColorFromClothe(clotheName, colorId, userId);
 
-            Console.WriteLine($"\n{"Color Removed",27}");
-            Console.WriteLine($"{"Press a key to back to Clothes List",38}");
+            Console.WriteLine($"\n{"Color Removed", 27}");
+            Console.WriteLine($"{"Press a key to back to Clothes List", 38}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey(true);
             ClothesListMenu.Print();
@@ -36,7 +36,7 @@ namespace wm.console
 
         private static string InsertName(int userId)
         {
-            Console.Write($"{"Name: ",22}");
+            Console.Write($"{"Name: ", 22}");
             var clotheName = Console.ReadLine();
 
             if(clotheName.ToUpper() == "B")
@@ -45,7 +45,7 @@ namespace wm.console
             }
             if(clotheName.IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"Name is required",28}");
+                Console.WriteLine($"\n{"Name is required", 28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
@@ -54,7 +54,7 @@ namespace wm.console
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
             if(clotheId == (int)ErrorCodes.InvalidObject)
             {
-                Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
+                Console.WriteLine($"\n{"Name is wrong or clothe does not exist", 39}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
@@ -65,7 +65,7 @@ namespace wm.console
 
         private static int InsertColor(int userId)
         {
-            Console.Write($"{"Color: ",22}");
+            Console.Write($"{"Color: ", 22}");
             var colorName = Console.ReadLine();
 
             if(colorName.ToUpper() == "B")
@@ -74,7 +74,7 @@ namespace wm.console
             }
             if(colorName.IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"Color is required",28}");
+                Console.WriteLine($"\n{"Color is required", 28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
@@ -83,7 +83,7 @@ namespace wm.console
             int colorId = ColorService.GetColorId(colorName);
             if(colorId == (int)ErrorCodes.InvalidObject)
             {
-                Console.WriteLine($"\n{"Color not found",28}");
+                Console.WriteLine($"\n{"Color not found", 28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();

@@ -8,17 +8,6 @@ namespace wm.dal.Models;
 
 public partial class Clothe
 {
-    public Clothe()
-    {
-    }
-
-    public Clothe(string name, int userId, int typeId)
-    {
-        Name = name;
-        UserId = userId;
-        TypeId = typeId;
-    }
-
     [Key]
     public int Id { get; set; }
 
@@ -32,10 +21,10 @@ public partial class Clothe
     public int? TypeId { get; set; }
 
     [InverseProperty("Clothe")]
-    public virtual ICollection<ClothesColor> ClothesColors { get; } = new List<ClothesColor>();
+    public virtual ICollection<ClotheColor> ClotheColors { get; set; } = new List<ClotheColor>();
 
     [InverseProperty("Clothe")]
-    public virtual ICollection<OutfitsClothe> OutfitsClothes { get; } = new List<OutfitsClothe>();
+    public virtual ICollection<OutfitClothe> OutfitClothes { get; set; } = new List<OutfitClothe>();
 
     [ForeignKey("TypeId")]
     [InverseProperty("Clothes")]

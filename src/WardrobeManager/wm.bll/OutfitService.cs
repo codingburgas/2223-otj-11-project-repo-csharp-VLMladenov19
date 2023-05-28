@@ -1,21 +1,17 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using wm.dal.Data;
-using wm.dal.Models;
 using wm.dal.Repositories;
+using wm.dal.Models;
+using wm.dal.Data;
 using wm.util;
 
 namespace wm.bll
 {
     public class OutfitService
     {
+        // Retrieve all outfits
         public static List<Outfit> GetAll()
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
                 OutfitRepository outfitRepository = new(context);
 
@@ -25,92 +21,56 @@ namespace wm.bll
             }
         }
 
-        public static Outfit? GetOutfit(string outfitName, int userId)
-        {
-            Outfit? outfit = OutfitService.GetOutfitsByUserId(userId)
-                .FirstOrDefault(o => o.Name.ToUpper() == outfitName.ToUpper());
-
-            return outfit;
-        }
-
-        public static int GetOutfitId(string name, int userId)
-        {
-            Outfit? clothe = GetOutfitsByUserId(userId)
-                .FirstOrDefault(c => c.Name.ToUpper() == name.ToUpper());
-
-            if(clothe == null)
-            {
-                return (int)ErrorCodes.InvalidObject;
-            }
-            return clothe.Id;
-        }
-
+        // Retrieve all user's outfits
         public static List<Outfit> GetOutfitsByUserId(int userId)
         {
-            List<Outfit> outfits = OutfitService.GetAll()
+            List<Outfit> outfits = GetAll()
                 .Where(c => c.UserId == userId)
                 .ToList();
 
             return outfits;
         }
 
+        // Retrieve an outfit
+        public static Outfit? GetOutfit(string outfitName, int userId)
+        {
+            Outfit? outfit = GetOutfitsByUserId(userId)
+                .FirstOrDefault(o => o.Name.ToUpper() == outfitName.ToUpper());
+
+            return outfit;
+        }
+
+        // Retrieve an outfit's id
+        public static int GetOutfitId(string name, int userId)
+        {
+            Outfit? clothe = GetOutfit(name, userId);
+
+            if (clothe == null)
+            {
+                return (int)ErrorCodes.InvalidObject;
+            }
+            return clothe.Id;
+        }
+
+        // Add an outfit to the database
         public static void AddOutfit(string name, DateTime date, int userId)
         {
-            using (var context = new WardrobeManagerContext())
+            using(var context = new WardrobeManagerContext())
             {
                 OutfitRepository outfitRepository = new(context);
 
-                Outfit outfit = new Outfit(name, date, userId);
+                Outfit outfit = new Outfit()
+                {
+                    Name = name,
+                    Date = date,
+                    UserId = userId
+                };
 
                 outfitRepository.AddRow(outfit);
             }
         }
 
-        public static void RemoveOutfit(int outfitId)
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                OutfitRepository outfitRepository = new(context);
-
-                OutfitBridgeService.RemoveAllByOutfitId(outfitId);
-
-                Outfit outfit = outfitRepository.GetAll().FirstOrDefault(c => c.Id == outfitId);
-                outfitRepository.RemoveRow(outfit);
-            }
-        }
-
-        public static void RemoveUserOutfits(int userId)
-        {
-            List<Outfit> outfits = GetAll()
-                    .Where(c => c.UserId == userId)
-                    .ToList();
-
-            if(!outfits.IsNullOrEmpty())
-            {
-                foreach (var c in outfits)
-                {
-                    RemoveOutfit(c.Id);
-                }
-            }
-        }
-
-        public static void RemoveClotheFromOutfit(string outfitName, int clotheId, int userId)
-        {
-            using (var context = new WardrobeManagerContext())
-            {
-                OutfitBridgeRepository outfitBridgeRepository = new(context);
-
-                int outfitId = GetOutfitId(outfitName, userId);
-                OutfitsClothe? outfitClothe = outfitBridgeRepository.GetAllByOutfitId(outfitId)
-                    .FirstOrDefault(c => c.ClotheId == clotheId);
-
-                if(outfitClothe != null)
-                {
-                    outfitBridgeRepository.RemoveRow(outfitClothe);
-                }
-            }
-        }
-
+        // Edit outfit's info
         public static void EditOutfit(string oldName, string newName, DateTime newDate, int userId)
         {
             using (var context = new WardrobeManagerContext())
@@ -119,12 +79,42 @@ namespace wm.bll
 
                 Outfit? outfit = GetOutfit(oldName, userId);
 
-                if(outfit != null)
+                if (outfit != null)
                 {
                     outfit.Name = newName;
                     outfit.Date = newDate;
 
                     outfitRepository.UpdateRow(outfit);
+                }
+            }
+        }
+
+        // Delete an outfit
+        public static void DeleteOutfit(int outfitId)
+        {
+            using(var context = new WardrobeManagerContext())
+            {
+                OutfitRepository outfitRepository = new(context);
+
+                OutfitBridgeService.RemoveAllByOutfitId(outfitId);
+
+                Outfit outfit = outfitRepository.GetAll().FirstOrDefault(c => c.Id == outfitId);
+                outfitRepository.DeleteRow(outfit);
+            }
+        }
+
+        // Delete all outfits of an user
+        public static void DeleteUsersOutfits(int userId)
+        {
+            List<Outfit> outfits = GetAll()
+                    .Where(c => c.UserId == userId)
+                    .ToList();
+
+            if(!outfits.IsNullOrEmpty())
+            {
+                foreach(var c in outfits)
+                {
+                    DeleteOutfit(c.Id);
                 }
             }
         }

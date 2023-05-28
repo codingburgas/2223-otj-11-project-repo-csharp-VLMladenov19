@@ -15,13 +15,13 @@ namespace wm.console
 
             PrintOutfitList(userId);
 
-            Console.WriteLine($"\n{"Press [P] key to See Clothes of Outfit",38}");
-            Console.WriteLine($"{"Press [A] key to Create new Outfit",37}");
-            Console.WriteLine($"{"Press [E] key to Edit an Outfit",36}");
-            Console.WriteLine($"{"Press [D] key to Delete an Outfit",37}\n");
-            Console.WriteLine($"{"Press [C] key to Add Clothes",35}");
-            Console.WriteLine($"{"Press [R] key to Remove Clothes",36}\n");
-            Console.WriteLine($"{"Press any other key to go back",36}");
+            Console.WriteLine($"\n{"Press [P] key to See Clothes of Outfit", 38}");
+            Console.WriteLine($"{"Press [A] key to Create new Outfit", 37}");
+            Console.WriteLine($"{"Press [E] key to Edit an Outfit", 36}");
+            Console.WriteLine($"{"Press [D] key to Delete an Outfit", 37}\n");
+            Console.WriteLine($"{"Press [C] key to Add Clothes", 35}");
+            Console.WriteLine($"{"Press [R] key to Remove Clothes", 36}\n");
+            Console.WriteLine($"{"Press any other key to go back", 36}");
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
@@ -42,7 +42,7 @@ namespace wm.console
         {
             var outfits = OutfitService.GetOutfitsByUserId(userId);
 
-            foreach (var outfit in outfits)
+            foreach(var outfit in outfits)
             {
                 var date = (outfit.Date).ToString("dd.MM.yyyy");
                 Console.WriteLine($"{outfit.Name,18} : {date}");

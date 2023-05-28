@@ -11,20 +11,20 @@ namespace wm.console
         {
             Console.Clear();
             Console.WriteLine("============   Add Outfit   ============");
-            Console.WriteLine($"{"Type [B] to go back",30}\n");
+            Console.WriteLine($"{"Type [B] to go back", 30}\n");
 
             int userId = UserLog.LoggedUser.Id;
 
             string outfitName = InsertOutfitName(userId);
 
-            Console.WriteLine($"\n{"Date syntax: DD.MM.YYYY",32}");
+            Console.WriteLine($"\n{"Date syntax: DD.MM.YYYY", 32}");
             var outfitDate = InsertOutfitDate(userId);
 
             OutfitService.AddOutfit(outfitName, outfitDate, userId);
 
-            Console.WriteLine($"\n{"Outfit Added",26}");
-            Console.WriteLine($"\n{"Press [A] key to Add new Outfits",36}");
-            Console.WriteLine($"{"or any other key to go back",34}");
+            Console.WriteLine($"\n{"Outfit Added", 26}");
+            Console.WriteLine($"\n{"Press [A] key to Add new Outfits", 36}");
+            Console.WriteLine($"{"or any other key to go back", 34}");
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
@@ -37,7 +37,7 @@ namespace wm.console
 
         private static string InsertOutfitName(int userId)
         {
-            Console.Write($"{"Name: ",22}");
+            Console.Write($"{"Name: ", 22}");
             var outfitName = Console.ReadLine();
 
             if(outfitName.ToUpper() == "B")
@@ -46,7 +46,7 @@ namespace wm.console
             }
             if(outfitName.IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"Name is required",28}");
+                Console.WriteLine($"\n{"Name is required", 28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
@@ -55,7 +55,7 @@ namespace wm.console
             int outfitId = OutfitService.GetOutfitId(outfitName, userId);
             if(outfitId != (int)ErrorCodes.InvalidObject)
             {
-                Console.WriteLine($"\n{"Name already in use",30}");
+                Console.WriteLine($"\n{"Name already in use", 30}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
@@ -66,7 +66,7 @@ namespace wm.console
 
         private static DateTime InsertOutfitDate(int userId)
         {
-            Console.Write($"{"Date: ",22}");
+            Console.Write($"{"Date: ", 22}");
             var outfitDate = Console.ReadLine();
 
             if(outfitDate.ToUpper() == "B")
@@ -75,7 +75,7 @@ namespace wm.console
             }
             if(outfitDate.IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"Date is required",28}");
+                Console.WriteLine($"\n{"Date is required", 28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
@@ -84,14 +84,14 @@ namespace wm.console
             DateTime parsedDate;
             if(!DateTime.TryParseExact(outfitDate, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
             {
-                Console.WriteLine($"\n{"Date is invalid",28}");
+                Console.WriteLine($"\n{"Date is invalid", 28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
             }
             if(parsedDate < DateTime.Now)
             {
-                Console.WriteLine($"\n{"Date has already passed",32}");
+                Console.WriteLine($"\n{"Date has already passed", 32}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();

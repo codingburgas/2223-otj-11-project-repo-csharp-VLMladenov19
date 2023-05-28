@@ -16,14 +16,14 @@ namespace wm.console
 
             int userId = UserLog.LoggedUser.Id;
 
-            PrintClothesList(userId);
+            PrintUsersClothes(userId);
 
-            Console.WriteLine($"\n{"Press [A] key to Add new Clothes",36}");
-            Console.WriteLine($"{"Press [R] key to Remove Clothe",36}");
-            Console.WriteLine($"{"Press [E] key to Edit Clothe",35} \n");
-            Console.WriteLine($"{"Press [C] key to Add Colors",34}");
-            Console.WriteLine($"{"Press [D] key to Remove Colors from a Clothe",43}\n");
-            Console.WriteLine($"{"Press any other key to go back",36}");
+            Console.WriteLine($"\n{"Press [A] key to Add new Clothes", 36}");
+            Console.WriteLine($"{"Press [R] key to Remove Clothe", 36}");
+            Console.WriteLine($"{"Press [E] key to Edit Clothe", 35} \n");
+            Console.WriteLine($"{"Press [C] key to Add Colors", 34}");
+            Console.WriteLine($"{"Press [D] key to Remove Colors from a Clothe", 43}\n");
+            Console.WriteLine($"{"Press any other key to go back", 36}");
             Console.WriteLine($"\n========================================");
 
             var input = Char.ToUpper(Console.ReadKey(true).KeyChar);
@@ -38,11 +38,12 @@ namespace wm.console
             }
         }
 
-        private static void PrintClothesList(int userId)
+        // Prints all clothes of an user
+        private static void PrintUsersClothes(int userId)
         {
             Dictionary<string, List<string>> clothes = GetFullClothes(userId);
 
-            foreach (var item in clothes)
+            foreach(var item in clothes)
             {
                 var valueList = item.Value
                     .Where(c => !c.IsNullOrEmpty());
@@ -54,17 +55,18 @@ namespace wm.console
             }
         }
 
+        // Create a dictionary with all clothes of an user, with their types and colors
         private static Dictionary<string, List<string>> GetFullClothes(int userId)
         {
             List<Clothe> clothesList = ClotheService.GetClothesByUserId(userId);
             List<dal.Models.Type> typesList = TypeService.GetAll();
-            List<ClothesColor> colorBridgeList = ColorBridgeService.GetAll();
+            List<ClotheColor> colorBridgeList = ColorBridgeService.GetAll();
             List<Color> colorsList = ColorService.GetAll();
 
-            Dictionary<string, List<string>> dic = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> usersClothes = new Dictionary<string, List<string>>();
 
-            // Create a list with every clothing that has at least 1 color
-            var clothesTypesColors = clothesList
+            // Create a list with every clothing that has at least oneolor
+            var coloredClothes = clothesList
                 .Join(
                     typesList,
                     c => c.TypeId,
@@ -99,20 +101,21 @@ namespace wm.console
                     })
                 .ToList();
 
-            foreach (var i in clothesTypesColors)
+            // Add all clothes with at least one color to dictionary
+            foreach(var i in coloredClothes)
             {
-                if(dic.ContainsKey($"{i.Name} {i.Type}"))
+                if(usersClothes.ContainsKey($"{i.Name} {i.Type}"))
                 {
-                    dic[$"{i.Name} {i.Type}"].Add(i.Color);
+                    usersClothes[$"{i.Name} {i.Type}"].Add(i.Color);
                 }
                 else
                 {
-                    dic[$"{i.Name} {i.Type}"] = new List<string> { i.Color };
+                    usersClothes[$"{i.Name} {i.Type}"] = new List<string> { i.Color };
                 }
             }
 
             // Create a list with every clothing
-            var clothesTypes = clothesList
+            var noColorsClothes = clothesList
                 .Join(
                     typesList,
                     c => c.TypeId,
@@ -125,19 +128,20 @@ namespace wm.console
                     })
                 .ToList();
 
-            foreach (var i in clothesTypes)
+            // Add all clothes that don't have colors to dictionary
+            foreach(var i in noColorsClothes)
             {
-                if(dic.ContainsKey($"{i.Name} {i.Type}"))
+                if(usersClothes.ContainsKey($"{i.Name} {i.Type}"))
                 {
-                    dic[$"{i.Name} {i.Type}"].Add(String.Empty);
+                    usersClothes[$"{i.Name} {i.Type}"].Add(String.Empty);
                 }
                 else
                 {
-                    dic[$"{i.Name} {i.Type}"] = new List<string> { String.Empty };
+                    usersClothes[$"{i.Name} {i.Type}"] = new List<string> { String.Empty };
                 }
             }
 
-            return dic;
+            return usersClothes;
         }
     }
 }

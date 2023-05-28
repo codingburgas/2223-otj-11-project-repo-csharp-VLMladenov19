@@ -9,14 +9,14 @@ namespace wm.console
         public static void Print()
         {
             Console.Clear();
-            Console.WriteLine("============ Remove Cloting ============");
-            Console.WriteLine($"{"Type [B] to go back",30}\n");
+            Console.WriteLine("============  Remove Clothe ============");
+            Console.WriteLine($"{"Type [B] to go back", 30}\n");
 
             int userId = UserLog.LoggedUser.Id;
 
             if(ClotheService.GetClothesByUserId(userId).IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"User has no clothes",29}");
+                Console.WriteLine($"\n{"User has no clothes", 29}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 ClothesListMenu.Print();
@@ -25,10 +25,10 @@ namespace wm.console
             string name = InsertName(userId);
 
             int clotheId = ClotheService.GetClotheId(name, userId);
-            ClotheService.RemoveClothe(clotheId);
+            ClotheService.DeleteClothe(clotheId);
 
-            Console.WriteLine($"\n{"Clothe Removed",28}");
-            Console.WriteLine($"{"Press a key to back to Clothes List",38}");
+            Console.WriteLine($"\n{"Clothe Removed", 28}");
+            Console.WriteLine($"{"Press a key to back to Clothes List", 38}");
             Console.WriteLine($"\n========================================");
             Console.ReadKey(true);
             ClothesListMenu.Print();
@@ -36,7 +36,7 @@ namespace wm.console
 
         private static string InsertName(int userId)
         {
-            Console.Write($"{"Name: ",22}");
+            Console.Write($"{"Name: ", 22}");
             var clotheName = Console.ReadLine();
 
             if(clotheName.ToUpper() == "B")
@@ -45,7 +45,7 @@ namespace wm.console
             }
             if(clotheName.IsNullOrEmpty())
             {
-                Console.WriteLine($"\n{"Name is required",28}");
+                Console.WriteLine($"\n{"Name is required", 28}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();
@@ -54,7 +54,7 @@ namespace wm.console
             int clotheId = ClotheService.GetClotheId(clotheName, userId);
             if(clotheId == (int)ErrorCodes.InvalidObject)
             {
-                Console.WriteLine($"\n{"Name is wrong or clothe does not exist",39}");
+                Console.WriteLine($"\n{"Name is wrong or clothe does not exist", 39}");
                 Console.WriteLine($"\n========================================");
                 Console.ReadKey(true);
                 Print();

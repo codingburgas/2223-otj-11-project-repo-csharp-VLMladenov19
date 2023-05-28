@@ -1,7 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using wm.dal.Data;
-using wm.dal.Models;
 using wm.dal.Repositories;
+using wm.dal.Models;
+using wm.dal.Data;
 
 namespace wm.tests.Repositories
 {
@@ -121,24 +120,10 @@ namespace wm.tests.Repositories
         }
 
         [Test]
-        public void Test_InsertRow()
+        public void Test_AddRow()
         {
             _context.ChangeTracker.Clear();
-
-            User newUser = new User
-            {
-                Username = "test3",
-                Password = "01F4D2ACFF5BBEC1FD02066ED306989D7BF086D1D2701EF4AFB3A615264A3611",
-                Salt = "E45CB102EFA7A799F06325615255DACB",
-                FirstName = "test",
-                LastName = "test",
-                Phone = "1234567890",
-                Email = "test3@pass.me"
-            };
-
-            UserRepository userRepository = new(_context);
-            userRepository.InsertRow(newUser);
-
+            
             List<User> expected = new(){
                 new User
                 {
@@ -175,6 +160,19 @@ namespace wm.tests.Repositories
                 }
             };
 
+            User newUser = new User
+            {
+                Username = "test3",
+                Password = "01F4D2ACFF5BBEC1FD02066ED306989D7BF086D1D2701EF4AFB3A615264A3611",
+                Salt = "E45CB102EFA7A799F06325615255DACB",
+                FirstName = "test",
+                LastName = "test",
+                Phone = "1234567890",
+                Email = "test3@pass.me"
+            };
+
+            UserRepository userRepository = new(_context);
+            userRepository.AddRow(newUser);
             List<User> actual = userRepository.GetAll().ToList();
 
             Utilities.AreEqualByJson(actual, expected);
@@ -184,21 +182,6 @@ namespace wm.tests.Repositories
         public void Test_DeleteRow()
         {
             _context.ChangeTracker.Clear();
-
-            User user = new User
-            {
-                Id = 1,
-                Username = "test1",
-                Password = "3805C12FC67060217558470498B9266A077B049ECC5805EBF83B933EFAD6B049",
-                Salt = "8523A3548BCF736E4F98B26A26FA6DED",
-                FirstName = "test",
-                LastName = "test",
-                Phone = "1234567890",
-                Email = "test1@pass.me"
-            };
-
-            UserRepository userRepository = new(_context);
-            userRepository.DeleteRow(user);
 
             List<User> expected = new()
             {
@@ -215,6 +198,20 @@ namespace wm.tests.Repositories
                 }
             };
 
+            User user = new User
+            {
+                Id = 1,
+                Username = "test1",
+                Password = "3805C12FC67060217558470498B9266A077B049ECC5805EBF83B933EFAD6B049",
+                Salt = "8523A3548BCF736E4F98B26A26FA6DED",
+                FirstName = "test",
+                LastName = "test",
+                Phone = "1234567890",
+                Email = "test1@pass.me"
+            };
+
+            UserRepository userRepository = new(_context);
+            userRepository.DeleteRow(user);
             List<User> actual = userRepository.GetAll().ToList();
 
             Utilities.AreEqualByJson(actual, expected);
@@ -261,6 +258,7 @@ namespace wm.tests.Repositories
                 Phone = "1234567890",
                 Email = "test3@pass.me"
             };
+
             UserRepository userRepository = new(_context);
             userRepository.UpdateRow(user);
             List<User> actual = userRepository.GetAll().ToList();

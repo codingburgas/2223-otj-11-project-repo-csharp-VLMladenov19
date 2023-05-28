@@ -47,7 +47,7 @@ CREATE TABLE [Colors] (
 	[Name] varchar(50) NOT NULL UNIQUE
 )
 
-CREATE TABLE [OutfitsClothes] (
+CREATE TABLE [OutfitClothes] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[OutfitId] int,
 	[ClotheId] int,
@@ -55,7 +55,7 @@ CREATE TABLE [OutfitsClothes] (
 	FOREIGN KEY ([ClotheId]) REFERENCES [Clothes]([Id])
 )
 
-CREATE TABLE [ClothesColors] (
+CREATE TABLE [ClotheColors] (
 	[Id] int PRIMARY KEY IDENTITY(1,1),
 	[ClotheId] int,
 	[ColorId] int,
