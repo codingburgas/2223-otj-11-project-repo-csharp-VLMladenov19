@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="wm.maui.LogInPage"
+             Title="LogInPage">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Label 
+            Text="Welcome back"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            FontAttributes="Bold"
+            FontSize="Large"
+            Margin="0,0,0,20" />
+
+        <Entry
+            x:Name="entryUsername"
+            Placeholder="Username" 
+            WidthRequest="200"
+            ReturnType="Next" 
+            Margin="0,0,0,10" />
+
+        <Entry 
+            x:Name="entryPassword"
+            IsPassword="True"
+            Placeholder="Password"
+            WidthRequest="200" 
+            Completed="OnContinueButtonClicked" 
+            Margin="0,0,0,0" />
+
+        <Label
+            x:Name="labelError"
+            HorizontalOptions="Center"
+            Text="" />
+
+        <Button 
+            x:Name="buttonContinue"
+            Text="Continue" 
+            Margin="0,10,0,0"
+            Clicked="OnContinueButtonClicked"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        
+        <!-- Add "Don't have an account? Register" Label with a hyperlink to RegisterPage -->
+
+    </VerticalStackLayout>
+</ContentPage>

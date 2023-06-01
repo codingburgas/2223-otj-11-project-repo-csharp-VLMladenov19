@@ -42,6 +42,19 @@ namespace wm.bll
             }
         }
 
+        // Retrieva a user
+        public static User? GetUserById(int userId)
+        {
+            using(var context = new WardrobeManagerContext())
+            {
+                UserRepository userRepository = new(context);
+
+                User user = userRepository.GetUserById(userId);
+
+                return user;
+            }
+        }
+
         // Add user to database
         public static void RegisterUser(string username, string password, string fName, string lName, string phone, string email)
         {

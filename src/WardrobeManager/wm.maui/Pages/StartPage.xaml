@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="wm.maui.StartPage"
+             Title="StartPage">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    
+    <VerticalStackLayout VerticalOptions="CenterAndExpand">
+        <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="100"
+                HorizontalOptions="Center" />
+        
+        <Label 
+            Text="Welcome to Wardrobe Manager" 
+            VerticalOptions="Center"
+            HorizontalOptions="Center" 
+            Margin="0,20,0,0" />
+
+        <Label
+            Text="Log in with your account to continue"
+            HorizontalOptions="Center"
+            Margin="0,20,0,20" />
+
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Button 
+                Text="Log In"
+                Clicked="OnLogInButtonClicked" 
+                Margin="0,0,20,0" />
+            <Button 
+                Text="Register"
+                Clicked="OnRegisterButtonClicked" />
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

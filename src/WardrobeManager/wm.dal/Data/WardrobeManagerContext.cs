@@ -34,7 +34,8 @@ public partial class WardrobeManagerContext : DbContext
     {
         if(!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("data source = .\\SQLEXPRESS; initial catalog=WardrobeManager; Encrypt=false; Trusted_Connection=true;");
+            optionsBuilder.UseSqlServer(@"Server=.\SQLExpress;Database=WardrobeManager;Integrated Security=True;Trust Server Certificate=True");
+            
         }
     } 
 
