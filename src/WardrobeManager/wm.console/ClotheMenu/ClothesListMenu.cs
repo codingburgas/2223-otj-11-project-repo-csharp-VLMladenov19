@@ -43,14 +43,14 @@ namespace wm.console
         {
             Dictionary<string, List<string>> clothes = GetFullClothes(userId);
 
-            foreach(var item in clothes)
+            foreach (var item in clothes)
             {
                 var valueList = item.Value
                     .Where(c => !c.IsNullOrEmpty());
                 var joinedColors = String.Join(", ", valueList);
                 var colorTypes = item.Key.Split(" ");
 
-                Console.Write($"{colorTypes[0], 10} : {colorTypes[1]} : {joinedColors}");
+                Console.Write($"{colorTypes[0],10} : {colorTypes[1]} : {joinedColors}");
                 Console.WriteLine();
             }
         }

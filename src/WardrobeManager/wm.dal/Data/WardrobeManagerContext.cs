@@ -31,19 +31,14 @@ public partial class WardrobeManagerContext : DbContext
     public virtual DbSet<Models.User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if(!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLExpress;Database=WardrobeManager;Integrated Security=True;Trust Server Certificate=True");
-            
-        }
-    } 
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("data source = .\\SQLEXPRESS; initial catalog=WardrobeManager; Encrypt=false; Trusted_Connection=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Models.Clothe>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Clothes__3214EC07B1BC9473");
+            entity.HasKey(e => e.Id).HasName("PK__Clothes__3214EC071B1EB008");
 
             entity.HasOne(d => d.Type).WithMany(p => p.Clothes).HasConstraintName("FK__Clothes__TypeId__412EB0B6");
 
@@ -54,7 +49,7 @@ public partial class WardrobeManagerContext : DbContext
 
         modelBuilder.Entity<Models.ClotheColor>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ClotheCo__3214EC07C12090E7");
+            entity.HasKey(e => e.Id).HasName("PK__ClotheCo__3214EC07820B13CA");
 
             entity.HasOne(d => d.Clothe).WithMany(p => p.ClotheColors).HasConstraintName("FK__ClotheCol__Cloth__4AB81AF0");
 
@@ -63,12 +58,12 @@ public partial class WardrobeManagerContext : DbContext
 
         modelBuilder.Entity<Models.Color>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Colors__3214EC07CB38827C");
+            entity.HasKey(e => e.Id).HasName("PK__Colors__3214EC07D540F6A1");
         });
 
         modelBuilder.Entity<Models.Outfit>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Outfits__3214EC0714BA65DF");
+            entity.HasKey(e => e.Id).HasName("PK__Outfits__3214EC078A555347");
 
             entity.HasOne(d => d.User).WithMany(p => p.Outfits)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -77,7 +72,7 @@ public partial class WardrobeManagerContext : DbContext
 
         modelBuilder.Entity<Models.OutfitClothe>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__OutfitCl__3214EC07ECDC0ED1");
+            entity.HasKey(e => e.Id).HasName("PK__OutfitCl__3214EC0726E2D280");
 
             entity.HasOne(d => d.Clothe).WithMany(p => p.OutfitClothes).HasConstraintName("FK__OutfitClo__Cloth__47DBAE45");
 
@@ -86,12 +81,12 @@ public partial class WardrobeManagerContext : DbContext
 
         modelBuilder.Entity<Models.Type>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Types__3214EC0739A6036B");
+            entity.HasKey(e => e.Id).HasName("PK__Types__3214EC070B157E91");
         });
 
         modelBuilder.Entity<Models.User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07CD51B92A");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC0787F8F38E");
         });
 
         OnModelCreatingPartial(modelBuilder);

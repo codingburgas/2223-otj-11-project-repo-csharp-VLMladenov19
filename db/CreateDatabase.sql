@@ -18,7 +18,6 @@ CREATE TABLE [Users] (
 	[Salt] varchar(50) NOT NULL,
 	[FirstName] nvarchar(50) NOT NULL,
 	[LastName] nvarchar(50) NOT NULL,
-	[Phone] varchar(25) NOT NULL,
 	[Email] varchar(50) NOT NULL
 )
 

@@ -56,7 +56,7 @@ namespace wm.bll
         }
 
         // Add user to database
-        public static void RegisterUser(string username, string password, string fName, string lName, string phone, string email)
+        public static void RegisterUser(string username, string password, string fName, string lName, string email)
         {
             using(var context = new WardrobeManagerContext())
             {
@@ -68,7 +68,6 @@ namespace wm.bll
                     Password = password,
                     FirstName = fName,
                     LastName = lName,
-                    Phone = phone,
                     Email = email
                 };
 
@@ -84,7 +83,7 @@ namespace wm.bll
         }
 
         // Edit user's info
-        public static void UpdateUser(string oldUsername, string newUsername, string newPassword, string newFName, string newLName, string newPhone, string newEmail)
+        public static void UpdateUser(string oldUsername, string newUsername, string newPassword, string newFName, string newLName, string newEmail)
         {
             using(var context = new WardrobeManagerContext())
             {
@@ -102,7 +101,6 @@ namespace wm.bll
 
                     user.FirstName = newFName;
                     user.LastName = newLName;
-                    user.Phone = newPhone;
                     user.Email = newEmail;
 
                     userRepository.UpdateRow(user);
@@ -234,24 +232,6 @@ namespace wm.bll
             if(name.Any(c => Char.IsDigit(c)))
             {
                 return (int)ErrorCodes.ArgumentHasNumbers;
-            }
-            return (int)ErrorCodes.None;
-        }
-
-        // Check phone's viability
-        public static int CheckPhone(string phone)
-        {
-            if(phone.IsNullOrEmpty())
-            {
-                return (int)ErrorCodes.NullArgument;
-            }
-            if(phone.Length < 10 || phone.Length > 15)
-            {
-                return (int)ErrorCodes.InvalidArgumentLength;
-            }
-            if(phone.Any(c => Char.IsLetter(c)))
-            {
-                return (int)ErrorCodes.ArgumentHasLetters;
             }
             return (int)ErrorCodes.None;
         }

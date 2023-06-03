@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wm.dal", "wm.dal\wm.dal.csproj", "{CCB1E277-4E0C-4396-B706-FC8B640616EF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wm.console", "wm.console\wm.console.csproj", "{85B545A6-9D72-4D7D-9988-5C3268CDA368}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wm.maui", "wm.maui\wm.maui.csproj", "{E495F627-A061-439D-AC4E-9AFFB9C8399D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wm.dal", "wm.dal\wm.dal.csproj", "{CCB1E277-4E0C-4396-B706-FC8B640616EF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wm.bll", "wm.bll\wm.bll.csproj", "{BB48FA6E-D257-4AA5-B9DF-5014A2D342D4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wm.util", "wm.util\wm.util.csproj", "{E01544D4-E045-4026-A1B6-8F4703F1A981}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wm.tests", "wm.tests\wm.tests.csproj", "{2EBF98C4-CFBF-4FE0-B0E0-BE210607EA5C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wm.maui", "wm.maui\wm.maui.csproj", "{E495F627-A061-439D-AC4E-9AFFB9C8399D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

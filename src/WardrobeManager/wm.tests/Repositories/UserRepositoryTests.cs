@@ -20,7 +20,6 @@ namespace wm.tests.Repositories
                 Salt = "8523A3548BCF736E4F98B26A26FA6DED",
                 FirstName = "test",
                 LastName = "test",
-                Phone = "1234567890",
                 Email = "test1@pass.me"
             });
             _context.Users.Add(new User
@@ -30,7 +29,6 @@ namespace wm.tests.Repositories
                 Salt = "B3496A6A46E4E69DD7D89566B1187905",
                 FirstName = "test",
                 LastName = "test",
-                Phone = "1234567890",
                 Email = "test2@pass.me"
             });
 
@@ -51,7 +49,6 @@ namespace wm.tests.Repositories
                     Salt = "8523A3548BCF736E4F98B26A26FA6DED",
                     FirstName = "test",
                     LastName = "test",
-                    Phone = "1234567890",
                     Email = "test1@pass.me"
                 },
                 new User
@@ -62,7 +59,6 @@ namespace wm.tests.Repositories
                     Salt = "B3496A6A46E4E69DD7D89566B1187905",
                     FirstName = "test",
                     LastName = "test",
-                    Phone = "1234567890",
                     Email = "test2@pass.me"
                 }
             };
@@ -86,7 +82,6 @@ namespace wm.tests.Repositories
                 Salt = "B3496A6A46E4E69DD7D89566B1187905",
                 FirstName = "test",
                 LastName = "test",
-                Phone = "1234567890",
                 Email = "test2@pass.me"
             };
 
@@ -109,7 +104,6 @@ namespace wm.tests.Repositories
                 Salt = "B3496A6A46E4E69DD7D89566B1187905",
                 FirstName = "test",
                 LastName = "test",
-                Phone = "1234567890",
                 Email = "test2@pass.me"
             };
 
@@ -133,7 +127,6 @@ namespace wm.tests.Repositories
                     Salt = "8523A3548BCF736E4F98B26A26FA6DED",
                     FirstName = "test",
                     LastName = "test",
-                    Phone = "1234567890",
                     Email = "test1@pass.me"
                 },
                 new User
@@ -144,7 +137,6 @@ namespace wm.tests.Repositories
                     Salt = "B3496A6A46E4E69DD7D89566B1187905",
                     FirstName = "test",
                     LastName = "test",
-                    Phone = "1234567890",
                     Email = "test2@pass.me"
                 },
                 new User
@@ -155,7 +147,6 @@ namespace wm.tests.Repositories
                     Salt = "E45CB102EFA7A799F06325615255DACB",
                     FirstName = "test",
                     LastName = "test",
-                    Phone = "1234567890",
                     Email = "test3@pass.me"
                 }
             };
@@ -167,7 +158,6 @@ namespace wm.tests.Repositories
                 Salt = "E45CB102EFA7A799F06325615255DACB",
                 FirstName = "test",
                 LastName = "test",
-                Phone = "1234567890",
                 Email = "test3@pass.me"
             };
 
@@ -193,7 +183,6 @@ namespace wm.tests.Repositories
                     Salt = "B3496A6A46E4E69DD7D89566B1187905",
                     FirstName = "test",
                     LastName = "test",
-                    Phone = "1234567890",
                     Email = "test2@pass.me"
                 }
             };
@@ -206,7 +195,6 @@ namespace wm.tests.Repositories
                 Salt = "8523A3548BCF736E4F98B26A26FA6DED",
                 FirstName = "test",
                 LastName = "test",
-                Phone = "1234567890",
                 Email = "test1@pass.me"
             };
 
@@ -231,7 +219,6 @@ namespace wm.tests.Repositories
                     Salt = "E45CB102EFA7A799F06325615255DACB",
                     FirstName = "test",
                     LastName = "test",
-                    Phone = "1234567890",
                     Email = "test3@pass.me"
                 },
                 new User
@@ -242,7 +229,6 @@ namespace wm.tests.Repositories
                     Salt = "B3496A6A46E4E69DD7D89566B1187905",
                     FirstName = "test",
                     LastName = "test",
-                    Phone = "1234567890",
                     Email = "test2@pass.me"
                 }
             };
@@ -255,7 +241,6 @@ namespace wm.tests.Repositories
                 Salt = "E45CB102EFA7A799F06325615255DACB",
                 FirstName = "test",
                 LastName = "test",
-                Phone = "1234567890",
                 Email = "test3@pass.me"
             };
 

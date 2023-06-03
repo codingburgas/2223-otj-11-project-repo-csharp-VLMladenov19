@@ -15,10 +15,9 @@ namespace wm.console
             string newPassword = InsertNewPassword();
             string newFName = InsertNewFirstName();
             string newLName = InsertNewLastName();
-            string newPhone = InsertNewPhone();
             string newEmail = InsertNewEmail();
 
-            UserService.UpdateUser(UserLog.LoggedUser.Username, newUsername, newPassword, newFName, newLName, newPhone, newEmail);
+            UserService.UpdateUser(UserLog.LoggedUser.Username, newUsername, newPassword, newFName, newLName, newEmail);
 
             Console.WriteLine($"\n{"User Updated", 26}");
             Console.WriteLine($"\n{"Press a key to go to Main Menu", 35}");
@@ -169,38 +168,6 @@ namespace wm.console
                 default: break;
             }
             return lastName;
-        }
-
-        private static string InsertNewPhone()
-        {
-            Console.WriteLine();
-            Console.WriteLine($"{"XXXXXXXXXX", 23}");
-            Console.Write($"{"Phone: ", 17}");
-            string? phone = Console.ReadLine();
-
-            switch (UserService.CheckPhone(phone))
-            {
-                case (int)ErrorCodes.NullArgument:
-                    Console.WriteLine($"\n{"Phone is required", 28}");
-                    Console.WriteLine($"\n========================================");
-                    Console.ReadKey(true);
-                    Print();
-                    break;
-                case (int)ErrorCodes.InvalidArgumentLength:
-                    Console.WriteLine($"\n{"Phone must 10 to 15 characters", 35}");
-                    Console.WriteLine($"\n========================================");
-                    Console.ReadKey(true);
-                    Print();
-                    break;
-                case (int)ErrorCodes.ArgumentHasLetters:
-                    Console.WriteLine($"\n{"Phone must not have letters", 34}");
-                    Console.WriteLine($"\n========================================");
-                    Console.ReadKey(true);
-                    Print();
-                    break;
-                default: break;
-            }
-            return phone;
         }
 
         private static string InsertNewEmail()

@@ -7,11 +7,103 @@
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
-    
-    <VerticalStackLayout>
+
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Create your account"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            FontAttributes="Bold"
+            FontSize="Large"
+            Margin="0,0,0,20" />
+
+        <Entry
+            x:Name="entryUsername"
+            Placeholder="Username" 
+            WidthRequest="200"
+            ReturnType="Next" 
+            Margin="0,0,0,10" />
+
+        <Label
+            x:Name="labelUsernameError"
+            TextColor="Red"
+            HorizontalOptions="Center"
+            Text="" />
+
+        <Entry 
+            x:Name="entryPassword"
+            IsPassword="True"
+            Placeholder="Password"
+            WidthRequest="200" 
+            ReturnType="Next" 
+            Margin="0,0,0,10" />
+
+        <Label
+            x:Name="labelPasswordError"
+            TextColor="Red"
+            HorizontalOptions="Center"
+            Text="" />
+
+        <Entry
+            x:Name="entryFirstName"
+            Placeholder="First Name" 
+            WidthRequest="200"
+            ReturnType="Next" 
+            Margin="0,0,0,10" />
+
+        <Label
+            x:Name="labelFirstNameError"
+            TextColor="Red"
+            HorizontalOptions="Center"
+            Text="" />
+
+        <Entry 
+            x:Name="entryLastName"
+            Placeholder="Last Name"
+            WidthRequest="200" 
+            ReturnType="Next" 
+            Margin="0,0,0,10" />
+
+        <Label
+            x:Name="labelLastNameError"
+            TextColor="Red"
+            HorizontalOptions="Center"
+            Text="" />
+
+        <Entry 
+            x:Name="entryEmail"
+            Placeholder="Email"
+            WidthRequest="200" 
+            Completed="OnContinueButtonClicked" 
+            Margin="0,0,0,0" />
+
+        <Label
+            x:Name="labelEmailError"
+            TextColor="Red"
+            HorizontalOptions="Center"
+            Text="" />
+
+        <Label
+            x:Name="labelError"
+            TextColor="Red"
+            HorizontalOptions="Center"
+            Text="" />
+
+        <Button 
+            x:Name="buttonContinue"
+            Text="Continue" 
+            Margin="0,10,0,0"
+            Clicked="OnContinueButtonClicked"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <HorizontalStackLayout HorizontalOptions="Center" Margin="0,20,0,0">
+            <Label Text="Already have an account?" />
+            <Label Text=" Log In" TextColor="GreenYellow" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="LogInLabelTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

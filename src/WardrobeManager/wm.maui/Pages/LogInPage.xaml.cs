@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Tokens;
+using System.Windows.Input;
 using wm.bll;
+using wm.dal.Models;
+using wm.util;
 
 namespace wm.maui
 {
@@ -16,19 +21,29 @@ namespace wm.maui
             string username = entryUsername.Text;
             string password = entryPassword.Text;
 
-            if(!UserService.VerifyUser(username, password))
+            if(username.IsNullOrEmpty())
             {
-                entryPassword.Margin = new Thickness(0, 0, 0, 20);
-                buttonContinue.Margin = new Thickness(0, 20, 0, 0);
+                entryUsername.Margin = new Thickness(0, 0, 0, 10);
+                entryPassword.Margin = new Thickness(0, 10, 0, 0);
+                labelUsernameError.Text = "Username can't be empty!";
+                return;
+            }
+
+            if (!UserService.VerifyUser(username, password))
+            {
+                entryPassword.Margin = new Thickness(0, 0, 0, 10);
+                buttonContinue.Margin = new Thickness(0, 10, 0, 0);
                 labelError.Text = "Wrong Username or Password";
             }
             else
             {
+                User? loggedUser = UserService.GetUserByUsername(username);
+                UserLog.LoggedUser = loggedUser;
                 Navigation.PushAsync(new MainPage());
             }
         }
 
-        private void TapGestureRecognizerTapped(object sender, TappedEventArgs e)
+        void RegisterLabelTapped(object sender, TappedEventArgs e)
         {
             Navigation.PushAsync(new RegisterPage());
         }
